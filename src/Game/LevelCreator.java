@@ -1,3 +1,3 @@
-public class LevelCreator {
+package Game;public class LevelCreator {
     
 }

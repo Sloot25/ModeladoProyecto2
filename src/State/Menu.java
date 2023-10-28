@@ -1,5 +1,10 @@
 package State;
 
-public class Menu {
+public class Menu implements State{
+
+    @Override
+    public void update() {
+
+    }
     
 }
