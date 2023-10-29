@@ -2,9 +2,7 @@ package Game;
 
 import java.util.ArrayList;
 
-import Entity.Enemy;
 import Entity.Entity;
-import Entity.NPC;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -17,8 +15,8 @@ public class CollisionChecker {
         boolean contactPlayer = false;
         entity.box.x = (int) (entity.getX() + entity.getBox().x);
         entity.box.y = (int) (entity.getY() + entity.getBox().y);
-        gp.player.box.x =  (int) (gp.player.getX() + gp.player.getBox().x);
-        gp.player.box.y =  (int) (gp.player.getY() + gp.player.getBox().y);
+        gp.player.getBox().x =  (int) (gp.player.getX() + gp.player.getBox().x);
+        gp.player.getBox().y =  (int) (gp.player.getY() + gp.player.getBox().y);
         switch(entity.direction){
             case "up":
                 entity.getBox().y -= entity.getSpeed();

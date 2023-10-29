@@ -1,6 +1,5 @@
 package Entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -12,7 +11,7 @@ import javax.imageio.ImageIO;
 import Game.GamePanel;
 import Game.Keyboard;
 
-public class Player extends Entity{
+public class Player{
     GamePanel gp;
     Keyboard kb;
     BufferedImage image;
@@ -26,28 +25,33 @@ public class Player extends Entity{
     int height;
     int score;
     int life;
+    Rectangle box;
+    int boxDefaultX;
+    int boxDefaultY;
+    String direction;
+    Boolean collision;
 
     public Player(GamePanel gp, Keyboard kb){
-        super(gp);
         this.gp = gp;
         this.kb = kb;
         height = 50;
         width = 50;
-        screenX = gp.getWidth()/2 - width/2;
-        screenY = gp.getHeight()/2 - height/2;
+        screenX = gp.getScreenWidth()/2 - width/2;
+        screenY = gp.getScreenHeight()/2 - height/2;
         box = new Rectangle(50,50,width,height);
         boxDefaultX = box.x;
         boxDefaultY = box.y;
+        collision = false;
         setDefaultValues();
         getPlayerImages();
     }
     
     public void setDefaultValues(){
-        x = 50;
-        y = 100;
-        speedX = 0;
-        speedY = 0;
-        direction = "right";
+        x = 200;
+        y = 200;
+        speedX = 5;
+        speedY = 5;
+        direction = "left";
         life = 100;
     }
 
@@ -76,26 +80,25 @@ public class Player extends Entity{
         if(collision == false){
             switch(direction){
                 case "up":
-                    y -= speedY;
+                    screenY -= speedY;
                     break;
                 case "down":
-                    y += speedY;
+                    screenY += speedY;
                     break;
                 case "left":
-                    x -= speedX;
+                    screenX -= speedX;
                     break;
                 case "right":
-                    x += speedX;
+                    screenX += speedX;
                     break;
             }
         }
     }
 
-    public void draw(Graphics2D g2){
-        g2.setColor(Color.RED);
-        g2.fillRect(100, 100, 100, 100);
+    public void paint(Graphics2D g2){
         int x = screenX;
         int y = screenY;
+        /*
         if(screenX > x){
             x = (int) x;
         }
@@ -108,6 +111,28 @@ public class Player extends Entity{
         if((gp.getScreenHeight()-screenY)>(gp.getWorldHeight()-y)){
             y = (int) (gp.getScreenHeight()-(gp.getScreenHeight()-y));
         }
+        */
         g2.drawImage(image, x, y, width, height, null);
+    }
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
+    }
+    public Rectangle getBox() {
+        return box;
+    }
+    public int getSpeed() {
+        return 0;
+    }
+    public void setCollision(boolean b) {
+        collision = b;
+    }
+    public int getBoxDefaultX(){
+        return boxDefaultX;
+    }
+    public int getBoxDefaultY(){
+        return boxDefaultY;
     }
 }

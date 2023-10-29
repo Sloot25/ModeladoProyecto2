@@ -3,15 +3,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import Entity.Enemy;
 import Entity.Entity;
-import Entity.NPC;
 import Entity.Player;
 import Item.Item;
 import State.Dead;
@@ -66,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/fps;
+        double interval = 1000000000/fps;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -74,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         while(gameThread != null){
             currentTime = System.nanoTime();
-            delta += (currentTime - lastTime)/drawInterval;
+            delta += (currentTime - lastTime)/interval;
             timer += (currentTime - lastTime);
             lastTime = currentTime;
             if(delta>=1){
@@ -101,13 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
-        File file = new File("src\\res\\potato.png");
-        try {
-            g2.drawImage(ImageIO.read(file), 50, 50, 50, 50, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        player.paint(g2);
+
         lc.paint(g2);
         for(Entity npc: npcs){
             npc.paint(g2);
