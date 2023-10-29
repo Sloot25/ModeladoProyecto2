@@ -1,9 +1,16 @@
 package Game;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import Entity.Enemy;
+import Entity.Entity;
 import Entity.NPC;
 import Entity.Player;
 import Item.Item;
@@ -14,20 +21,22 @@ import State.Play;
 import State.State;
 
 public class GamePanel extends JPanel implements Runnable{
-    int width = 800;
-    int height = 500;
+    int screenWidth = 800;
+    int screenHeight = 500;
+    int worldWidth = 2000;
+    int worldHeight = 800;
     int scale = 1;
     int fps = 60;
-    Player player = new Player();
-    CollisionChecker cc = new CollisionChecker();
-    Keyboard kh = new Keyboard(this);
-    AssetSetter as = new AssetSetter();
-    SoundPlayer sp = new SoundPlayer();
-    LevelCreator lc = new LevelCreator();
-    UserInterface ui = new UserInterface();
-    ArrayList<Item> objetos = new ArrayList<Item>();
-    ArrayList<NPC> npcs = new ArrayList<NPC>();
-    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    public CollisionChecker cc = new CollisionChecker(this);
+    public Keyboard kb = new Keyboard(this);
+    public AssetSetter as = new AssetSetter();
+    public SoundPlayer sp = new SoundPlayer();
+    public LevelCreator lc = new LevelCreator();
+    public UserInterface ui = new UserInterface();
+    public Player player = new Player(this, kb);
+    public ArrayList<Item> items = new ArrayList<Item>();
+    public ArrayList<Entity> npcs = new ArrayList<Entity>();
+    public ArrayList<Entity> enemies = new ArrayList<Entity>();
     State estadoActual;
     State menu = new Menu();
     State dead = new Dead();
@@ -37,10 +46,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     public GamePanel(){
-        this.setPreferredSize(new Dimension(width,height));
+        this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(kh);
+        this.addKeyListener(kb);
         this.setFocusable(true);
     }
 
@@ -48,11 +57,11 @@ public class GamePanel extends JPanel implements Runnable{
         as.setNPCs();
         as.setEnemies();
         as.setItems();
-        estadoActual = menu;
     }
 
     public void startGameThread(){
         gameThread = new Thread(this);
+        gameThread.start();
     }
 
     @Override
@@ -69,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable{
             timer += (currentTime - lastTime);
             lastTime = currentTime;
             if(delta>=1){
-                update(null);
+                update();
                 repaint();
                 delta--;
             }
@@ -79,9 +88,55 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
     public void update(){   
+        player.update();
+        for(Entity npc: npcs){
+            npc.update();
+        }
+        for(Entity enemy: enemies){
+            enemy.update();
+        }
+    }
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(Color.RED);
+        File file = new File("src\\res\\potato.png");
+        try {
+            g2.drawImage(ImageIO.read(file), 50, 50, 50, 50, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        player.paint(g2);
+        lc.paint(g2);
+        for(Entity npc: npcs){
+            npc.paint(g2);
+        }
+        for(Entity enemy: enemies){
+            enemy.paint(g2);
+        }
+        for(Item item: items){
+            item.paint(g2);
+        }
+        player.paint(g2);
+        ui.paint(g2);
+        g2.dispose();
     }
 
     public State getState() {
         return estadoActual;
     }
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+    
 }

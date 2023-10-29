@@ -7,10 +7,10 @@ import State.State;
 public class Keyboard implements KeyListener{
     GamePanel gp;
     State state;
-    Boolean up;
-    Boolean down;
-    Boolean right;
-    Boolean left;
+    Boolean up = false;
+    Boolean down = false;
+    Boolean right = false;
+    Boolean left = false;
 
     public Keyboard(GamePanel gp){
         this.gp = gp;
@@ -53,6 +53,19 @@ public class Keyboard implements KeyListener{
         if(key == KeyEvent.VK_RIGHT){
             right = false;
         }
+    }
+
+    public Boolean pressUp(){
+        return up;
+    }
+    public Boolean pressDown(){
+        return down;
+    }
+    public Boolean pressRight(){
+        return right;
+    }
+    public Boolean pressLeft(){
+        return left;
     }
     
 }
