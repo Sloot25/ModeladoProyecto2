@@ -10,14 +10,16 @@ public class CollisionChecker {
     public CollisionChecker(GamePanel gp){
         this.gp = gp;
     }
-
+    /*
+     * Revisa si el jugador ha chocado con alguna entidad
+     */
     public boolean checkPlayer(Entity entity) {
         boolean contactPlayer = false;
-        entity.box.x = (int) (entity.getX() + entity.getBox().x);
-        entity.box.y = (int) (entity.getY() + entity.getBox().y);
+        entity.getBox().x = (int) (entity.getX() + entity.getBox().x);
+        entity.getBox().y = (int) (entity.getY() + entity.getBox().y);
         gp.player.getBox().x =  (int) (gp.player.getX() + gp.player.getBox().x);
         gp.player.getBox().y =  (int) (gp.player.getY() + gp.player.getBox().y);
-        switch(entity.direction){
+        switch(entity.getDirection()){
             case "up":
                 entity.getBox().y -= entity.getSpeed();
             break;
@@ -40,15 +42,27 @@ public class CollisionChecker {
         gp.player.getBox().x = gp.player.getBoxDefaultX();
         gp.player.getBox().y = gp.player.getBoxDefaultY();    
         return contactPlayer;    
+        
     }
-
-    public void checkEntity(Entity entity, ArrayList<Entity> entities) {
+    /*
+     * Revisa si alguna entidad choco con otra
+     */
+    public boolean checkEntity(Entity entity, ArrayList<Entity> entities) {
+        return false;
     }
-
-    public void checkItem(Entity entity, boolean b) {
+    /*
+     * Revisa si una entidad choca con un objeto
+     */
+    public boolean checkItem(Entity entity, boolean b) {
+        return false;
     }
-
-    public void checkTile(Entity entity) {
+    /*
+     * Revisa si alguna entidad ha chocado con una pared o piso
+     */
+    public boolean checkWalls(Entity entity) {
+        if(entity.getY() < 140)
+            return true;
+        return false;
     }
 
 

@@ -16,11 +16,16 @@ public class Keyboard implements KeyListener{
         this.gp = gp;
         state = gp.getState();
     }
+    /*
+     * Revisa si el jugador ha presionado una tecla
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
-
+    /*
+     * Revisa si el jugador esta presionando una tecla actualmente
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -37,7 +42,9 @@ public class Keyboard implements KeyListener{
             right = true;
         }
     }
-
+    /*
+     * Revisa si el jugador ha soltado la tecla que estaba presionando
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
@@ -54,16 +61,31 @@ public class Keyboard implements KeyListener{
             right = false;
         }
     }
-
+    /*
+     * Regresa si se esta presionando el boton de arriba
+     * @return Boolean up
+     */
     public Boolean pressUp(){
         return up;
     }
+    /*
+     * Regresa si se esta presionando el boton de abajo
+     * @return Boolean down
+     */
     public Boolean pressDown(){
         return down;
     }
+    /*
+     * Regresa si se esta presionando el boton de derecho
+     * @return Boolean right
+     */
     public Boolean pressRight(){
         return right;
     }
+    /*
+     * Regresa si se esta presionando el boton de izquierda
+     * @return Boolean left
+     */
     public Boolean pressLeft(){
         return left;
     }

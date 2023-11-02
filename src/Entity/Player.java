@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import Game.GamePanel;
 import Game.Keyboard;
 
-public class Player{
+public class Player implements Entity{
     GamePanel gp;
     Keyboard kb;
     BufferedImage image;
@@ -20,16 +20,19 @@ public class Player{
     int screenX;
     int screenY;
     int speedX;
-    int speedY;
+    Double speedY;
+    int accel;
     int width;
     int height;
     int score;
     int life;
+    double gravity;
     Rectangle box;
     int boxDefaultX;
     int boxDefaultY;
     String direction;
     Boolean collision;
+    Boolean jumping;
 
     public Player(GamePanel gp, Keyboard kb){
         this.gp = gp;
@@ -38,19 +41,22 @@ public class Player{
         width = 50;
         screenX = gp.getScreenWidth()/2 - width/2;
         screenY = gp.getScreenHeight()/2 - height/2;
-        box = new Rectangle(50,50,width,height);
+        box = new Rectangle(50,50,width,height); //La caja es para revisar las colisiones
         boxDefaultX = box.x;
         boxDefaultY = box.y;
         collision = false;
+        jumping = false;
         setDefaultValues();
         getPlayerImages();
     }
-    
+    /*
+     * 
+     */
     public void setDefaultValues(){
-        x = 200;
-        y = 200;
-        speedX = 5;
-        speedY = 5;
+        x = 400;
+        y = 140;
+        speedX = 0;
+        speedY = 0.0;
         direction = "left";
         life = 100;
     }
@@ -76,29 +82,49 @@ public class Player{
         else if(kb.pressLeft() == true){
             direction = "left";
         }
+        else{
+            direction = "";
+            speedX = 0;
+            speedY = 0.0;
+        }
         collision = false;
+        if(gp.cc.checkWalls(this))
+            collision = true;
         if(collision == false){
             switch(direction){
                 case "up":
-                    screenY -= speedY;
+                    speedY = 5.0;
+                    gravity = 0.2;
+                    jumping = true;
                     break;
                 case "down":
-                    screenY += speedY;
+                    speedY = 0.0;
                     break;
                 case "left":
-                    screenX -= speedX;
+                    speedX = 5;
                     break;
                 case "right":
-                    screenX += speedX;
+                    speedX = -5;
                     break;
             }
+            if (jumping) {
+                speedY -= gravity;
+            }
+            y += speedY;
+            x += speedX;
+        }
+        else{
+            speedY = 0.0;
+            speedX = 0;
+            y += 1;
+            jumping = false;
+            collision = false;
         }
     }
 
     public void paint(Graphics2D g2){
         int x = screenX;
         int y = screenY;
-        /*
         if(screenX > x){
             x = (int) x;
         }
@@ -111,14 +137,19 @@ public class Player{
         if((gp.getScreenHeight()-screenY)>(gp.getWorldHeight()-y)){
             y = (int) (gp.getScreenHeight()-(gp.getScreenHeight()-y));
         }
-        */
         g2.drawImage(image, x, y, width, height, null);
     }
-    public double getX() {
+    public int getX() {
         return x;
     }
-    public double getY() {
+    public int getY() {
         return y;
+    }
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
     }
     public Rectangle getBox() {
         return box;
@@ -134,5 +165,9 @@ public class Player{
     }
     public int getBoxDefaultY(){
         return boxDefaultY;
+    }
+    @Override
+    public String getDirection() {
+        return direction;
     }
 }

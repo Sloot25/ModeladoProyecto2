@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
     public Keyboard kb = new Keyboard(this);
     public AssetSetter as = new AssetSetter();
     public SoundPlayer sp = new SoundPlayer();
-    public LevelCreator lc = new LevelCreator();
+    public LevelCreator lc = new LevelCreator(this);
     public UserInterface ui = new UserInterface();
     public Player player = new Player(this, kb);
     public ArrayList<Item> items = new ArrayList<Item>();
@@ -47,18 +47,24 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(kb);
         this.setFocusable(true);
     }
-
+    /*
+     * Coloca las entidades y objetos en el mapa, así como preparar lo que sea necesario
+     */
     public void setGame(){
         as.setNPCs();
         as.setEnemies();
         as.setItems();
     }
-
+    /*
+     * Inicia el hilo de ejecución
+     */
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
     }
-
+    /*
+     * Mientras se este ejecutando el juego, este metodo debera actualizar y repintar el juego
+     */
     @Override
     public void run() {
         double interval = 1000000000/fps;
@@ -82,6 +88,9 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
+    /*
+     * Actualiza la posición y sprites de las entidades y objetos del juego
+     */
     public void update(){   
         player.update();
         for(Entity npc: npcs){
@@ -91,7 +100,9 @@ public class GamePanel extends JPanel implements Runnable{
             enemy.update();
         }
     }
-
+    /*
+     * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
+     */
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -111,19 +122,38 @@ public class GamePanel extends JPanel implements Runnable{
         ui.paint(g2);
         g2.dispose();
     }
-
+    /*
+     * Regresa el estado actual
+     * @return State estadoActual
+     */
     public State getState() {
         return estadoActual;
     }
+    /*
+     * Regresa la altura del mundo
+     * @return int 
+     */
     public int getWorldHeight() {
         return worldHeight;
     }
+    /*
+     * Regresa la altura de la pantalla, lo que puede ver el jugador
+     * @return int 
+     */
     public int getScreenHeight() {
         return screenHeight;
     }
+    /*
+     * Regresa el ancho del mundo
+     * @return int
+     */
     public int getWorldWidth() {
         return worldWidth;
     }
+    /*
+     * Regresa el ancho de la pantalla, lo que puede ver el jugador
+     * @return int
+     */
     public int getScreenWidth() {
         return screenWidth;
     }
