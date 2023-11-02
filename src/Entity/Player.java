@@ -93,9 +93,14 @@ public class Player implements Entity{
         if(collision == false){
             switch(direction){
                 case "up":
-                    speedY = 5.0;
+                    if(jumping){
+
+                    }
+                    else{
+                    speedY = 8.0;
                     gravity = 0.2;
                     jumping = true;
+                    }
                     break;
                 case "down":
                     speedY = 0.0;
