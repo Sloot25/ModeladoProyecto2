@@ -25,7 +25,7 @@ public class Player implements Entity{
     int width;
     int height;
     int score;
-    int life;
+    int vida;
     double gravity;
     Rectangle box;
     int boxDefaultX;
@@ -48,6 +48,7 @@ public class Player implements Entity{
         jumping = false;
         setDefaultValues();
         getPlayerImages();
+        this.vida = 1000;
     }
     /*
      * 
@@ -175,4 +176,18 @@ public class Player implements Entity{
     public String getDirection() {
         return direction;
     }
+    
+    
+  public int getAtaque(){
+    return 25;
+  }
+  public int getVelocidad(){
+    return 5;
+  }
+  public int getCadencia(){
+    return 10;
+  }
+  public int getVida(){
+    return this.vida;
+  }
 }
