@@ -63,7 +63,7 @@ public class Player implements Entity{
 
     public void getPlayerImages(){
         try {
-            image = ImageIO.read(new File("src\\res\\potato.png"));
+            image = ImageIO.read(new File("res/potato.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

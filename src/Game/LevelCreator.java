@@ -20,7 +20,7 @@ public class LevelCreator {
 
     public void getPlayerImages(){
     try {
-        image = ImageIO.read(new File("src\\res\\cocina.png"));
+        image = ImageIO.read(new File("res/cocina.png"));
     } catch (IOException e) {
         e.printStackTrace();
     }
