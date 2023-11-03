@@ -1,4 +1,5 @@
 package Item;
+import Entity.Player;
 
 public class Java implements Lenguaje {
   public Java(Player player){

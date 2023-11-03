@@ -1,6 +1,6 @@
 package Item; 
 
-public interface Armas{
+public interface Armas extends Item{
   /* Interface encargada de la generacion de armas, esta sera implementada 
    * En las clases abstractas que posteriormente nos generaran a nuestro personaje 
    * */
