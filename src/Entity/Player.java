@@ -48,7 +48,6 @@ public class Player implements Entity{
         jumping = false;
         setDefaultValues();
         getPlayerImages();
-        this.vida = 1000;
     }
     /*
      * 
@@ -59,7 +58,7 @@ public class Player implements Entity{
         speedX = 0;
         speedY = 0.0;
         direction = "left";
-        life = 100;
+        this.vida = 1000;
     }
 
     public void getPlayerImages(){
@@ -107,10 +106,10 @@ public class Player implements Entity{
                     speedY = 0.0;
                     break;
                 case "left":
-                    speedX = 5;
+                    speedX = 1*getVelocidad();
                     break;
                 case "right":
-                    speedX = -5;
+                    speedX = -1*getVelocidad();
                     break;
             }
             if (jumping) {
