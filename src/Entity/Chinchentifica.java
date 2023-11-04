@@ -1,9 +1,14 @@
 package Entity;
 
+import java.awt.Graphics2D;
 public class Chinchentifica extends Enemy{
-  public void update(){}
-  public void paint(Graphics2D g2){}
-  public void attack(){}
+
+  public Chinchentifica(GamePanel gp, int x, int y, int width, int height) {
+      super(gp, x, y , width, height);
+  }
+  public void attack(){
+    this.player.setVida(this.player.getVida()-200);
+  }
   public Enemy clonar(){
     return (Enemy) this.clone();
   }

@@ -101,10 +101,10 @@ public class Player implements Entity{
                     speedY = 0.0;
                     break;
                 case "left":
-                    speedX = 1*getVelocidad();
+                    speedX = (double)1*getVelocidad();
                     break;
                 case "right":
-                    speedX = -1*getVelocidad();
+                    speedX = (double)-1*getVelocidad();
                     break;
             }
             if (jumping) {

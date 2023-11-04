@@ -4,4 +4,5 @@ public interface Rutas {
   public String getPlayer();
   public String getMapaPrimero();
   public String getMapaSegundo();
+  public String getChincheChiquita();
 }

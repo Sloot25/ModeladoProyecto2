@@ -14,4 +14,7 @@ public class Linux {
   public String getMapaSegundo(){
     return "res/Cocina2.png";
   }
+  public String getChinheChiquita(){
+    return "res/apple.png";
+  }
 }

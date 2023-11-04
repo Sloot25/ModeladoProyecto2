@@ -1,9 +1,14 @@
 package Entity;
 
 public class ChincheGrandota extends Enemy{
-  public void update(){}
-  public void paint(Graphics2D g2){}
-  public void attack(){}
+
+  public ChincheGrandota(GamePanel gp, int x, int y, int width, int height) {
+      super(gp, x, y , width, height);
+  }
+
+  public void attack(){
+    this.player.setVida(this.player.getVida()-150);
+  }
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy)this.clone();
   }

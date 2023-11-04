@@ -1,5 +1,6 @@
 package Entity;
 
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public class ChincheChikita extends Enemy{
   }
   public void getEnemyImages(){
       try {
-          image = ImageIO.read(new File("src\\res\\apple.png"));
+          image = ImageIO.read(new File(this.gp.getRutas().getChincheChiquita()));
       } catch (IOException e) {
           e.printStackTrace();
       }

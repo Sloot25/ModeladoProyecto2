@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     int worldHeight = 800;
     int scale = 1;
     int fps = 60;
-    Rutas ruta;
+    Rutas rutas;
     public CollisionChecker cc = new CollisionChecker(this);
     public Keyboard kb = new Keyboard(this);
     public AssetSetter as = new AssetSetter(this);
@@ -35,15 +35,15 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Entity> npcs = new ArrayList<Entity>();
     public ArrayList<Entity> enemies = new ArrayList<Entity>();
     State estadoActual;
-    State menu = new Menu();
-    State dead = new Dead();
-    State pause = new Pause();
-    State play = new Play();
+    // State menu = new Menu();
+    // State dead = new Dead();
+    // State pause = new Pause();
+    // State play = new Play();
     Thread gameThread;
 
 
-    public GamePanel(Rutas ruta){
-        this.ruta = ruta;
+    public GamePanel(Rutas rutas){
+        this.rutas = rutas;
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);

@@ -9,14 +9,10 @@ public class Main {
         window.setResizable(false);
         window.setTitle("Patata moverse: el juego");
         Rutas ruta = null;
-        switch (System.getProperty("os.name")) {
-          case "Linux":
-            ruta = new Linux();
-            break;
-          case "Windows":
-            ruta = new Windows;
-            break;
-        }
+        if(System.getProperty("os.name").equals("Linux"))
+          ruta = new Linux();
+        else 
+          ruta = new Windows();
 
         GamePanel gp = new GamePanel(ruta);
 

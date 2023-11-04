@@ -1,9 +1,14 @@
 package Entity;
 
 public class ChincheDirector extends Enemy{
-  public void update(){}
-  public void paint(Graphics2D g2){}
-  public void attack(){}
+
+  public ChincheDirector(GamePanel gp, int x, int y, int width, int height) {
+      super(gp, x, y , width, height);
+  }
+
+  public void attack(){
+    gp.player.setVida(gp.player.getVida()-300);
+  }
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
   }
