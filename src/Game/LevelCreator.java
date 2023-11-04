@@ -32,8 +32,8 @@ public class LevelCreator {
 <<<<<<< HEAD
     public void getPlayerImages() {
         try {
-            image = ImageIO.read(new File("src\\res\\cocina.png"));
-            image2 = ImageIO.read(new File("src\\res\\cocina2.png"));
+            image = ImageIO.read(new File(gp.getRutas().getMapaPrimero()));
+            image2 = ImageIO.read(new File(gp.getRutas().getMapaSegundo()));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -14,6 +14,7 @@ import State.Menu;
 import State.Pause;
 import State.Play;
 import State.State;
+import res.Rutas.Rutas;
 
 public class GamePanel extends JPanel implements Runnable{
     int screenWidth = 800;
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     int worldHeight = 800;
     int scale = 1;
     int fps = 60;
+    Rutas ruta;
     public CollisionChecker cc = new CollisionChecker(this);
     public Keyboard kb = new Keyboard(this);
     public AssetSetter as = new AssetSetter(this);
@@ -40,7 +42,8 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
 
 
-    public GamePanel(){
+    public GamePanel(Rutas ruta){
+        this.ruta = ruta;
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -126,8 +129,11 @@ public class GamePanel extends JPanel implements Runnable{
      * Regresa el estado actual
      * @return State estadoActual
      */
-    public State getState() {
+    public State getEstado() {
         return estadoActual;
+    }
+    public void setEstado(State estadoActual){
+      this.estadoActual = estadoActual;
     }
     /*
      * Regresa la altura del mundo
@@ -157,5 +163,8 @@ public class GamePanel extends JPanel implements Runnable{
     public int getScreenWidth() {
         return screenWidth;
     }
+  public Rutas getRutas(){
+    return this.rutas;
+  }
     
 }

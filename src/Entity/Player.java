@@ -58,7 +58,7 @@ public class Player implements Entity{
 
     public void getPlayerImages(){
         try {
-            image = ImageIO.read(new File("res/potato.png"));
+            image = ImageIO.read(new File(gp.getRutas().getPlayer()));
         } catch (IOException e) {
             e.printStackTrace();
         }
