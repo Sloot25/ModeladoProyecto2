@@ -1,19 +1,21 @@
 package Game;
+
 public class AssetSetter {
-    /*
-     * Coloca los NPCs en su lugar en el nivel
-     */
+    GamePanel gp;
+    public AssetSetter(GamePanel gp){
+        this.gp = gp;
+    }
+
     public void setNPCs() {
+        gp.npcs = gp.lc.npcs;
     }
-    /*
-     * Coloca los Enemigos en su lugar en el nivel
-     */
+
     public void setEnemies() {
+        gp.enemies = gp.lc.enemies;
     }
-    /*
-     * Coloca los objetos donde los debe encontrar el usuario
-     */
+
     public void setItems() {
+        gp.items = gp.lc.items;
     }
-    
+
 }

@@ -24,10 +24,10 @@ public class GamePanel extends JPanel implements Runnable{
     int fps = 60;
     public CollisionChecker cc = new CollisionChecker(this);
     public Keyboard kb = new Keyboard(this);
-    public AssetSetter as = new AssetSetter();
+    public AssetSetter as = new AssetSetter(this);
     public SoundPlayer sp = new SoundPlayer();
     public LevelCreator lc = new LevelCreator(this);
-    public UserInterface ui = new UserInterface();
+    public UserInterface ui = new UserInterface(this);
     public Player player = new Player(this, kb);
     public ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<Entity> npcs = new ArrayList<Entity>();

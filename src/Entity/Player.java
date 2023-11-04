@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 import Game.GamePanel;
@@ -19,13 +18,13 @@ public class Player implements Entity{
     int y;
     int screenX;
     int screenY;
-    int speedX;
+    Double speedX;
     Double speedY;
     int accel;
     int width;
     int height;
     int score;
-    int life;
+    int vida;
     double gravity;
     Rectangle box;
     int boxDefaultX;
@@ -33,6 +32,7 @@ public class Player implements Entity{
     String direction;
     Boolean collision;
     Boolean jumping;
+    Boolean talking;
 
     public Player(GamePanel gp, Keyboard kb){
         this.gp = gp;
@@ -46,19 +46,14 @@ public class Player implements Entity{
         boxDefaultY = box.y;
         collision = false;
         jumping = false;
-        setDefaultValues();
-        getPlayerImages();
-    }
-    /*
-     * 
-     */
-    public void setDefaultValues(){
+        talking = false;
         x = 400;
         y = 140;
-        speedX = 0;
+        speedX = 0.0;
         speedY = 0.0;
-        direction = "left";
-        life = 100;
+        direction = "right";
+        vida = 1000;
+        getPlayerImages();
     }
 
     public void getPlayerImages(){
@@ -84,7 +79,7 @@ public class Player implements Entity{
         }
         else{
             direction = "";
-            speedX = 0;
+            speedX = 0.0;
             speedY = 0.0;
         }
         collision = false;
@@ -106,10 +101,10 @@ public class Player implements Entity{
                     speedY = 0.0;
                     break;
                 case "left":
-                    speedX = 5;
+                    speedX = 5.0;
                     break;
                 case "right":
-                    speedX = -5;
+                    speedX = -5.0;
                     break;
             }
             if (jumping) {
@@ -120,7 +115,7 @@ public class Player implements Entity{
         }
         else{
             speedY = 0.0;
-            speedX = 0;
+            speedX = 0.0;
             y += 1;
             jumping = false;
             collision = false;
@@ -144,6 +139,7 @@ public class Player implements Entity{
         }
         g2.drawImage(image, x, y, width, height, null);
     }
+
     public int getX() {
         return x;
     }
@@ -174,5 +170,24 @@ public class Player implements Entity{
     @Override
     public String getDirection() {
         return direction;
+    }
+    public int getVida() {
+        return vida;
+    }
+    public void setVida(int vida){
+        this.vida = vida;
+    }
+    public BufferedImage getImage(){
+        return image;
+    }
+    public int getScore() {
+        return score;
+    }
+    public boolean isTalking() {
+        return false;
+    }
+    public void startTalking(String mensaje){
+        talking = true;
+        gp.ui.talk(mensaje);
     }
 }

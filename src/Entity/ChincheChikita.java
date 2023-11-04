@@ -1,5 +1,28 @@
 package Entity;
 
-public class ChincheChikita {
-    
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import Game.GamePanel;
+
+public class ChincheChikita extends Enemy{
+
+    public ChincheChikita(GamePanel gp, int x, int y, int width, int height) {
+        super(gp, x, y , width, height);
+    }
+
+    public void getEnemyImages(){
+        try {
+            image = ImageIO.read(new File("src\\res\\apple.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void attack() {
+        gp.player.setVida(gp.player.getVida() - 100);
+    }  
 }
