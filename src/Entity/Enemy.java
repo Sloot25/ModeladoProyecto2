@@ -1,5 +1,7 @@
 package Entity;
+import java.lang.Cloneable;
 
+<<<<<<< HEAD
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -39,7 +41,7 @@ public abstract class Enemy implements Entity, Cloneable{
     /* 
      * Obtiene las imagenes del enemigo
      */
-    public abstract void getEnemyImages();
+    abstract public void getEnemyImages();
     /*
      * El villano ataca al jugador
      */
@@ -126,4 +128,5 @@ public abstract class Enemy implements Entity, Cloneable{
     public String getDirection() {
         return direction;
     }
+  abstract public Enemy clonar() throws CloneNotSupportedException;
 }

@@ -58,7 +58,7 @@ public class Player implements Entity{
 
     public void getPlayerImages(){
         try {
-            image = ImageIO.read(new File("src\\res\\potato.png"));
+            image = ImageIO.read(new File("res/potato.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,10 +101,10 @@ public class Player implements Entity{
                     speedY = 0.0;
                     break;
                 case "left":
-                    speedX = 5.0;
+                    speedX = 1*getVelocidad();
                     break;
                 case "right":
-                    speedX = -5.0;
+                    speedX = -1*getVelocidad();
                     break;
             }
             if (jumping) {
@@ -190,4 +190,13 @@ public class Player implements Entity{
         talking = true;
         gp.ui.talk(mensaje);
     }
+  public int getAtaque(){
+    return 25;
+  }
+  public int getVelocidad(){
+    return 5;
+  }
+  public int getCadencia(){
+    return 10;
+  }
 }

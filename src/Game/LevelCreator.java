@@ -29,6 +29,7 @@ public class LevelCreator {
         createLevel();
     }
 
+<<<<<<< HEAD
     public void getPlayerImages() {
         try {
             image = ImageIO.read(new File("src\\res\\cocina.png"));
