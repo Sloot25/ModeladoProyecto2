@@ -1,6 +1,6 @@
-
+package res.Rutas;
 // Clase que contiene las rutas para un dispositivo tipo Windows
-public class Windows { 
+public class Windows implements Rutas { 
   // Ruta de la imagen de nuestro jugador 
   public String getPlayer(){
     return "src\\res\\potato.png";

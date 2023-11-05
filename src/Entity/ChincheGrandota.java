@@ -1,5 +1,7 @@
 package Entity;
 
+import Game.GamePanel;
+
 public class ChincheGrandota extends Enemy{
 
   public ChincheGrandota(GamePanel gp, int x, int y, int width, int height) {
@@ -11,5 +13,10 @@ public class ChincheGrandota extends Enemy{
   }
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy)this.clone();
+  }
+
+  @Override
+  public void getEnemyImages() {
+
   }
 }

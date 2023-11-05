@@ -1,8 +1,12 @@
 package Item;
-import Entity.Player;
 
-public class Java implements Lenguaje {
-  public Java(Player player){
+import Entity.Player;
+import Game.GamePanel;
+import Game.Keyboard;
+
+public class Java extends Lenguaje {
+  public Java(Player player, GamePanel gp, Keyboard kb){
+    super(gp, kb);
     this.player = player;
   }; 
 

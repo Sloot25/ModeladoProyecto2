@@ -1,6 +1,10 @@
 package Aliados;
 
-public class Actuario implements {
+import java.awt.Graphics2D;
+
+import Entity.Player;
+
+public class Actuario implements Aliado{
   private Player player; 
   public Actuario(Player player){
     this.player = player;

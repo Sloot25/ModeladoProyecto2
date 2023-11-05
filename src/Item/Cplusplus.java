@@ -1,8 +1,11 @@
 package Item;
 import Entity.Player;
+import Game.GamePanel;
+import Game.Keyboard;
 
 public class Cplusplus extends Lenguaje {
-  public Cplusplus(Player player){
+  public Cplusplus(Player player, GamePanel gp, Keyboard kb){
+    super(gp, kb);
     this.player = player;
   }
 

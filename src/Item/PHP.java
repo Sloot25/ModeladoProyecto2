@@ -1,8 +1,11 @@
 package Item;
 import Entity.Player;
+import Game.GamePanel;
+import Game.Keyboard;
 
 public class PHP extends Lenguaje {
-  public PHP(Player player){
+  public PHP(Player player, GamePanel gp, Keyboard kb){
+    super(gp, kb);
     this.player = player;
   }
 

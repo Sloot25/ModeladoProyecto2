@@ -1,8 +1,11 @@
 package Item;
 import Entity.Player;
+import Game.GamePanel;
+import Game.Keyboard;
 
 public class Python extends Lenguaje {
-  public Python(Player player){
+  public Python(Player player, GamePanel gp, Keyboard kb){
+    super(gp, kb);
     this.player = player;
   }
 

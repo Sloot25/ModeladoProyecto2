@@ -1,5 +1,9 @@
 package Aliados;
 
+import java.awt.Graphics2D;
+
+import Entity.Player;
+
 public class Quimico implements Aliado{
   private Player player; 
   public Quimico(Player player){

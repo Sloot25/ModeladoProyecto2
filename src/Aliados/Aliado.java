@@ -1,5 +1,7 @@
 package Aliados;
 
+import java.awt.Graphics2D;
+
 public interface Aliado {
   public void set();
   public void update();

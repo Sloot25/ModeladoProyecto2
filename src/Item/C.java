@@ -1,12 +1,15 @@
 package Item;
 import Entity.Player;
+import Game.GamePanel;
+import Game.Keyboard;
 public class C extends Lenguaje{
 
   /*Constructor de la clase 
    * @param Player Recibe un objeto de tipo player y lo inicializa como variable de clase 
    * */
 
-  public C(Player player){
+  public C(Player player, GamePanel gp, Keyboard kb){
+    super(gp, kb);
     this.player = player;
   }
 

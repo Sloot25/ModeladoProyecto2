@@ -1,6 +1,8 @@
 package Entity;
 
 import java.awt.Graphics2D;
+
+import Game.GamePanel;
 public class Chinchentifica extends Enemy{
 
   public Chinchentifica(GamePanel gp, int x, int y, int width, int height) {
@@ -9,7 +11,11 @@ public class Chinchentifica extends Enemy{
   public void attack(){
     this.player.setVida(this.player.getVida()-200);
   }
-  public Enemy clonar(){
+  public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
+  }
+  @Override
+  public void getEnemyImages() {
+
   }
 }

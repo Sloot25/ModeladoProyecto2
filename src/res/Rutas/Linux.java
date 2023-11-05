@@ -1,7 +1,7 @@
 package res.Rutas;
 
 // Clase que contiene las rutas para un dispositivo tipo Linux
-public class Linux {
+public class Linux implements Rutas{
   //Ruta de la imagen de nuestro jugador
   public String getPlayer(){
     return "res/potato.png";
@@ -14,7 +14,7 @@ public class Linux {
   public String getMapaSegundo(){
     return "res/Cocina2.png";
   }
-  public String getChinheChiquita(){
+  public String getChincheChiquita(){
     return "res/apple.png";
   }
 }
