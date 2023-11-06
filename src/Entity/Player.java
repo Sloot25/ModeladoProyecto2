@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import res.Rutas.Rutas;
 import Game.GamePanel;
 import Game.Keyboard;
 
@@ -53,11 +54,11 @@ public class Player implements Entity{
         speedY = 0.0;
         direction = "right";
         vida = 1000;
-        getPlayerImages();
+        getEntityImage();
     }
 
-    public void getPlayerImages(){
-      image = gp.getRutas().getImage();
+    public void getEntityImage(){
+      image = gp.getRutas().getImagen("potato.png");
     }
     public void update(){
         if(kb.pressUp() == true){

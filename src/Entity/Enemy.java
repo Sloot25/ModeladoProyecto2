@@ -35,7 +35,7 @@ public abstract class Enemy implements Entity, Cloneable{
         boxDefaultY = box.y;
         direction = "right";
         collision = false;
-        getEnemyImages();
+        getEntityImage();
     }
 
     /* 
