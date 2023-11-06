@@ -1,17 +1,8 @@
 package res.Rutas;
 // Clase que contiene las rutas para un dispositivo tipo Windows
 public class Windows implements Rutas { 
-  // Ruta de la imagen de nuestro jugador 
-  public String getPlayer(){
-    return "src\\res\\potato.png";
-  }
-  public String getMapaPrimero(){
-    return "src\\res\\cocina.png";
-  }
-  public String getMapaSegundo(){
-    return "src\\res\\cocina2.png";
-  }
-  public String getChincheChiquita(){
-    return "src\\res\\apple.png";
+  // Metodo que regresa la imagen de la carpeta res de acuerdo a la cadena recibida 
+  public String getImagen(String imagen){
+    return "src\\res\\" + imagen;
   }
 }

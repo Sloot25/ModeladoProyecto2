@@ -15,7 +15,7 @@ public class ChincheChikita extends Enemy{
   }
   public void getEnemyImages(){
       try {
-          image = ImageIO.read(new File(this.gp.getRutas().getChincheChiquita()));
+          image = ImageIO.read(new File(this.gp.getRutas().getImagen("apple.png")));
       } catch (IOException e) {
           e.printStackTrace();
       }
