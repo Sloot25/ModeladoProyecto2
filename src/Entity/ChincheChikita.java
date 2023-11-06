@@ -14,11 +14,7 @@ public class ChincheChikita extends Enemy{
       super(gp, x, y , width, height);
   }
   public void getEnemyImages(){
-      try {
-          image = ImageIO.read(new File(this.gp.getRutas().getImagen("apple.png")));
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
+    image = ImageIO.read(new File(this.gp.getRutas().getImagen("apple.png")));
   }
   @Override
   public void attack() {

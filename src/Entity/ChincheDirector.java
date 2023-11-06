@@ -5,7 +5,7 @@ import Game.GamePanel;
 public class ChincheDirector extends Enemy{
 
   public ChincheDirector(GamePanel gp, int x, int y, int width, int height) {
-      super(gp, x, y , width, height);
+    super(gp, x, y , width, height);
   }
 
   public void attack(){
@@ -16,7 +16,7 @@ public class ChincheDirector extends Enemy{
   }
 
   @Override
-  public void getEnemyImages() {
-    
+  public void getEntityImage() {
+    image = gp.getRutas().getImage("");
   }
 }

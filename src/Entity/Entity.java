@@ -14,4 +14,5 @@ public interface Entity{
     public void setCollision(boolean b);
     public int getBoxDefaultX();
     public int getBoxDefaultY();
+    public void getEntityImage();
 }

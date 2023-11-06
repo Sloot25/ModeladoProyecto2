@@ -37,8 +37,9 @@ public abstract class NPC implements Entity{
     }
     /*
      * Obtiene las imagenes del personaje
+     * Metodo perteneciente a la interfaz entity
      */
-    public abstract void getNPCImages();
+    public void getEntityImage();
     /*
      * El npc hace algo
      */

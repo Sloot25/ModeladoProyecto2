@@ -5,7 +5,7 @@ import Game.GamePanel;
 public class ChincheGrandota extends Enemy{
 
   public ChincheGrandota(GamePanel gp, int x, int y, int width, int height) {
-      super(gp, x, y , width, height);
+    super(gp, x, y , width, height);
   }
 
   public void attack(){
@@ -17,6 +17,6 @@ public class ChincheGrandota extends Enemy{
 
   @Override
   public void getEnemyImages() {
-
+    image = gp.getRutas().getImage("");
   }
 }

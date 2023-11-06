@@ -13,13 +13,8 @@ public class EstudianteRandom extends NPC {
         super(gp, x, y, width, height);
     } 
 
-    public void getNPCImages(){
-        try {
-            image = ImageIO.read(new File("src\\res\\carrot.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public void getEntityImage(){
+      image = gp.getRutas().getImage("");
     }
 
     @Override
