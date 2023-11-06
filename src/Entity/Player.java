@@ -156,7 +156,7 @@ public class Player implements Entity{
         return box;
     }
     public int getSpeed() {
-        return 0;
+        return getVelocidad();
     }
     public void setCollision(boolean b) {
         collision = b;
