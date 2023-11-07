@@ -50,7 +50,7 @@ public class CollisionChecker {
             }
             if(entity.getBoxDown().intersects(i.getBox())){
                 entity.setSpeedY(0);
-                entity.setAccel(0);
+                entity.setAccel(0.0);
             }
         }
     }    
