@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle; 
 
+
 import res.Constantes;
 public class BarraJugador {
   private Rectangle areaInventario;
@@ -40,12 +41,12 @@ public class BarraJugador {
     final int medidaVertical = 4; 
     final int anchoTotal = 100;
 
-    DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical, anchoTotal, rojoClaro);
+    DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical, anchoTotal, medidaVertical,rojoClaro);
     DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 2, anchoTotal, medidaVertical, rojoOscuro);
     
     g.setColor(Color.white);
     
-    DibujoDebug.dibujarString(g, "Health", areaInventario.x + 10, areaInventario.y + medidaVertical*3,);
+    DibujoDebug.dibujarString(g, "Health", areaInventario.x + 10, areaInventario.y + medidaVertical*3);
     DibujoDebug.dibujarString(g, "1000",anchoTotal + 45, areaInventario.y + medidaVertical*3);
   }
   private void dibujarPuntos(final Graphics g){
@@ -64,7 +65,7 @@ public class BarraJugador {
     for(int i = 0; i < numeroRanuras; i++){
       int xActual = xInicial + anchoRanuraYEspacio*i; 
       Rectangle ranura = new Rectangle(xActual, areaInventario.y + 4, anchoRanura, anchoRanura);
-      DibujoDebug.dibujarRectanguloRelleno(g,ranura);
+      DibujoDebug.dibujarRectanguloRelleno(g,ranura.x, ranura.y, ranura.width, ranura.height);
       DibujoDebug.dibujarString(g, "" + i, xActual + 13, areaInventario.y + 54);
     }
   }

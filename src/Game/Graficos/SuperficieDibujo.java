@@ -1,5 +1,6 @@
 package Game.Graficos;
 
+
 import java.awt.Canvas; 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,7 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy; 
 
-import Teclas.Teclado;
+import Game.Herramientas.Gestor;
+import Game.Teclas.Teclado;
 public class SuperficieDibujo extends Canvas {
   private int ancho; 
   private int alto; 
@@ -16,7 +18,7 @@ public class SuperficieDibujo extends Canvas {
     this.alto = alto; 
     setIgnoreRepaint(true);
     setPreferredSize(new Dimension(ancho, alto));
-    addKeyListener(new Teclado());
+    addKeyListener(Gestor.teclado);
     setFocusable(true);
     requestFocus();
   }
@@ -29,6 +31,8 @@ public class SuperficieDibujo extends Canvas {
     final Graphics2D g = (Graphics2D) buffer.getDrawGraphics();
     DibujoDebug.reiniciarContadorObjetos();
     DibujoDebug.dibujarRectanguloRelleno(g,0,0,ancho, alto);
+    ge.dibujar(g);
+    g.setColor(Color.white);
     Toolkit.getDefaultToolkit().sync();
     g.dispose();
     buffer.show();

@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage; 
 
-public class DibujadorDebug {
+public class DibujoDebug {
   private static int objetosDibujados = 0;
 
   public static void dibujarImagen(final Graphics g, final BufferedImage img, final int x, final int y){
@@ -35,15 +35,15 @@ public class DibujadorDebug {
   
   public static void dibujarRectanguloRelleno(final Graphics g, final int x, final int y, final int ancho, final int alto) {
     objetosDibujados++;
-    g,fillRect(x,y,ancho,alto);
+    g.fillRect(x,y,ancho,alto);
   }
 
   public static void dibujarRectanguloRelleno(final Graphics g, final int x, final int y, final int ancho, final int alto, final Color c){
     objetosDibujados++;
     g.setColor(c);
-    g,fillRect(x,y,ancho,alto);
+    g.fillRect(x,y,ancho,alto);
   }
-  public statis void dibujarRectanguloContorno(final Graphics g, final int x, final int y, final int ancho, final int alto){
+  public static void dibujarRectanguloContorno(final Graphics g, final int x, final int y, final int ancho, final int alto){
     objetosDibujados++;
     g.drawRect(x,y,ancho,alto);
   }

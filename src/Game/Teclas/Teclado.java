@@ -53,5 +53,8 @@ public class Teclado implements KeyListener{
         break;
     }
   }
+  public void keyTyped(KeyEvent e){
+
+  }
 
 }
