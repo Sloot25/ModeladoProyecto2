@@ -3,36 +3,30 @@ package Entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import Game.Conversation;
 import Game.GamePanel;
 
 public abstract class NPC implements Entity{
     GamePanel gp;
-    public int worldX;
-    public int worldY;
-    public int height;
-    public int width;
-    public BufferedImage image;
-    public String direction;
-    public int life;
-    public Rectangle box = new Rectangle(0,0,50, 50);
-    public int boxDefaultX;
-    public int boxDefaultY;
-    public int speedX;
-    public int speedY;
-    public Boolean collision;
+    int x, y, speedX, speedY, life, height, width;
+    Double accel;
+    BufferedImage image;
+    String direction;
+    Boolean talking, collision;
+    ArrayList<Conversation> conversations;
+    Conversation conversation;
 
     public NPC(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
-        this.worldX = x; 
-        this.worldY = y;
+        this.x = x; 
+        this.y = y;
         this.width = width; 
         this.height = height;
-        Rectangle box = new Rectangle(x, y, width, height);
-        boxDefaultX = box.x;
-        boxDefaultY = box.y;
+        conversations = new ArrayList<Conversation>();
         direction = "left";
-        collision = false;
+        talking = false;
         getNPCImages();
     }
     /*
@@ -48,79 +42,92 @@ public abstract class NPC implements Entity{
      * Actualiza la posicion y sprite del npc
      */
     public void update(){
-        gp.cc.checkWalls(this);
-        gp.cc.checkItem(this, false);
-        gp.cc.checkEntity(this, gp.npcs);
-        gp.cc.checkEntity(this, gp.enemies);
-        boolean seePlayer = gp.cc.checkPlayer(this);
-
-        if(collision == false){
-            switch(direction){
-                case "left":
-                    worldY -= speedY;
-                    break;
-                case "right":
-                    worldY += speedY;
-                    break;
+        if(talking && conversation != null){
+            conversation.update();
+        }
+    }
+    public void nextConversation(){
+        if(!conversation.nextDialogue()){
+            talking = false;
+            conversation.setFinished(true);
+            conversation = null;
+        }
+    }
+    public void addConversation(String path){
+        Conversation c = new Conversation(this, false);
+        conversations.add(c);
+    }
+    public void talk(){
+        conversation = getCurrentConversation();
+        if(conversation!=null){
+            conversation.setDialogue(0);
+        }
+        else{
+            talking = false;
+        }
+    }
+    public Conversation getCurrentConversation(){
+        for(Conversation c: conversations){
+            if(c.isAvailable()){
+                return c;
             }
         }
-        if(collision == true){
-            switch(direction){
-                case "left":
-                    direction = "right";
-                    collision = false;
-                    break;
-                case "right":
-                    direction = "left";
-                    collision = false;
-                    break;
-            }
-        }
-        if(seePlayer){
-            interact();
-        }
+        return null;
     }
     /*
      * Pinta al npc dentro del mapa
      * @param Graphics2D g2
      */
     public void paint(Graphics2D g2){
-        double screenX = worldX - gp.player.x + gp.player.screenX;
-        double screenY = worldY - gp.player.y + gp.player.screenY;
-        if(gp.player.screenX > gp.player.x){
-            screenX = worldX;
+        g2.drawImage(image, x, y, width, height, gp);
+        if(talking && conversation != null){
+            conversation.paint(g2);
         }
-        if(gp.player.screenY > gp.player.y){
-            screenY = worldY;
-        }
-        if((gp.getScreenWidth()-gp.player.screenX)>(gp.getWorldWidth()-gp.player.x)){
-            screenX = gp.getScreenWidth()-(gp.getWorldWidth()-worldX);
-        }
-        if((gp.getScreenHeight()-gp.player.screenY)>(gp.getWorldHeight()-gp.player.y)){
-            screenY = gp.getScreenHeight()-(gp.getWorldHeight()-worldY);
-        }
-        g2.drawImage(image, (int)screenX, (int)screenY, width, height, null);
+    }
+    public boolean getCollision(){
+        return collision;
+    }
+    public void setCollision(boolean collision){
+        this.collision = collision;
     }
     public int getX() {
-        return worldX;
+        return x;
     }
     public int getY() {
-        return worldY;
+        return y;
     }
     public Rectangle getBox() {
-        return box;
+        return new Rectangle(x,y,width,height);
     }
-    public int getSpeed() {
-        return 0;
+    public int getSpeedX(){
+        return speedX;
     }
-    public void setCollision(boolean b) {
-        collision = b;
+    public int getSpeedY(){
+        return speedY;
     }
-    public int getBoxDefaultX(){
-        return boxDefaultX;
+    public void setSpeedX(int speedX){
+        this.speedX = speedX;
     }
-    public int getBoxDefaultY(){
-        return boxDefaultY;
+    public void setSpeedY(int speedY){
+        this.speedY = speedY;
+    }
+    public Double getAccel(){
+        return accel;
+    }
+    public void setAccel(Double accel){
+        this.accel = accel;
+    }
+    public Rectangle getBoxUp(){
+        return new Rectangle(x,y,width,1);
+    }
+    public Rectangle getBoxDown(){
+        return new Rectangle(x,y+width-1,width,1);
+    }
+    public Rectangle getBoxRight(){
+        return new Rectangle(x+height-1,y,1,height);
+    }
+    public Rectangle getBoxLeft(){
+        return new Rectangle(x,y,1,height);
     }
     @Override
     public String getDirection() {

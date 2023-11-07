@@ -3,24 +3,21 @@ package Entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
+import Game.Conversation;
 import Game.GamePanel;
 
 public abstract class Enemy implements Entity, Cloneable{
     GamePanel gp;
-    public int x;
-    public int y;
-    public int height;
-    public int width;
-    public BufferedImage image;
-    public String direction;
-    public int life;
-    public Rectangle box = new Rectangle(0,0,128, 64);
-    public int boxDefaultX;
-    public int boxDefaultY;
-    public int speedX;
-    public int speedY;
-    public Boolean collision;
+    int x, y, speedX, speedY, life, height, width ;
+    Double accel;
+    BufferedImage image;
+    String direction;
+    Rectangle box = new Rectangle(0,0,50, 50);
+    Boolean collision;
+    ArrayList<Conversation> conversations;
+    Conversation conversation;
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
@@ -29,8 +26,8 @@ public abstract class Enemy implements Entity, Cloneable{
         this.width = width; 
         this.height = height;
         Rectangle box = new Rectangle(x, y, width, height);
-        boxDefaultX = box.x;
-        boxDefaultY = box.y;
+        speedX = 0;
+        speedY = 0;
         direction = "right";
         collision = false;
         getEnemyImages();
@@ -48,8 +45,8 @@ public abstract class Enemy implements Entity, Cloneable{
      * Actualiza la posicion y sprite del villano
      */
     public void update(){
-        gp.cc.checkWalls(this);
-        gp.cc.checkItem(this, false);
+        gp.cc.checkPlayer(this);
+        gp.cc.checkItem(this);
         gp.cc.checkEntity(this, gp.npcs);
         gp.cc.checkEntity(this, gp.enemies);
         boolean attackPlayer = gp.cc.checkPlayer(this);
@@ -84,21 +81,7 @@ public abstract class Enemy implements Entity, Cloneable{
      * @param Graphics2D g2
      */
     public void paint(Graphics2D g2){
-        double screenX = x - gp.player.x + gp.player.screenX;
-        double screenY = y - gp.player.y + gp.player.screenY;
-        if(gp.player.screenX > gp.player.x){
-            screenX = x;
-        }
-        if(gp.player.screenY > gp.player.y){
-            screenY = y;
-        }
-        if((gp.getScreenWidth()-gp.player.screenX)>(gp.getWorldWidth()-gp.player.x)){
-            screenX = gp.getScreenWidth()-(gp.getWorldWidth()-x);
-        }
-        if((gp.getScreenHeight()-gp.player.screenY)>(gp.getWorldHeight()-gp.player.y)){
-            screenY = gp.getScreenHeight()-(gp.getWorldHeight()-y);
-        }
-        g2.drawImage(image, (int)screenX, (int)screenY, width, height, null);
+        g2.drawImage(image, x, y, width, height, null);
     }
 
     public int getX() {
@@ -110,18 +93,42 @@ public abstract class Enemy implements Entity, Cloneable{
     public Rectangle getBox() {
         return box;
     }
-    public int getSpeed() {
-        return 0;
+    public int getSpeedX(){
+        return speedX;
     }
-    public void setCollision(boolean b) {
-        collision = b;
+    public int getSpeedY(){
+        return speedY;
     }
-    public int getBoxDefaultX(){
-        return boxDefaultX;
+    public void setSpeedX(int speedX){
+        this.speedX = speedX;
     }
-    public int getBoxDefaultY(){
-        return boxDefaultY;
+    public void setSpeedY(int speedY){
+        this.speedY = speedY;
+    }    
+    public Double getAccel(){
+        return accel;
     }
+    public void setAccel(Double accel){
+        this.accel = accel;
+    }
+    public boolean getCollision(){
+        return collision;
+    }
+    public void setCollision(boolean collision){
+        this.collision = collision;
+    }
+    public Rectangle getBoxUp(){
+        return new Rectangle(x,y,width,1);
+    }
+    public Rectangle getBoxDown(){
+        return new Rectangle(x,y+width-1,width,1);
+    }
+    public Rectangle getBoxRight(){
+        return new Rectangle(x+height-1,y,1,height);
+    }
+    public Rectangle getBoxLeft(){
+        return new Rectangle(x,y,1,height);
+    } 
     @Override
     public String getDirection() {
         return direction;

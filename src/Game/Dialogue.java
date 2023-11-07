@@ -1,11 +1,14 @@
 package Game;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import Entity.NPC;
 
 public class Dialogue {
+    GamePanel gp;
     String dialogo, dialogoTemp;
     Conversation conversation;
     ArrayList<String> lines;
@@ -13,7 +16,8 @@ public class Dialogue {
     boolean talking;
     int delay, line, length, numLines, size;
 
-    public Dialogue(NPC npc, Conversation conversation, String dialogo){
+    public Dialogue(GamePanel gp, NPC npc, Conversation conversation, String dialogo){
+        this.gp = gp;
         this.npc = npc;
         this.conversation = conversation;
         this.dialogo = dialogo;
@@ -58,15 +62,41 @@ public class Dialogue {
             talking = false;
         }
     }
-    public int finish(){
+    public void finish(){
         int i = 0; line = 1;
-        while(i)
+        while(i<dialogo.length()){
+            if(i+size>=dialogo.length()){
+                dialogoTemp = dialogo.substring(i, dialogo.length());
+                setCurrentLine(dialogoTemp);
+            }
+            else{
+                dialogoTemp = dialogo.substring(i, i+size);
+                setCurrentLine(dialogoTemp);
+                lines.add("");
+                numLines++;
+            }
+            i+=size;
+        }
+        dialogoTemp = dialogo;
+        talking = false;
+        delay = 0; i = 0;
     }
-    public void paint(Graphics2D g2) {
 
+    public void paint(Graphics2D g2) {        
+        g2.setColor(Color.GRAY);
+        g2.fillRoundRect(gp.getScreenWidth()/2-size*8,120 , size*16, 45*numLines, 50, 50);
+        g2.setColor(Color.BLACK);
+        g2.drawRoundRect(gp.getScreenWidth()/2-size*8,120 , size*16, 45*numLines, 50, 50);
+        g2.setFont(new Font("Arial", Font.PLAIN, 35));
+        for(int i = 0; i < line; i++){
+            g2.drawString(lines.get(i), gp.getScreenWidth()/2 - (length*4-40), 150+i*35 );
+        }
     }
     public boolean isFinished(){
         return dialogoTemp.length()==dialogo.length();
+    }
+    public boolean isTalking(){
+        return talking;
     }
     public String getCurrentLine(){
         return lines.get(line-1);

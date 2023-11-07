@@ -10,8 +10,16 @@ public interface Entity{
     public int getX();
     public int getY();
     public String getDirection();
-    public int getSpeed();
-    public void setCollision(boolean b);
-    public int getBoxDefaultX();
-    public int getBoxDefaultY();
+    public int getSpeedX();
+    public int getSpeedY();
+    public void setSpeedX(int speedX);
+    public void setSpeedY(int speedY);
+    public Double getAccel();
+    public void setAccel(Double Accel);
+    public boolean getCollision();
+    public void setCollision(boolean collision);
+    public Rectangle getBoxUp();
+    public Rectangle getBoxDown();
+    public Rectangle getBoxLeft();
+    public Rectangle getBoxRight();
 }

@@ -51,15 +51,29 @@ public class Conversation {
     public Dialogue getDialogue(int d){
         return dialogos.get(d);
     }
+    public void setDialogue(int d){
+        dialogo = d;
+    }
     public void paint(Graphics2D g2){
         if(dialogos != null && !dialogos.isEmpty()){
             dialogos.get(dialogo).paint(g2);
         }
     }
-    public void update(Graphics2D g2){
+    public void update(){
         if(dialogos != null && !dialogos.isEmpty()){
             getCurrentDialogue().update();
         }
+    }
+    public boolean nextDialogue(){
+        Dialogue d = getCurrentDialogue();
+        if(!d.isTalking()){
+            dialogo++;
+            if(dialogo>dialogos.size()){
+                dialogo = -1;
+                return false;
+            }
+        }
+        return true;
     }
     public Dialogue getCurrentDialogue() {
         if(dialogo == -1){

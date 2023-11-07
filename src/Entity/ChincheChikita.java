@@ -23,6 +23,6 @@ public class ChincheChikita extends Enemy{
 
     @Override
     public void attack() {
-        gp.player.setVida(gp.player.getVida() - 100);
+        gp.player.setLife(gp.player.getLife() - 100);
     }  
 }

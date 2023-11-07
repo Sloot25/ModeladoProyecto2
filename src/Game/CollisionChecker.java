@@ -3,6 +3,8 @@ package Game;
 import java.util.ArrayList;
 
 import Entity.Entity;
+import Item.Item;
+import Item.Objeto;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -15,56 +17,41 @@ public class CollisionChecker {
      */
     public boolean checkPlayer(Entity entity) {
         boolean contactPlayer = false;
-        entity.getBox().x = (int) (entity.getX() + entity.getBox().x);
-        entity.getBox().y = (int) (entity.getY() + entity.getBox().y);
-        gp.player.getBox().x =  (int) (gp.player.getX() + gp.player.getBox().x);
-        gp.player.getBox().y =  (int) (gp.player.getY() + gp.player.getBox().y);
-        switch(entity.getDirection()){
-            case "up":
-                entity.getBox().y -= entity.getSpeed();
-            break;
-            case "down":
-                entity.getBox().y += entity.getSpeed();
-            break;
-            case "left":
-                entity.getBox().x -= entity.getSpeed();
-            break;
-            case "right":
-                entity.getBox().y += entity.getSpeed();
-            break;
-        }    
-        if(entity.getBox().intersects(gp.player.getBox())){
+        if(gp.player.getBox().intersects(entity.getBox())){
             entity.setCollision(true);
             contactPlayer = true;
         }
-        entity.getBox().x = entity.getBoxDefaultX();
-        entity.getBox().y = entity.getBoxDefaultY();
-        gp.player.getBox().x = gp.player.getBoxDefaultX();
-        gp.player.getBox().y = gp.player.getBoxDefaultY();    
         return contactPlayer;    
-        
     }
     /*
      * Revisa si alguna entidad choco con otra
      */
-    public boolean checkEntity(Entity entity, ArrayList<Entity> entities) {
-        return false;
-    }
-    /*
-     * Revisa si una entidad choca con un objeto
-     */
-    public boolean checkItem(Entity entity, boolean b) {
-        return false;
+    public int checkEntity(Entity entity, ArrayList<Entity> entities) {
+        int index = -1;
+        int i = 0;
+        for(Entity e: entities){
+            i++;
+            if(e!=null){
+                if(e.getBox().intersects(entity.getBox())){
+                    entity.setCollision(true);
+                    index = i;
+                }
+            }
+        }
+        return index;
     }
     /*
      * Revisa si alguna entidad ha chocado con una pared o piso
      */
-    public boolean checkWalls(Entity entity) {
-        if(entity.getY() < 140)
-            return true;
-        return false;
-    }
-
-
-    
+    public void checkItem(Entity entity) {
+        for(Item i: gp.items){
+            if(entity.getBoxUp().intersects(i.getBox())){
+                entity.setSpeedY(0);
+            }
+            if(entity.getBoxDown().intersects(i.getBox())){
+                entity.setSpeedY(0);
+                entity.setAccel(0);
+            }
+        }
+    }    
 }

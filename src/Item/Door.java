@@ -3,20 +3,18 @@ package Item;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Door implements Item{
+import Game.GamePanel;
+
+public class Door extends Objeto{
+    GamePanel gp;
     int x;
     int y; 
     int width; 
     int height; 
     boolean solid;
     int id;
-    public Door(int x, int y, int width, int height, boolean solid, int id){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.solid = solid;
-        this.id = id;
+    public Door(GamePanel gp, int x, int y, int width, int height, boolean solid, int id){
+        super(gp, x, y, width, height, solid, id);
     }
 
     @Override

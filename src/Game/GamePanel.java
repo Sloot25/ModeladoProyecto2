@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import Entity.Entity;
 import Entity.Player;
 import Item.Item;
+import Item.Objeto;
 import State.Dead;
 import State.Menu;
 import State.Pause;
@@ -16,10 +17,10 @@ import State.Play;
 import State.State;
 
 public class GamePanel extends JPanel implements Runnable{
-    int screenWidth = 800;
-    int screenHeight = 500;
+    int screenWidth = 1000;
+    int screenHeight = 560;
     int worldWidth = 2000;
-    int worldHeight = 800;
+    int worldHeight = 1120;
     int scale = 1;
     int fps = 60;
     public CollisionChecker cc = new CollisionChecker(this);

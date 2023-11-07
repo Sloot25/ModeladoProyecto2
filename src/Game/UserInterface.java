@@ -32,7 +32,7 @@ public class UserInterface {
     }
 
     public void showLife(Graphics2D g2){
-        int vida = gp.player.getVida();
+        int vida = gp.player.getLife();
         BufferedImage image = gp.player.getImage();
         g2.setColor(Color.BLUE);
         g2.drawOval(50, 50, 50, 50);
@@ -50,16 +50,6 @@ public class UserInterface {
         g2.drawString("SCORE: "+score, gp.getScreenWidth() - 200, 85);
     }
     public void showMessage(Graphics2D g2, String mensaje){
-        g2.setColor(Color.GRAY);
-        g2.fillRoundRect(100,gp.getScreenHeight() - 300 , gp.getScreenWidth()-200, 200, 50, 50);
-        g2.setColor(Color.BLACK);
-        g2.drawRoundRect(100,gp.getScreenHeight() - 300 , gp.getScreenWidth()-200, 200, 50, 50);
-        g2.setFont(new Font("Arial", Font.PLAIN, 100));
-        g2.drawString(mensaje, 150, gp.getScreenHeight() - 250 );
-        messageCounter++;
-        if(messageCounter > 120){
-            messageCounter = 0;
-            messageOn = false;
-        }
+
     }
 }

@@ -13,6 +13,7 @@ import Entity.NPC;
 import Entity.Entity;
 import Item.Door;
 import Item.Item;
+import Item.Objeto;
 import Item.WallFloor;
 
 public class LevelCreator {
@@ -39,24 +40,28 @@ public class LevelCreator {
     }
 
     public void createLevel(){
-        int bloque = 10;
-        for(int x=0; x<image2.getWidth(); x+=bloque){
-            for(int y=0; y<image2.getHeight(); y+=bloque){
+        System.out.println(gp.getScreenWidth());
+        System.out.println(image2.getWidth());
+        System.out.println(gp.getScreenHeight());
+        System.out.println(image2.getHeight());
+        int bloque = gp.getScreenHeight()/image2.getHeight();
+        for(int x=0; x<image2.getWidth(); x++){
+            for(int y=0; y<image2.getHeight(); y++){
                 int pixel = image2.getRGB(x,y);
                 int red = (pixel>>16) & 0xff;
                 int green = (pixel>>8) & 0xff;
                 int blue = (pixel) & 0xff;
                 if(red == 255 && blue == 0 && green == 0){
-                    items.add(new WallFloor(x, y, bloque, bloque, true, 0));
+                    items.add(new WallFloor(gp, bloque*x, bloque*y, bloque, bloque, true, 0));
                 }
                 if(red == 0 && blue == 255 && green == 0){
-                    items.add(new Door(x, y, bloque, bloque, true, 1));
+                    items.add(new Door(gp, bloque*x, bloque*y, bloque, bloque, true, 1));
                 }
                 if(red == 255 && blue == 0 && green == 255){
-                    npcs.add(new EstudianteRandom(gp, x, y, 50, 50));
+                    npcs.add(new EstudianteRandom(gp, bloque*x, bloque*y-50, 50, 50));
                 }
                 if(red == 0 && blue == 0 && green == 255){
-                    enemies.add(new ChincheChikita(gp, x, y, 50, 50));
+                    enemies.add(new ChincheChikita(gp, bloque*x, bloque*y-50, 50, 50));
                 }
             }
         }

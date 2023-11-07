@@ -1,6 +1,7 @@
 package Item;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,10 +10,10 @@ import javax.imageio.ImageIO;
 
 import Game.GamePanel;
 
-public abstract class Objeto {
+public abstract class Objeto implements Item {
     GamePanel gp;
-    int worldX;
-    int worldY; 
+    int x;
+    int y; 
     int width; 
     int height; 
     BufferedImage image;
@@ -20,8 +21,8 @@ public abstract class Objeto {
     int id;
     public Objeto(GamePanel gp, int x, int y, int width, int height, boolean solid, int id){
         this.gp = gp;
-        this.worldX = x;
-        this.worldY = y;
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.solid = solid;
@@ -35,32 +36,12 @@ public abstract class Objeto {
         }
     }
     public void paint(Graphics2D g2){
-        double screenX = worldX - gp.player.getX() + gp.player.getScreenX();
-        double screenY = worldY - gp.player.getY() + gp.player.getScreenY();
-        if(gp.player.getScreenX() > gp.player.getX()){
-            screenX = worldX;
-        }
-        if(gp.player.getScreenY() > gp.player.getY()){
-            screenY = worldY;
-        }
-        if((gp.getScreenWidth()-gp.player.getScreenX())>(gp.getWorldWidth()-gp.player.getX())){
-            screenX = gp.getScreenWidth()-(gp.getWorldWidth()-worldX);
-        }
-        if((gp.getScreenHeight()-gp.player.getScreenY())>(gp.getWorldHeight()-gp.player.getY())){
-            screenY = gp.getScreenHeight()-(gp.getWorldHeight()-worldY);
-        }
-        if(worldX + gp.player.getHeight() > gp.player.getX() - gp.player.getScreenX() && 
-            worldX - gp.player.getHeight() < gp.player.getX() + gp.player.getScreenX() && 
-            worldY + gp.player.getWidth() > gp.player.getY() - gp.player.getScreenY() && 
-            worldY - gp.player.getWidth() < gp.player.getY() + gp.player.getScreenY()){
-            g2.drawImage(image, (int)screenX, (int)screenY, width, height, null);
-        }
-        else if (gp.player.getScreenX() > gp.player.getX() || 
-                gp.player.getScreenY() > gp.player.getY() || 
-                (gp.getScreenWidth()-gp.player.getScreenX())>(gp.getWorldWidth()-gp.player.getX()) || 
-                (gp.getScreenHeight()-gp.player.getScreenY())>(gp.getWorldHeight()-gp.player.getY())){
-            g2.drawImage(image, (int)screenX, (int)screenY, width, height, null);
-        } 
-        g2.drawImage(image, (int)screenX, (int)screenY, width, height, null);
+        g2.drawImage(image, x, y, width, height, null);
+    }
+    public boolean isSolid(){
+        return solid;
+    }
+    public Rectangle getBox() {
+        return new Rectangle(x,y,width,height);
     }
 }
