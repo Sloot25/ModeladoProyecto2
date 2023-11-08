@@ -1,5 +1,6 @@
 package Entity;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -10,12 +11,13 @@ import Game.GamePanel;
 
 public abstract class Enemy implements Entity, Cloneable{
     GamePanel gp;
-    int x, y, speedX, speedY, life, height, width ;
+    int x, y, life, height, width ;
+    Double speedX, speedY;
     Double accel;
     BufferedImage image;
     String direction;
     Rectangle box = new Rectangle(0,0,50, 50);
-    Boolean collision;
+    Boolean collision, jumping, falling, walking;
     ArrayList<Conversation> conversations;
     Conversation conversation;
 
@@ -26,8 +28,8 @@ public abstract class Enemy implements Entity, Cloneable{
         this.width = width; 
         this.height = height;
         Rectangle box = new Rectangle(x, y, width, height);
-        speedX = 0;
-        speedY = 0;
+        speedX = 0.0;
+        speedY = 0.0;
         direction = "right";
         collision = false;
         getEnemyImages();
@@ -80,8 +82,8 @@ public abstract class Enemy implements Entity, Cloneable{
      * Pinta al villano dentro del mapa
      * @param Graphics2D g2
      */
-    public void paint(Graphics2D g2){
-        g2.drawImage(image, x, y, width, height, null);
+    public void paint(Graphics g){
+        g.drawImage(image, x, y, width, height, null);
     }
 
     public int getX() {
@@ -93,16 +95,16 @@ public abstract class Enemy implements Entity, Cloneable{
     public Rectangle getBox() {
         return box;
     }
-    public int getSpeedX(){
+    public Double getSpeedX(){
         return speedX;
     }
-    public int getSpeedY(){
+    public Double getSpeedY(){
         return speedY;
     }
-    public void setSpeedX(int speedX){
+    public void setSpeedX(Double speedX){
         this.speedX = speedX;
     }
-    public void setSpeedY(int speedY){
+    public void setSpeedY(Double speedY){
         this.speedY = speedY;
     }    
     public Double getAccel(){
@@ -132,5 +134,28 @@ public abstract class Enemy implements Entity, Cloneable{
     @Override
     public String getDirection() {
         return direction;
+    }
+    public Boolean getJumping() {
+        return jumping;
+    }
+
+    public void setJumping(Boolean jumping) {
+        this.jumping = jumping;
+    }
+
+    public Boolean getWalking() {
+        return walking;
+    }
+
+    public void setWalking(Boolean walking) {
+        this.walking = walking;
+    }
+
+    public Boolean getFalling() {
+        return falling;
+    }
+
+    public void setFalling(Boolean falling) {
+        this.falling = falling;
     }
 }

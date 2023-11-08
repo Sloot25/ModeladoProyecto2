@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -82,14 +83,14 @@ public class Dialogue {
         delay = 0; i = 0;
     }
 
-    public void paint(Graphics2D g2) {        
-        g2.setColor(Color.GRAY);
-        g2.fillRoundRect(gp.getScreenWidth()/2-size*8,120 , size*16, 45*numLines, 50, 50);
-        g2.setColor(Color.BLACK);
-        g2.drawRoundRect(gp.getScreenWidth()/2-size*8,120 , size*16, 45*numLines, 50, 50);
-        g2.setFont(new Font("Arial", Font.PLAIN, 35));
+    public void paint(Graphics g) {        
+        g.setColor(Color.GRAY);
+        g.fillRoundRect(gp.getScreenWidth()/2-size*8,120 , size*16, 45*numLines, 50, 50);
+        g.setColor(Color.BLACK);
+        g.drawRoundRect(gp.getScreenWidth()/2-size*8,120 , size*16, 45*numLines, 50, 50);
+        g.setFont(new Font("Arial", Font.PLAIN, 35));
         for(int i = 0; i < line; i++){
-            g2.drawString(lines.get(i), gp.getScreenWidth()/2 - (length*4-40), 150+i*35 );
+            g.drawString(lines.get(i), gp.getScreenWidth()/2 - (length*4-40), 150+i*35 );
         }
     }
     public boolean isFinished(){

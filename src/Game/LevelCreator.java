@@ -40,10 +40,7 @@ public class LevelCreator {
     }
 
     public void createLevel(){
-        System.out.println(gp.getScreenWidth());
-        System.out.println(image2.getWidth());
-        System.out.println(gp.getScreenHeight());
-        System.out.println(image2.getHeight());
+
         int bloque = gp.getScreenHeight()/image2.getHeight();
         for(int x=0; x<image2.getWidth(); x++){
             for(int y=0; y<image2.getHeight(); y++){
@@ -52,7 +49,7 @@ public class LevelCreator {
                 int green = (pixel>>8) & 0xff;
                 int blue = (pixel) & 0xff;
                 if(red == 255 && blue == 0 && green == 0){
-                    items.add(new WallFloor(gp, bloque*x, bloque*y, bloque, bloque, true, 0));
+                    items.add(new WallFloor(gp, 2*bloque*x, 2*bloque*y, 2*bloque, 2*bloque, true, 0));
                 }
                 if(red == 0 && blue == 255 && green == 0){
                     items.add(new Door(gp, bloque*x, bloque*y, bloque, bloque, true, 1));
@@ -67,9 +64,7 @@ public class LevelCreator {
         }
     }
     public void paint(Graphics2D g2) {
-        x = gp.player.getX()-gp.getScreenWidth()/2;
-            y = gp.player.getY()-gp.getScreenHeight()/2;
-        g2.drawImage(image,x,y, gp.getWorldWidth(), gp.getWorldHeight(),null);
+        g2.drawImage(image,0,0, gp.getWorldWidth(), gp.getWorldHeight(),null);
     }
     
 }

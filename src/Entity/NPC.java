@@ -1,5 +1,6 @@
 package Entity;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -10,11 +11,12 @@ import Game.GamePanel;
 
 public abstract class NPC implements Entity{
     GamePanel gp;
-    int x, y, speedX, speedY, life, height, width;
+    int x, y, life, height, width;
+    Double speedX, speedY;
     Double accel;
     BufferedImage image;
     String direction;
-    Boolean talking, collision;
+    Boolean talking, collision, falling, walking, jumping;
     ArrayList<Conversation> conversations;
     Conversation conversation;
 
@@ -26,7 +28,11 @@ public abstract class NPC implements Entity{
         this.height = height;
         conversations = new ArrayList<Conversation>();
         direction = "left";
+        speedX = 0.0;
+        speedY = 0.0;
+        accel = 0.0;
         talking = false;
+        falling = true;
         getNPCImages();
     }
     /*
@@ -42,6 +48,12 @@ public abstract class NPC implements Entity{
      * Actualiza la posicion y sprite del npc
      */
     public void update(){
+        if(falling)
+            accel = 5.0;
+        x += speedX;
+        y += speedY;
+        speedY += accel;
+        gp.cc.checkItem(this);
         if(talking && conversation != null){
             conversation.update();
         }
@@ -78,10 +90,10 @@ public abstract class NPC implements Entity{
      * Pinta al npc dentro del mapa
      * @param Graphics2D g2
      */
-    public void paint(Graphics2D g2){
-        g2.drawImage(image, x, y, width, height, gp);
+    public void paint(Graphics g){
+        g.drawImage(image, x, y, width, height, gp);
         if(talking && conversation != null){
-            conversation.paint(g2);
+            conversation.paint(g);
         }
     }
     public boolean getCollision(){
@@ -99,16 +111,16 @@ public abstract class NPC implements Entity{
     public Rectangle getBox() {
         return new Rectangle(x,y,width,height);
     }
-    public int getSpeedX(){
+    public Double getSpeedX(){
         return speedX;
     }
-    public int getSpeedY(){
+    public Double getSpeedY(){
         return speedY;
     }
-    public void setSpeedX(int speedX){
+    public void setSpeedX(Double speedX){
         this.speedX = speedX;
     }
-    public void setSpeedY(int speedY){
+    public void setSpeedY(Double speedY){
         this.speedY = speedY;
     }
     public Double getAccel(){
@@ -132,5 +144,28 @@ public abstract class NPC implements Entity{
     @Override
     public String getDirection() {
         return direction;
+    }
+    public Boolean getJumping() {
+        return jumping;
+    }
+
+    public void setJumping(Boolean jumping) {
+        this.jumping = jumping;
+    }
+
+    public Boolean getWalking() {
+        return walking;
+    }
+
+    public void setWalking(Boolean walking) {
+        this.walking = walking;
+    }
+
+    public Boolean getFalling() {
+        return falling;
+    }
+
+    public void setFalling(Boolean falling) {
+        this.falling = falling;
     }
 }

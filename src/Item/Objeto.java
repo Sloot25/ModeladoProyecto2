@@ -1,5 +1,6 @@
 package Item;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -30,18 +31,21 @@ public abstract class Objeto implements Item {
     }
     public void getObjectImage(){
         try {
-            image = ImageIO.read(new File("res\\src\\apple"));
-        } catch (IOException e) {
+            image = ImageIO.read(new File("res\\src\\apple.png"));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public void paint(Graphics2D g2){
-        g2.drawImage(image, x, y, width, height, null);
+        
     }
     public boolean isSolid(){
         return solid;
     }
     public Rectangle getBox() {
         return new Rectangle(x,y,width,height);
+    }
+    public int getID(){
+        return id;
     }
 }

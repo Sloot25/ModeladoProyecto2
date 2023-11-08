@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.Dialog;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -54,9 +55,9 @@ public class Conversation {
     public void setDialogue(int d){
         dialogo = d;
     }
-    public void paint(Graphics2D g2){
+    public void paint(Graphics g){
         if(dialogos != null && !dialogos.isEmpty()){
-            dialogos.get(dialogo).paint(g2);
+            dialogos.get(dialogo).paint(g);
         }
     }
     public void update(){

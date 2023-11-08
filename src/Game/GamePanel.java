@@ -17,8 +17,8 @@ import State.Play;
 import State.State;
 
 public class GamePanel extends JPanel implements Runnable{
-    int screenWidth = 1000;
-    int screenHeight = 560;
+    static int screenWidth = 1000;
+    static int screenHeight = 560;
     int worldWidth = 2000;
     int worldHeight = 1120;
     int scale = 1;
@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<Entity> npcs = new ArrayList<Entity>();
     public ArrayList<Entity> enemies = new ArrayList<Entity>();
+    public Camara cam = new Camara();
     State estadoActual;
     State menu = new Menu();
     State dead = new Dead();
@@ -100,11 +101,13 @@ public class GamePanel extends JPanel implements Runnable{
         for(Entity enemy: enemies){
             enemy.update();
         }
+        cam.update(this);
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
      */
     public void paintComponent(Graphics g){
+        g.translate(cam.getX(), cam.getY());
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);

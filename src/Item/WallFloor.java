@@ -17,10 +17,4 @@ public class WallFloor extends Objeto{
     public WallFloor(GamePanel gp, int x, int y, int width, int height, boolean solid, int id){
         super(gp, x, y, width, height, solid, id);
     }
-
-    @Override
-    public void paint(Graphics2D g2) {
-        g2.setColor(Color.RED);
-        //g2.fillRect(x, y, width, height);
-    }
 }

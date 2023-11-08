@@ -45,12 +45,25 @@ public class CollisionChecker {
      */
     public void checkItem(Entity entity) {
         for(Item i: gp.items){
-            if(entity.getBoxUp().intersects(i.getBox())){
-                entity.setSpeedY(0);
+            if(i.isSolid()){
+                if(entity.getBoxUp().intersects(i.getBox())){
+                    entity.setSpeedX(0.0);
+                    entity.setJumping(false);
+                }
+                if(entity.getBoxDown().intersects(i.getBox())){
+                    entity.setSpeedX(0.0);
+                    entity.setAccel(0.0);
+                    entity.setFalling(false);
+                }
+                if(entity.getBoxLeft().intersects(i.getBox())){
+                    entity.setSpeedY(0.0);
+                }
+                if(entity.getBoxRight().intersects(i.getBox())){
+                    entity.setSpeedY(0.0);
+                }
             }
-            if(entity.getBoxDown().intersects(i.getBox())){
-                entity.setSpeedY(0);
-                entity.setAccel(0.0);
+            else{
+               
             }
         }
     }    
