@@ -222,7 +222,7 @@ public class Player implements Entity{
      * */
   }
   
-  private boolean fueraMapa(final int velocidadX, final int velocidadY){
+  private void cambiarDireccion(final int velocidadX, final int velocidadY){
     if(velocidadX == -1)
       direccion = 3;
     else if (velocidadX == 1)
@@ -233,6 +233,63 @@ public class Player implements Entity{
     else if(velocidadY == 1)
       direccion = 0;
   }
+  private boolean fueraMapa(final int velocidadX, final int velocidadY){
+    int posicionFuturaX = (int) posicionX + velocidadX * (int) getVelocidad();
+    int posicionFuturaY = (int) posicionY + velocidadY * (int) getVelocidad();
+
+    //final Rectangle bordesMapa = mapa.obtenerBordes(posicionFuturaX, posicionFuturaY);
+
+    if(LIMITE_ARRIBA.intersects(bordesMapa) || LIMITE_ABAJO.intersects(bordesMapa) || LIMITE_IZQUIERDA.intersects(bordesMapa) || LIMITE_DERECHA.intersects(bordesMapa))
+      return false;
+    return true;
+  }
+
+  private void animar(){
+    if(!enMovimiento){
+      estado = 0; 
+      animacion = 0;
+    }
+    // Cambia la imagen de acuerdo al estado y animacion, esto con el fin de dar movimiento al personaje 
+    //imagenActual = hs.obtenerSprite(direccion, estado).obtenerImagen();
+  }
+
+  private void dibujar(Graphics g){
+    final int centroX = Constantes.ANCHO_PANTALLA/2 - Constantes.LADO_SPRITE/2;
+    final int centroY = Constantes.ALTO_PANTALLA /2 - Constantes.LADO_SPRITE/2;
+    DibujoDebug.dibujarImagen(g, imagenActual, centroX, centroY);
+  }
+
+  public void setPosicionX(double posicionX){
+    this.posicionX = posicionX;
+  }
+  public void setPosicionY(double posicionY){
+    this.posicionY = posicionY;
+  }
+  public double getPosicionX(){
+    return this.posicionX;
+  }
+  public double getPosicionY(){
+    return this.posicionY;
+  }
+  public int getAnchoJugador(){
+    return ANCHO_JUGADOR;
+  }
+  public int getAltoJugador(){
+    return ALTO_JUGADOR;
+  }
+  public Rectangle getLimiteArriba(){
+    return LIMITE_ARRIBA;
+  }
+  public Aliado getAliado(){
+    return this.aliado;
+  }
+  public int getDireccion(){
+    return this.direccion;
+  }
+  public Point getPosicion(){
+    return new Point((int)posicionX, (int)posicionY);
+  }
+  
 /*
     GamePanel gp;
 

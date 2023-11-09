@@ -1,5 +1,7 @@
 package res; 
 public class Constantes {
+  public static final int LADO_SPRITE = 32;
+
   public static int ANCHO_PANTALLA = 800;
   public static int ALTO_PANTALLA = 500; 
 

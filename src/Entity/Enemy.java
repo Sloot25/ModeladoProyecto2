@@ -7,6 +7,18 @@ import java.awt.image.BufferedImage;
 import Game.GamePanel;
 
 public abstract class Enemy implements Entity, Cloneable{
+  // private Sonido lamento; 
+  
+  private long duracionLamento; 
+  private long lamentoSiguiente = 0;
+  
+  private double posicionX; 
+  private double posicionY; 
+
+  private int vida; 
+  private int velocidad; 
+  
+  /*
     GamePanel gp;
     Player player;
     public int x;
@@ -41,15 +53,16 @@ public abstract class Enemy implements Entity, Cloneable{
     /* 
      * Obtiene las imagenes del enemigo
      */
-    public void getEntityImage();
+  
+    //public void getEntityImage();
     /*
      * El villano ataca al jugador
      */
-    public abstract void attack();
+    //public abstract void attack();
     /*
      * Actualiza la posicion y sprite del villano
      */
-    public void update(){
+    /*public void update(){
         gp.cc.checkWalls(this);
         gp.cc.checkItem(this, false);
         gp.cc.checkEntity(this, gp.npcs);
@@ -80,12 +93,12 @@ public abstract class Enemy implements Entity, Cloneable{
         if(attackPlayer){
             attack();
         }
-    }
+    }*/
     /*
      * Pinta al villano dentro del mapa
      * @param Graphics2D g2
      */
-    public void paint(Graphics2D g2){
+  /*  public void paint(Graphics2D g2){
         double screenX = x - gp.player.x + gp.player.screenX;
         double screenY = y - gp.player.y + gp.player.screenY;
         if(gp.player.screenX > gp.player.x){
@@ -129,4 +142,5 @@ public abstract class Enemy implements Entity, Cloneable{
         return direction;
     }
   abstract public Enemy clonar() throws CloneNotSupportedException;
+  */
 }
