@@ -13,7 +13,7 @@ public class Teclado implements KeyListener{
   public Tecla izquierda = new Tecla(); 
   public Tecla derecha = new Tecla(); 
   public Tecla space = new Tecla();
-
+  // Detecta que tecla ha sido pulsada entre nuestras teclas conocidas
   public void keyPressed(KeyEvent e){
     switch (e.getKeyCode()) {
       case KeyEvent.VK_W:
@@ -33,7 +33,7 @@ public class Teclado implements KeyListener{
         break;
     }
   }
-
+  // Detecta la tecla que ha sido liberada entre nuestras teclas prediseñadas 
   public void keyReleased(KeyEvent e){
     switch (e.getKeyCode()) {
       case KeyEvent.VK_W:
@@ -53,6 +53,8 @@ public class Teclado implements KeyListener{
         break;
     }
   }
+  // Forma parte de la  interfaz, por lo cual debe ser implementado, 
+  // en este caso no realiza accion alguna
   public void keyTyped(KeyEvent e){
 
   }
