@@ -14,7 +14,7 @@ public class EstudianteRandom extends NPC {
     } 
 
     public void interact(){
-        
+        System.out.println("AAAAA me la estan tocando");
     }
 
     public void getNPCImages(){

@@ -2,7 +2,9 @@ package Game;
 
 import java.util.ArrayList;
 
+import Entity.Enemy;
 import Entity.Entity;
+import Entity.NPC;
 import Item.Item;
 import Item.Objeto;
 
@@ -26,20 +28,22 @@ public class CollisionChecker {
     /*
      * Revisa si alguna entidad choco con otra
      */
-    public int checkEntity(Entity entity, ArrayList<Entity> entities) {
-        int index = -1;
-        int i = 0;
-        for(Entity e: entities){
-            i++;
-            if(e!=null){
-                if(e.getBox().intersects(entity.getBox())){
-                    entity.setCollision(true);
-                    index = i;
+    public void checkNPC(NPC n) {
+            if(n!=null){
+                if(n.getBox().intersects(gp.player.getBox())){
+                    gp.player.setCollision(true);
+                    n.interact();
                 }
             }
         }
-        return index;
-    }
+    public void checkEnemy(Enemy e){
+            if(e!=null){
+                if(e.getBox().intersects(gp.player.getBox())){
+                    gp.player.setCollision(true);
+                    e.attack();
+                }
+            }
+        }
     /*
      * Revisa si alguna entidad ha chocado con una pared o piso
      */

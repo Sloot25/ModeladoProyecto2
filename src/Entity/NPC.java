@@ -54,6 +54,7 @@ public abstract class NPC implements Entity{
         y += speedY;
         speedY += accel;
         gp.cc.checkItem(this);
+        gp.cc.checkNPC(this);
         if(talking && conversation != null){
             conversation.update();
         }

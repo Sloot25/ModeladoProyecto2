@@ -28,9 +28,11 @@ public abstract class Enemy implements Entity, Cloneable{
         this.width = width; 
         this.height = height;
         Rectangle box = new Rectangle(x, y, width, height);
-        speedX = 0.0;
+        speedX = 5.0;
         speedY = 0.0;
-        direction = "right";
+        accel = 0.0;
+        falling = true;
+        direction = "left";
         collision = false;
         getEnemyImages();
     }
@@ -47,10 +49,11 @@ public abstract class Enemy implements Entity, Cloneable{
      * Actualiza la posicion y sprite del villano
      */
     public void update(){
-        gp.cc.checkPlayer(this);
+        if(falling)
+            accel = 5.0;
+        speedY += accel;
         gp.cc.checkItem(this);
-        gp.cc.checkEntity(this, gp.npcs);
-        gp.cc.checkEntity(this, gp.enemies);
+        gp.cc.checkEnemy(this);
         boolean attackPlayer = gp.cc.checkPlayer(this);
         if(collision == false){
             switch(direction){

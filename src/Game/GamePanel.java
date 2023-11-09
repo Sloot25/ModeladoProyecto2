@@ -6,7 +6,10 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import Entity.Enemy;
 import Entity.Entity;
+import Entity.NPC;
 import Entity.Player;
 import Item.Item;
 import Item.Objeto;
@@ -31,8 +34,8 @@ public class GamePanel extends JPanel implements Runnable{
     public UserInterface ui = new UserInterface(this);
     public Player player = new Player(this, kb);
     public ArrayList<Item> items = new ArrayList<Item>();
-    public ArrayList<Entity> npcs = new ArrayList<Entity>();
-    public ArrayList<Entity> enemies = new ArrayList<Entity>();
+    public ArrayList<NPC> npcs = new ArrayList<NPC>();
+    public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public Camara cam = new Camara();
     State estadoActual;
     State menu = new Menu();
