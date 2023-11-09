@@ -2,8 +2,15 @@ import javax.swing.JFrame;
 
 import Game.GamePanel;
 import res.Rutas.*;
+import Game.Herramientas.Gestor;
 public class Main {
-    public static void main(String[] args){
+  public static void main(String[] args){
+    System.setProperty("sun.java2d.openg1", "True");
+    Gestor gp = new Main();
+    
+    gp.iniciarJuego();
+      
+    /*
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -23,5 +30,6 @@ public class Main {
 
         gp.setGame();
         gp.startGameThread();
+    */
     }
 }
