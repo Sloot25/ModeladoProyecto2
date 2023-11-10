@@ -1,4 +1,5 @@
 package res.Rutas;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -11,6 +12,7 @@ public class Windows implements Rutas {
       return ImageIO.read(new File("src\\res\\" + imagen));
     }catch(IOException e){
       e.printStackTrace();
+      return null;
     }
   }
 }

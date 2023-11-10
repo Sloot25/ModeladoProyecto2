@@ -8,19 +8,19 @@ import Game.GamePanel;
 
 public abstract class NPC implements Entity{
     GamePanel gp;
-    public int worldX;
-    public int worldY;
-    public int height;
-    public int width;
-    public BufferedImage image;
-    public String direction;
-    public int life;
-    public Rectangle box = new Rectangle(0,0,50, 50);
-    public int boxDefaultX;
-    public int boxDefaultY;
-    public int speedX;
-    public int speedY;
-    public Boolean collision;
+    int worldX;
+    int worldY;
+    int height;
+    int width;
+    BufferedImage imagen;
+    String direction;
+    int life;
+    Rectangle box = new Rectangle(0,0,50, 50);
+    int boxDefaultX;
+    int boxDefaultY;
+    int speedX;
+    int speedY;
+    Boolean collision;
 
     public NPC(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
@@ -33,13 +33,13 @@ public abstract class NPC implements Entity{
         boxDefaultY = box.y;
         direction = "left";
         collision = false;
-        getNPCImages();
+        getEntityImage();
     }
     /*
      * Obtiene las imagenes del personaje
      * Metodo perteneciente a la interfaz entity
      */
-    public void getEntityImage();
+    public abstract void getEntityImage();
     /*
      * El npc hace algo
      */
@@ -100,7 +100,7 @@ public abstract class NPC implements Entity{
         if((gp.getScreenHeight()-gp.player.screenY)>(gp.getWorldHeight()-gp.player.y)){
             screenY = gp.getScreenHeight()-(gp.getWorldHeight()-worldY);
         }
-        g2.drawImage(image, (int)screenX, (int)screenY, width, height, null);
+        g2.drawImage(imagen, (int)screenX, (int)screenY, width, height, null);
     }
     public int getX() {
         return worldX;

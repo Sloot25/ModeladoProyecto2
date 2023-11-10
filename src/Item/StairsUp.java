@@ -2,16 +2,15 @@ package Item;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
-public class WallFloor implements Item{
+public class StairsUp implements Item{
     int x;
     int y; 
     int width; 
     int height; 
     boolean solid;
     int id;
-    public WallFloor(int x, int y, int width, int height, boolean solid, int id){
+    public StairsUp(int x, int y, int width, int height, boolean solid, int id){
         this.x = x;
         this.y = y;
         this.width = width;
@@ -22,6 +21,7 @@ public class WallFloor implements Item{
 
     @Override
     public void paint(Graphics2D g2) {
-
+        
     }
+    
 }

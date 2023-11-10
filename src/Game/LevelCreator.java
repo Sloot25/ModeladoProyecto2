@@ -2,22 +2,26 @@ package Game;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
+
+import Entity.Canek;
 import Entity.ChincheChikita;
-import Entity.Enemy;
+import Entity.ChincheDirector;
+import Entity.ChincheGrandota;
+import Entity.Chinchentifica;
 import Entity.EstudianteRandom;
-import Entity.NPC;
+import Entity.Lemus;
+import Entity.Odin;
+import Entity.Rosa;
+import Entity.Vero;
 import Entity.Entity;
-import Item.Door;
 import Item.Item;
+import Item.StairsUp;
 import Item.WallFloor;
 
 public class LevelCreator {
     GamePanel gp;
-    BufferedImage image, image2;
+    BufferedImage image, map;
     int x;
     int y;
     ArrayList<Item> items = new ArrayList <Item>();
@@ -25,38 +29,62 @@ public class LevelCreator {
     ArrayList<Entity> enemies = new ArrayList<Entity>();
     public LevelCreator(GamePanel gp){
         this.gp = gp;
-        getPlayerImages();
+        getLevelImages();
         createLevel();
     }
 
-    public void getPlayerImages() {
-        try {
-            image = ImageIO.read(new File(gp.getRutas().getImagen("cocina.png")));
-            image2 = ImageIO.read(new File(gp.getRutas().getImagen("cocina2.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void getLevelImages() {
+        image = gp.getRutas().getImagen("fciencias.png");
+        map = gp.getRutas().getImagen("fcienciasmap.png");
     }
 
     public void createLevel(){
-        int bloque = 10;
-        for(int x=0; x<image2.getWidth(); x+=bloque){
-            for(int y=0; y<image2.getHeight(); y+=bloque){
-                int pixel = image2.getRGB(x,y);
+        int bloque = 4;
+        int npcsize = 10;
+        for(int x=0; x<map.getWidth(); x+=bloque){
+            for(int y=0; y<map.getHeight(); y+=bloque){
+                int pixel = map.getRGB(x,y);
                 int red = (pixel>>16) & 0xff;
                 int green = (pixel>>8) & 0xff;
                 int blue = (pixel) & 0xff;
-                if(red == 255 && blue == 0 && green == 0){
+                if(red == 237 && green == 28 && blue == 36){
                     items.add(new WallFloor(x, y, bloque, bloque, true, 0));
                 }
-                if(red == 0 && blue == 255 && green == 0){
-                    items.add(new Door(x, y, bloque, bloque, true, 1));
+                else if(red == 47 && green == 54 && blue == 153){
+                    items.add(new StairsUp(x, y, bloque, bloque, true, 1));
                 }
-                if(red == 255 && blue == 0 && green == 255){
-                    npcs.add(new EstudianteRandom(gp, x, y, 50, 50));
+                else if(red == 34 && green == 177 && blue == 76){
+                    npcs.add(new EstudianteRandom(gp, x, y, npcsize*bloque, npcsize*bloque));
                 }
-                if(red == 0 && blue == 0 && green == 255){
-                    enemies.add(new ChincheChikita(gp, x, y, 50, 50));
+                else if(red == 111 && green == 49 && blue == 152){
+                    npcs.add(new Lemus(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 0 && green == 183 && blue == 239){
+                    npcs.add(new Odin(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 255 && green == 194 && blue == 14){
+                    npcs.add(new Vero(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 112 && green == 12 && blue == 44){
+                    npcs.add(new Canek(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 84 && green == 109 && blue == 142){
+                    npcs.add(new Rosa(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 255 && green == 242 && blue == 0){
+                    enemies.add(new ChincheChikita(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 67 && green == 230 && blue == 113){
+                    enemies.add(new Chinchentifica(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 255 && green == 126 && blue == 0){
+                    enemies.add(new ChincheGrandota(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else if(red == 255 && green == 163 && blue == 177){
+                    enemies.add(new ChincheDirector(gp, x, y, npcsize*bloque, npcsize*bloque));
+                }
+                else{
+
                 }
             }
         }

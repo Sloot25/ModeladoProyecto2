@@ -1,7 +1,5 @@
 package Entity;
 
-import java.awt.Graphics2D;
-
 import Game.GamePanel;
 public class Chinchentifica extends Enemy{
 
@@ -15,7 +13,7 @@ public class Chinchentifica extends Enemy{
     return (Enemy) this.clone();
   }
   @Override
-  public void getEnemyImages() {
-    image = gp.getRutas().getImage("");
+  public void getEntityImage() {
+    image = gp.getRutas().getImagen("");
   }
 }

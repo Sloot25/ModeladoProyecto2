@@ -41,7 +41,7 @@ public abstract class Enemy implements Entity, Cloneable{
     /* 
      * Obtiene las imagenes del enemigo
      */
-    public void getEntityImage();
+    public abstract void getEntityImage();
     /*
      * El villano ataca al jugador
      */

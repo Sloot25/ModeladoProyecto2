@@ -1,13 +1,18 @@
 package Entity;
 
+import Game.GamePanel;
+
 public class Odin extends NPC {
   public Odin(GamePanel gp, int x, int y, int width, int height){
     super(gp, x, y, width, height);
   }
   public void getImage(){
-    image = gp.getRutas().getImage("");
+    imagen = gp.getRutas().getImagen("");
+  }
+  public void getEntityImage(){
+    //TODO Agregar imagen de Odin
   }
   public void interact(){
-    // Ingresa la interaccion de los personajes
+    // TODO Ingresa la interaccion de los personajes
   }
 }

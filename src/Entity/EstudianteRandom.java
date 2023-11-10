@@ -1,10 +1,5 @@
 package Entity;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import Game.GamePanel;
 
 public class EstudianteRandom extends NPC {
@@ -14,7 +9,7 @@ public class EstudianteRandom extends NPC {
     } 
 
     public void getEntityImage(){
-      image = gp.getRutas().getImage("");
+      imagen = gp.getRutas().getImagen("");
     }
 
     @Override
