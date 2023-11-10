@@ -7,8 +7,8 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("Patata moverse: el juego");
-        Rutas ruta = null;
+        window.setTitle("Call of Chienchias");
+        Rutas ruta;
         if(System.getProperty("os.name").equals("Linux"))
           ruta = new Linux();
         else 

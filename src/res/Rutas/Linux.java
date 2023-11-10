@@ -8,6 +8,9 @@ import Game.GamePanel;
 
 // Clase que contiene las rutas para un dispositivo tipo Linux
 public class Linux implements Rutas{
+  public Linux(){
+    
+  }
   // Metodo que regresa la imagen de la carpeta res de acuerdo al sistema Linux
   public BufferedImage getImagen(String imagen){
     try{

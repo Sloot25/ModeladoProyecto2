@@ -12,6 +12,7 @@ import Entity.Chinchentifica;
 import Entity.EstudianteRandom;
 import Entity.Lemus;
 import Entity.Odin;
+import Entity.Player;
 import Entity.Rosa;
 import Entity.Vero;
 import Entity.Entity;
@@ -24,10 +25,13 @@ public class LevelCreator {
     BufferedImage image, map;
     int x;
     int y;
+    int bloque;
     ArrayList<Item> items = new ArrayList <Item>();
     ArrayList<Entity> npcs = new ArrayList<Entity>();
     ArrayList<Entity> enemies = new ArrayList<Entity>();
+
     public LevelCreator(GamePanel gp){
+        bloque = gp.getScale();
         this.gp = gp;
         getLevelImages();
         createLevel();
@@ -39,15 +43,18 @@ public class LevelCreator {
     }
 
     public void createLevel(){
-        int bloque = 4;
         int npcsize = 10;
-        for(int x=0; x<map.getWidth(); x+=bloque){
-            for(int y=0; y<map.getHeight(); y+=bloque){
+        for(int x=0; x<map.getWidth(); x++){
+            for(int y=0; y<map.getHeight(); y++){
                 int pixel = map.getRGB(x,y);
                 int red = (pixel>>16) & 0xff;
                 int green = (pixel>>8) & 0xff;
                 int blue = (pixel) & 0xff;
-                if(red == 237 && green == 28 && blue == 36){
+                if(red == 255 && green == 255 && blue == 255){
+                    gp.player.setX(x);
+                    gp.player.setY(y);
+                }
+                else if(red == 237 && green == 28 && blue == 36){
                     items.add(new WallFloor(x, y, bloque, bloque, true, 0));
                 }
                 else if(red == 47 && green == 54 && blue == 153){
@@ -92,7 +99,7 @@ public class LevelCreator {
     public void paint(Graphics2D g2) {
         x = gp.player.getX()-gp.getScreenWidth()/2;
             y = gp.player.getY()-gp.getScreenHeight()/2;
-        g2.drawImage(image,x,y, gp.getWorldWidth(), gp.getWorldHeight(),null);
+        g2.drawImage(image,x,y, bloque*gp.getWorldWidth(), bloque*gp.getWorldHeight(),null);
     }
     
 }

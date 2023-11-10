@@ -17,20 +17,20 @@ import State.State;
 import res.Rutas.Rutas;
 
 public class GamePanel extends JPanel implements Runnable{
-    int screenWidth = 800;
+    int screenWidth = 1000;
     int screenHeight = 500;
-    int worldWidth = 2000;
-    int worldHeight = 800;
-    int scale = 1;
+    int worldWidth = 3000;
+    int worldHeight = 600;
+    int scale = 3;
     int fps = 60;
     Rutas rutas;
-    public CollisionChecker cc = new CollisionChecker(this);
-    public Keyboard kb = new Keyboard(this);
-    public AssetSetter as = new AssetSetter(this);
-    public SoundPlayer sp = new SoundPlayer();
-    public LevelCreator lc = new LevelCreator(this);
-    public UserInterface ui = new UserInterface(this);
-    public Player player = new Player(this, kb);
+    public CollisionChecker cc ;
+    public Keyboard kb;
+    public AssetSetter as;
+    public SoundPlayer sp ;
+    public LevelCreator lc;
+    public UserInterface ui ;
+    public Player player;
     public ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<Entity> npcs = new ArrayList<Entity>();
     public ArrayList<Entity> enemies = new ArrayList<Entity>();
@@ -44,6 +44,13 @@ public class GamePanel extends JPanel implements Runnable{
 
     public GamePanel(Rutas rutas){
         this.rutas = rutas;
+        cc = new CollisionChecker(this);
+        kb = new Keyboard(this);
+        as = new AssetSetter(this);
+        sp = new SoundPlayer();
+        ui = new UserInterface(this);
+        player = new Player(this, kb);
+        lc = new LevelCreator(this);
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -162,6 +169,9 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public int getScreenWidth() {
         return screenWidth;
+    }
+    public int getScale(){
+        return scale;
     }
   public Rutas getRutas(){
     return this.rutas;
