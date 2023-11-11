@@ -36,6 +36,6 @@ public class WallFloor implements Item{
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, width, height);
+        //g.fillRect(x, y, width, height);
     }
 }

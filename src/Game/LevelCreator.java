@@ -70,7 +70,7 @@ public class LevelCreator {
                     npcs.add(new EstudianteRandom(gp, bloque*x, bloque*y, npcsize*bloque, npcsize*bloque));
                 }
                 else if(red == 111 && green == 49 && blue == 152){
-                    npcs.add(new Lemus(gp, bloque*x, bloque*y, 10*npcsize*bloque, 10*npcsize*bloque));
+                    npcs.add(new Lemus(gp, bloque*x, bloque*y, 3*npcsize*bloque, 3*npcsize*bloque));
                 }
                 else if(red == 0 && green == 183 && blue == 239){
                     npcs.add(new Odin(gp, bloque*x, bloque*y, npcsize*bloque, npcsize*bloque));
@@ -91,10 +91,10 @@ public class LevelCreator {
                     enemies.add(new Chinchentifica(gp, bloque*x, bloque*y, npcsize*bloque, npcsize*bloque));
                 }
                 else if(red == 255 && green == 126 && blue == 0){
-                    enemies.add(new ChincheGrandota(gp, bloque*x, bloque*y, 2*npcsize*bloque, 2*npcsize*bloque));
+                    enemies.add(new ChincheGrandota(gp, bloque*x, bloque*y, 3*npcsize*bloque, 3*npcsize*bloque));
                 }
                 else if(red == 255 && green == 163 && blue == 177){
-                    enemies.add(new ChincheDirector(gp, bloque*x, bloque*y, npcsize*bloque, npcsize*bloque));
+                    enemies.add(new ChincheDirector(gp, bloque*x, bloque*y, 3*npcsize*bloque, 3*npcsize*bloque));
                 }
                 else{
 

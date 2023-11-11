@@ -16,7 +16,7 @@ public abstract class Enemy implements Entity, Cloneable{
     public int y;
     public int height;
     public int width;
-    public BufferedImage image;
+    public BufferedImage imagen;
     public String direction;
     public int life;
     public Rectangle box = new Rectangle(0,0,128, 64);
@@ -96,7 +96,7 @@ public abstract class Enemy implements Entity, Cloneable{
      * @param Graphics2D g2
      */
     public void paint(Graphics g){
-        g.drawImage(image, x, y, width, height, null);
+        g.drawImage(imagen, x, y, width, height, null);
     }
 
     public boolean getCollision(){

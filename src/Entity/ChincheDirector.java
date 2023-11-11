@@ -17,6 +17,6 @@ public class ChincheDirector extends Enemy{
 
   @Override
   public void getEntityImage() {
-    image = gp.getRutas().getImagen("naranja.png");
+    imagen = gp.getRutas().getImagen("chinchedirector.png");
   }
 }

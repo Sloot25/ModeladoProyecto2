@@ -17,6 +17,6 @@ public class ChincheGrandota extends Enemy{
 
   @Override
   public void getEntityImage() {
-    image = gp.getRutas().getImagen("pera.png");
+    imagen = gp.getRutas().getImagen("chinche.png");
   }
 }

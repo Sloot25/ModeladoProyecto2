@@ -14,6 +14,6 @@ public class Chinchentifica extends Enemy{
   }
   @Override
   public void getEntityImage() {
-    image = gp.getRutas().getImagen("banana.png");
+    imagen = gp.getRutas().getImagen("chinchentifica.png");
   }
 }
