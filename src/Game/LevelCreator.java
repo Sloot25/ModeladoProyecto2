@@ -22,6 +22,7 @@ import Entity.Rosa;
 import Entity.Vero;
 import Entity.Entity;
 import Item.Item;
+import Item.StairsDown;
 import Item.StairsUp;
 import Item.WallFloor;
 
@@ -60,7 +61,10 @@ public class LevelCreator {
                     items.add(new WallFloor(bloque*x, bloque*y, bloque, bloque, true, 0));
                 }
                 else if(red == 47 && green == 54 && blue == 153){
-                    items.add(new StairsUp(bloque*x, bloque*y, bloque, bloque, true, 1));
+                    items.add(new StairsUp(bloque*x, bloque*y, bloque, bloque, false, 1));
+                }
+                else if(red == 181 && green == 165 && blue == 213){
+                    items.add(new StairsDown(bloque*x, bloque*y, bloque, bloque, false, 2));
                 }
                 else if(red == 34 && green == 177 && blue == 76){
                     npcs.add(new EstudianteRandom(gp, bloque*x, bloque*y, npcsize*bloque, npcsize*bloque));

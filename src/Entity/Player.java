@@ -31,10 +31,10 @@ public class Player implements Entity {
     Rectangle box;
     String direction;
     boolean collision;
-    boolean jumping;
+    //boolean jumping;
     boolean talking;
-    boolean falling;
-    boolean walking;
+    //boolean falling;
+    //boolean walking;
     boolean onfloor;
 
     public Player(GamePanel gp, Keyboard kb) {
@@ -44,16 +44,13 @@ public class Player implements Entity {
         width = 50;
         box = new Rectangle(50, 50, width, height); // La caja es para revisar las colisiones
         collision = false;
-        jumping = false;
-        falling = true;
-        walking = false;
         talking = false;
         onfloor = false;
         x = 0;
         y = 0;
         speedX = 0;
         speedY = 0;
-        gravity = 0.2;
+        gravity = 0;
         direction = "right";
         life = 1000;
         getEntityImage();
@@ -84,16 +81,22 @@ public class Player implements Entity {
         else{
             direction = "";
         }
-        gravity = 0.2;
+        onfloor = gp.cc.checkOnFloor(this);
+        if (onfloor == false) {
+            gravity = 0.2;
+            speedY += gravity;
+        }
+        else{
+            gravity = 0;
+        }
+        y += speedY;
+        x += speedX;
         gp.cc.checkItem(this);
         switch (direction) {
             case "up":
-                if (jumping || falling) {
-
-                } else {
+                if (onfloor) {
                     speedY = -10;
                     gravity = 0.2;
-                    jumping = true;
                     onfloor = false;
                 }
                 break;
@@ -106,22 +109,11 @@ public class Player implements Entity {
             case "right":
                 speedX = getVelocidad();
                 break;
-            default: 
+            default:
                 speedX = 0;
         }
-        if (gravity <= 0 && jumping) {
-            jumping = false;
-        }
-        if (!onfloor) {
-            falling = true;
-        } else {
-            falling = false;
-        }
-        if (jumping || falling) {
-            speedY += gravity;
-        }
-        y += speedY;
-        x += speedX;
+
+        //System.out.println();
     }
 
     public void paint(Graphics g) {
@@ -189,11 +181,11 @@ public class Player implements Entity {
     }
 
     public Rectangle getBoxRight() {
-        return new Rectangle(x + height - 1, y, 1, height);
+        return new Rectangle(x + height - 1, y+1, 1, height-2);
     }
 
     public Rectangle getBoxLeft() {
-        return new Rectangle(x, y, 1, height);
+        return new Rectangle(x, y+1, 1, height-2);
     }
 
     @Override
@@ -203,30 +195,6 @@ public class Player implements Entity {
 
     public void setDirection(String direction) {
         this.direction = direction;
-    }
-
-    public boolean getJumping() {
-        return jumping;
-    }
-
-    public void setJumping(boolean jumping) {
-        this.jumping = jumping;
-    }
-
-    public boolean getWalking() {
-        return walking;
-    }
-
-    public void setWalking(boolean walking) {
-        this.walking = walking;
-    }
-
-    public boolean getFalling() {
-        return falling;
-    }
-
-    public void setFalling(boolean falling) {
-        this.falling = falling;
     }
 
     public boolean isOnFloor() {

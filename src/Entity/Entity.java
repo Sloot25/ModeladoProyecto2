@@ -27,10 +27,6 @@ public interface Entity{
     public double getSpeedY();
     public void setGravity(double d);
     public double getGravity();
-    public void setJumping(boolean b);
-    public boolean getJumping();
-    public void setFalling(boolean b);
-    public boolean getFalling();
     public void setOnFloor(boolean b);
     public boolean isOnFloor();
 }

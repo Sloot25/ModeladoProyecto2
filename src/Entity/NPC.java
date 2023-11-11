@@ -86,7 +86,7 @@ public abstract class NPC implements Entity{
             conversation = null;
         }
     }
-    public void addConversation(String path){
+    public void addConversation(String text){
         Conversation c = new Conversation(this, false);
         conversations.add(c);
     }
@@ -175,29 +175,6 @@ public abstract class NPC implements Entity{
     }
     public void setDirection(String direction){
         this.direction = direction;
-    }
-    public boolean getJumping() {
-        return jumping;
-    }
-
-    public void setJumping(boolean jumping) {
-        this.jumping = jumping;
-    }
-
-    public boolean getWalking() {
-        return walking;
-    }
-
-    public void setWalking(boolean walking) {
-        this.walking = walking;
-    }
-
-    public boolean getFalling() {
-        return falling;
-    }
-
-    public void setFalling(boolean falling) {
-        this.falling = falling;
     }
     public boolean isOnFloor(){
         return onFloor;

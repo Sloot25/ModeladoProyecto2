@@ -24,9 +24,6 @@ public abstract class Enemy implements Entity, Cloneable{
     double speedY;
     double gravity;
     boolean collision;
-    boolean jumping;
-    boolean falling;
-    boolean walking;
     boolean onfloor;
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
@@ -37,10 +34,8 @@ public abstract class Enemy implements Entity, Cloneable{
         this.height = height;
         this.gravity = 5;
         Rectangle box = new Rectangle(x, y, width, height);
-        falling = true;
-        jumping = false;
-        walking = false;
         direction = "left";
+        onfloor = false;
         collision = false;
         getEntityImage();
     }
@@ -60,6 +55,14 @@ public abstract class Enemy implements Entity, Cloneable{
         gp.cc.checkItem(this);
         gp.cc.checkEnemy(this);
         boolean attackPlayer = gp.cc.checkPlayer(this);
+        onfloor = gp.cc.checkOnFloor(this);
+        if (onfloor == false) {
+            gravity = 0.2;
+            speedY += gravity;
+        }
+        else{
+            gravity = 0;
+        }
         x+=speedX;
         y+=speedY;
         if(collision == false){
@@ -153,24 +156,6 @@ public abstract class Enemy implements Entity, Cloneable{
     }
     public void setDirection(String direction){
         this.direction = direction;
-    }
-    public boolean getJumping() {
-        return jumping;
-    }
-    public void setJumping(boolean jumping) {
-        this.jumping = jumping;
-    }
-    public boolean getWalking() {
-        return walking;
-    }
-    public void setWalking(boolean walking) {
-        this.walking = walking;
-    }
-    public boolean getFalling() {
-        return falling;
-    }
-    public void setFalling(boolean falling) {
-        this.falling = falling;
     }
     public boolean isOnFloor(){
         return onfloor;

@@ -51,12 +51,9 @@ public class CollisionChecker {
             if(i.isSolid()){
                 if(entity.getBoxUp().intersects(i.getBox())){
                     entity.setSpeedY(0);
-                    entity.setJumping(false);
                 }
                 if(entity.getBoxDown().intersects(i.getBox())){
                     entity.setSpeedY(0);
-                    entity.setGravity(0);
-                    entity.setFalling(false);
                     entity.setOnFloor(true);
                 }
                 if(entity.getBoxLeft().intersects(i.getBox())){
@@ -73,5 +70,13 @@ public class CollisionChecker {
                 }
             }
         }
+    }
+    public boolean checkOnFloor(Entity entity){
+        for(Item i: gp.items){
+                if(entity.getBoxDown().intersects(i.getBox())){
+                return true;
+            }
+        }
+        return false;
     }
 }
