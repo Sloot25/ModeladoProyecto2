@@ -13,17 +13,17 @@ public class EstudianteRandom extends NPC {
         super(gp, x, y, width, height);
     } 
 
-    public void interact(){
-        System.out.println("AAAAA me la estan tocando");
+    public void getEntityImage(){
+      imagen = gp.getRutas().getImagen("estudiante.png");
     }
 
-    public void getNPCImages(){
-        try {
-            image = ImageIO.read(new File("src\\res\\carrot.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    @Override
+    public void interact() {
+        gp.player.startTalking("Mi abuelo siempre decia Usa las flechas para moverte");
+        int time = 0;
+        time++;
+        if(time>20)
+            gp.player.startTalking("Toma esto, te ayudara en tu viaje");
     }
 
     @Override 

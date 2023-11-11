@@ -13,7 +13,7 @@ public class ChincheChikita extends Enemy{
         super(gp, x, y , width, height);
     }
 
-    public void getEnemyImages(){
+    public void getEntityImage(){
         try {
             image = ImageIO.read(new File("src\\res\\apple.png"));
         } catch (IOException e) {
@@ -25,4 +25,7 @@ public class ChincheChikita extends Enemy{
     public void attack() {
         gp.player.setLife(gp.player.getLife() - 100);
     }  
+    public Enemy clonar() throws CloneNotSupportedException{
+        return (Enemy) this.clone();
+    }
 }

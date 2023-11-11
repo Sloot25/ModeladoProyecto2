@@ -12,11 +12,10 @@ import Game.GamePanel;
 public abstract class NPC implements Entity{
     GamePanel gp;
     int x, y, life, height, width;
-    Double speedX, speedY;
-    Double accel;
-    BufferedImage image;
+    double speedX, speedY, gravity;
+    BufferedImage imagen;
     String direction;
-    Boolean talking, collision, falling, walking, jumping;
+    boolean talking, collision, falling, walking, jumping, onFloor;
     ArrayList<Conversation> conversations;
     Conversation conversation;
 
@@ -27,18 +26,18 @@ public abstract class NPC implements Entity{
         this.width = width; 
         this.height = height;
         conversations = new ArrayList<Conversation>();
-        direction = "left";
+        direction = "";
         speedX = 0.0;
         speedY = 0.0;
-        accel = 0.0;
+        gravity = 0.0;
         talking = false;
         falling = true;
-        getNPCImages();
+        getEntityImage();
     }
     /*
      * Obtiene las imagenes del personaje
      */
-    public abstract void getNPCImages();
+    public abstract void getEntityImage();
     /*
      * El npc hace algo
      */
@@ -48,16 +47,37 @@ public abstract class NPC implements Entity{
      * Actualiza la posicion y sprite del npc
      */
     public void update(){
-        if(falling)
-            accel = 5.0;
-        x += speedX;
-        y += speedY;
-        speedY += accel;
         gp.cc.checkItem(this);
         gp.cc.checkNPC(this);
-        if(talking && conversation != null){
-            conversation.update();
+        boolean seePlayer = gp.cc.checkPlayer(this);
+        x+=speedX;
+        y+=speedY;
+        if(collision == false){
+            switch(direction){
+                case "left":
+                    speedX += .02;
+                    break;
+                case "right":
+                    speedX -= .02;
+                    break;
+            }
         }
+        if(collision == true){
+            switch(direction){
+                case "left":
+                    direction = "right";
+                    collision = false;
+                    break;
+                case "right":
+                    direction = "left";
+                    collision = false;
+                    break;
+            }
+        }
+        if(seePlayer){
+            interact();
+        }
+
     }
     public void nextConversation(){
         if(!conversation.nextDialogue()){
@@ -92,7 +112,7 @@ public abstract class NPC implements Entity{
      * @param Graphics2D g2
      */
     public void paint(Graphics g){
-        g.drawImage(image, x, y, width, height, gp);
+        g.drawImage(imagen, x, y, width, height, gp);
         if(talking && conversation != null){
             conversation.paint(g);
         }
@@ -109,26 +129,33 @@ public abstract class NPC implements Entity{
     public int getY() {
         return y;
     }
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
     public Rectangle getBox() {
         return new Rectangle(x,y,width,height);
     }
-    public Double getSpeedX(){
+    public double getSpeedX(){
         return speedX;
     }
-    public Double getSpeedY(){
+    public double getSpeedY(){
         return speedY;
     }
-    public void setSpeedX(Double speedX){
+    public void setSpeedX(double speedX){
         this.speedX = speedX;
     }
-    public void setSpeedY(Double speedY){
+    public void setSpeedY(double speedY){
         this.speedY = speedY;
     }
-    public Double getAccel(){
-        return accel;
+    public double getGravity(){
+        return gravity;
     }
-    public void setAccel(Double accel){
-        this.accel = accel;
+
+    public void setGravity(double gravity){
+        this.gravity = gravity;
     }
     public Rectangle getBoxUp(){
         return new Rectangle(x,y,width,1);
@@ -146,27 +173,36 @@ public abstract class NPC implements Entity{
     public String getDirection() {
         return direction;
     }
-    public Boolean getJumping() {
+    public void setDirection(String direction){
+        this.direction = direction;
+    }
+    public boolean getJumping() {
         return jumping;
     }
 
-    public void setJumping(Boolean jumping) {
+    public void setJumping(boolean jumping) {
         this.jumping = jumping;
     }
 
-    public Boolean getWalking() {
+    public boolean getWalking() {
         return walking;
     }
 
-    public void setWalking(Boolean walking) {
+    public void setWalking(boolean walking) {
         this.walking = walking;
     }
 
-    public Boolean getFalling() {
+    public boolean getFalling() {
         return falling;
     }
 
-    public void setFalling(Boolean falling) {
+    public void setFalling(boolean falling) {
         this.falling = falling;
+    }
+    public boolean isOnFloor(){
+        return onFloor;
+    }
+    public void setOnFloor(boolean onFloor){
+        this.onFloor = onFloor;
     }
 }

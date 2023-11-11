@@ -6,7 +6,6 @@ import Entity.Enemy;
 import Entity.Entity;
 import Entity.NPC;
 import Item.Item;
-import Item.Objeto;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -51,24 +50,28 @@ public class CollisionChecker {
         for(Item i: gp.items){
             if(i.isSolid()){
                 if(entity.getBoxUp().intersects(i.getBox())){
-                    entity.setSpeedX(0.0);
+                    entity.setSpeedY(0);
                     entity.setJumping(false);
                 }
                 if(entity.getBoxDown().intersects(i.getBox())){
-                    entity.setSpeedX(0.0);
-                    entity.setAccel(0.0);
+                    entity.setSpeedY(0);
+                    entity.setGravity(0);
                     entity.setFalling(false);
+                    entity.setOnFloor(true);
                 }
                 if(entity.getBoxLeft().intersects(i.getBox())){
-                    entity.setSpeedY(0.0);
+                    entity.setSpeedX(-entity.getSpeedX());
+                    entity.setCollision(true);
+                    entity.setY(entity.getY()-1);
+                    entity.setDirection("right");
                 }
                 if(entity.getBoxRight().intersects(i.getBox())){
-                    entity.setSpeedY(0.0);
+                    entity.setSpeedX(-entity.getSpeedX());
+                    entity.setY(entity.getY()-1);
+                    entity.setCollision(true);
+                    entity.setDirection("left");
                 }
             }
-            else{
-               
-            }
         }
-    }    
+    }
 }

@@ -12,27 +12,30 @@ import Entity.Entity;
 import Entity.NPC;
 import Entity.Player;
 import Item.Item;
-import Item.Objeto;
 import State.Dead;
 import State.Menu;
 import State.Pause;
 import State.Play;
 import State.State;
+import res.Rutas.Rutas;
 
 public class GamePanel extends JPanel implements Runnable{
-    static int screenWidth = 1000;
-    static int screenHeight = 560;
-    int worldWidth = 2000;
-    int worldHeight = 1120;
-    int scale = 1;
+    int screenWidth = 1000;
+    int screenHeight = 500;
+    int scale = 6;
+    int worldWidth = 1000*scale;
+    int worldHeight = 200*scale;
     int fps = 60;
-    public CollisionChecker cc = new CollisionChecker(this);
-    public Keyboard kb = new Keyboard(this);
-    public AssetSetter as = new AssetSetter(this);
-    public SoundPlayer sp = new SoundPlayer();
-    public LevelCreator lc = new LevelCreator(this);
-    public UserInterface ui = new UserInterface(this);
-    public Player player = new Player(this, kb);
+    int camx;
+    int camy;
+    Rutas rutas;
+    public CollisionChecker cc ;
+    public Keyboard kb;
+    public AssetSetter as;
+    public SoundPlayer sp ;
+    public LevelCreator lc;
+    public UserInterface ui ;
+    public Player player;
     public ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<NPC> npcs = new ArrayList<NPC>();
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -45,7 +48,15 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
 
 
-    public GamePanel(){
+    public GamePanel(Rutas rutas){
+        this.rutas = rutas;
+        cc = new CollisionChecker(this);
+        kb = new Keyboard(this);
+        as = new AssetSetter(this);
+        sp = new SoundPlayer();
+        ui = new UserInterface(this);
+        player = new Player(this, kb);
+        lc = new LevelCreator(this);
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -104,13 +115,14 @@ public class GamePanel extends JPanel implements Runnable{
         for(Entity enemy: enemies){
             enemy.update();
         }
-        cam.update(this);
+        camx = -player.getX()+getWidth()/2;
+        camy = -player.getY()+getHeight()/2;
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
      */
     public void paintComponent(Graphics g){
-        g.translate(cam.getX(), cam.getY());
+        g.translate(camx, camy);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
@@ -163,6 +175,13 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public int getScreenWidth() {
         return screenWidth;
+    }
+    public int getScale() {
+        return scale;
+    }
+
+    public Rutas getRutas(){
+        return rutas;
     }
     
 }
