@@ -15,7 +15,7 @@ public abstract class NPC implements Entity{
     double speedX, speedY, gravity;
     BufferedImage imagen;
     String direction;
-    boolean talking, collision, falling, walking, jumping, onFloor;
+    boolean talking, collision, onfloor;
     ArrayList<Conversation> conversations;
     Conversation conversation;
 
@@ -31,7 +31,6 @@ public abstract class NPC implements Entity{
         speedY = 0.0;
         gravity = 0.0;
         talking = false;
-        falling = true;
         getEntityImage();
     }
     /*
@@ -50,15 +49,23 @@ public abstract class NPC implements Entity{
         gp.cc.checkItem(this);
         gp.cc.checkNPC(this);
         boolean seePlayer = gp.cc.checkPlayer(this);
+        onfloor = gp.cc.checkOnFloor(this);
+        if (onfloor == false) {
+            gravity = 0.2;
+            speedY += gravity;
+        }
+        else{
+            gravity = 0;
+        }
         x+=speedX;
         y+=speedY;
         if(collision == false){
             switch(direction){
                 case "left":
-                    speedX += .02;
+                    speedX = -5;
                     break;
                 case "right":
-                    speedX -= .02;
+                    speedX = 5;
                     break;
             }
         }
@@ -157,17 +164,20 @@ public abstract class NPC implements Entity{
     public void setGravity(double gravity){
         this.gravity = gravity;
     }
-    public Rectangle getBoxUp(){
-        return new Rectangle(x,y,width,1);
+    public Rectangle getBoxUp() {
+        return new Rectangle(x+5, y, width-10, 1);
     }
-    public Rectangle getBoxDown(){
-        return new Rectangle(x,y+width-1,width,1);
+
+    public Rectangle getBoxDown() {
+        return new Rectangle(x+5, y + width - 1, width-10, 1);
     }
-    public Rectangle getBoxRight(){
-        return new Rectangle(x+height-1,y,1,height);
+
+    public Rectangle getBoxRight() {
+        return new Rectangle(x + height - 1, y+5, 1, height-10);
     }
-    public Rectangle getBoxLeft(){
-        return new Rectangle(x,y,1,height);
+
+    public Rectangle getBoxLeft() {
+        return new Rectangle(x, y+5, 1, height-10);
     }
     @Override
     public String getDirection() {
@@ -177,9 +187,9 @@ public abstract class NPC implements Entity{
         this.direction = direction;
     }
     public boolean isOnFloor(){
-        return onFloor;
+        return onfloor;
     }
-    public void setOnFloor(boolean onFloor){
-        this.onFloor = onFloor;
+    public void setOnFloor(boolean onfloor){
+        this.onfloor = onfloor;
     }
 }

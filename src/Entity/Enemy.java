@@ -68,10 +68,10 @@ public abstract class Enemy implements Entity, Cloneable{
         if(collision == false){
             switch(direction){
                 case "left":
-                    speedX += .02;
+                    speedX = 1;
                     break;
                 case "right":
-                    speedX -= .02;
+                    speedX = -1;
                     break;
             }
         }
@@ -138,18 +138,23 @@ public abstract class Enemy implements Entity, Cloneable{
     public void setGravity(double gravity){
         this.gravity = gravity;
     }
-    public Rectangle getBoxUp(){
-        return new Rectangle(x,y,width,1);
+
+    public Rectangle getBoxUp() {
+        return new Rectangle(x+5, y, width-10, 1);
     }
-    public Rectangle getBoxDown(){
-        return new Rectangle(x,y+width-1,width,1);
+
+    public Rectangle getBoxDown() {
+        return new Rectangle(x+5, y + width - 1, width-10, 1);
     }
-    public Rectangle getBoxRight(){
-        return new Rectangle(x+height-1,y,1,height);
+
+    public Rectangle getBoxRight() {
+        return new Rectangle(x + height - 1, y+5, 1, height-10);
     }
-    public Rectangle getBoxLeft(){
-        return new Rectangle(x,y,1,height);
+
+    public Rectangle getBoxLeft() {
+        return new Rectangle(x, y+5, 1, height-10);
     }
+
     @Override
     public String getDirection() {
         return direction;

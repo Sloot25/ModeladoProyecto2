@@ -51,7 +51,7 @@ public class Player implements Entity {
         speedX = 0;
         speedY = 0;
         gravity = 0;
-        direction = "right";
+        direction = "";
         life = 1000;
         getEntityImage();
     }
@@ -177,15 +177,15 @@ public class Player implements Entity {
     }
 
     public Rectangle getBoxDown() {
-        return new Rectangle(x+5, y + width - 1, width-10, 1);
+        return new Rectangle(x+5, y + width - 5, width-10, 5);
     }
 
     public Rectangle getBoxRight() {
-        return new Rectangle(x + height - 1, y+1, 1, height-2);
+        return new Rectangle(x + height - 1, y+5, 1, height-10);
     }
 
     public Rectangle getBoxLeft() {
-        return new Rectangle(x, y+1, 1, height-2);
+        return new Rectangle(x, y+5, 1, height-10);
     }
 
     @Override

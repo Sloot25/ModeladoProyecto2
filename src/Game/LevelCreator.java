@@ -94,7 +94,7 @@ public class LevelCreator {
                     enemies.add(new ChincheGrandota(gp, bloque*x, bloque*y, 2*npcsize*bloque, 2*npcsize*bloque));
                 }
                 else if(red == 255 && green == 163 && blue == 177){
-                    enemies.add(new ChincheDirector(gp, x, y, npcsize*bloque, npcsize*bloque));
+                    enemies.add(new ChincheDirector(gp, bloque*x, bloque*y, npcsize*bloque, npcsize*bloque));
                 }
                 else{
 

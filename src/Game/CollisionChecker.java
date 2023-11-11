@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Entity.Enemy;
 import Entity.Entity;
 import Entity.NPC;
+import Entity.Player;
 import Item.Item;
 
 public class CollisionChecker {
@@ -51,22 +52,23 @@ public class CollisionChecker {
             if(i.isSolid()){
                 if(entity.getBoxUp().intersects(i.getBox())){
                     entity.setSpeedY(0);
+                    entity.setY(entity.getY()+gp.getScale());
                 }
                 if(entity.getBoxDown().intersects(i.getBox())){
                     entity.setSpeedY(0);
                     entity.setOnFloor(true);
                 }
                 if(entity.getBoxLeft().intersects(i.getBox())){
-                    entity.setSpeedX(-entity.getSpeedX());
                     entity.setCollision(true);
                     entity.setY(entity.getY()-1);
-                    entity.setDirection("right");
+                    entity.setX(entity.getX()+gp.getScale());
+                    //entity.setDirection("right");
                 }
                 if(entity.getBoxRight().intersects(i.getBox())){
-                    entity.setSpeedX(-entity.getSpeedX());
-                    entity.setY(entity.getY()-1);
+                    //entity.setY(entity.getY()-1);
+                    entity.setX(entity.getX()-gp.getScale());
                     entity.setCollision(true);
-                    entity.setDirection("left");
+                    //entity.setDirection("left");
                 }
             }
         }
