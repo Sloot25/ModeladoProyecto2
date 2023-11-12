@@ -41,10 +41,10 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public Camara cam = new Camara();
     State estadoActual;
-    State menu = new Menu();
-    State dead = new Dead();
-    State pause = new Pause();
-    State play = new Play();
+    // State menu = new Menu();
+    // State dead = new Dead();
+    // State pause = new Pause();
+    // State play = new Play();
     Thread gameThread;
 
 
@@ -145,8 +145,11 @@ public class GamePanel extends JPanel implements Runnable{
      * Regresa el estado actual
      * @return State estadoActual
      */
-    public State getState() {
+    public State getEstado() {
         return estadoActual;
+    }
+    public void setEstado(State estadoActual){
+      this.estadoActual = estadoActual;
     }
     /*
      * Regresa la altura del mundo
@@ -176,12 +179,11 @@ public class GamePanel extends JPanel implements Runnable{
     public int getScreenWidth() {
         return screenWidth;
     }
-    public int getScale() {
+    public int getScale(){
         return scale;
     }
-
-    public Rutas getRutas(){
-        return rutas;
-    }
+  public Rutas getRutas(){
+    return this.rutas;
+  }
     
 }

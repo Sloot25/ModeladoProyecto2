@@ -18,7 +18,7 @@ public class Keyboard implements KeyListener{
 
     public Keyboard(GamePanel gp){
         this.gp = gp;
-        state = gp.getState();
+        state = gp.getEstado();
     }
     /*
      * Revisa si el jugador ha presionado una tecla

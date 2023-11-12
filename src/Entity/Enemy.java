@@ -28,6 +28,7 @@ public abstract class Enemy implements Entity, Cloneable{
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
+        player = gp.player;
         this.x = x; 
         this.y = y;
         this.width = width; 

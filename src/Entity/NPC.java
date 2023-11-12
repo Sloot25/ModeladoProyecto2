@@ -25,7 +25,6 @@ public abstract class NPC implements Entity{
         this.y = y;
         this.width = width; 
         this.height = height;
-        conversations = new ArrayList<Conversation>();
         direction = "";
         speedX = 0.0;
         speedY = 0.0;
@@ -35,6 +34,7 @@ public abstract class NPC implements Entity{
     }
     /*
      * Obtiene las imagenes del personaje
+     * Metodo perteneciente a la interfaz entity
      */
     public abstract void getEntityImage();
     /*
