@@ -1,5 +1,6 @@
 package Entity;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -8,10 +9,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import res.Rutas.Rutas;
 import Game.GamePanel;
 import Game.Keyboard;
 
-public class Player{
+public class Player implements Entity {
     GamePanel gp;
     Keyboard kb;
     BufferedImage image;
@@ -19,43 +21,42 @@ public class Player{
     int y;
     int screenX;
     int screenY;
-    int speedX;
-    int speedY;
+    double speedX;
+    double speedY;
     int width;
     int height;
     int score;
     int life;
+    double gravity;
     Rectangle box;
-    int boxDefaultX;
-    int boxDefaultY;
     String direction;
-    Boolean collision;
+    boolean collision;
+    //boolean jumping;
+    boolean talking;
+    //boolean falling;
+    //boolean walking;
+    boolean onfloor;
 
-    public Player(GamePanel gp, Keyboard kb){
+    public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
         this.kb = kb;
         height = 50;
         width = 50;
-        screenX = gp.getScreenWidth()/2 - width/2;
-        screenY = gp.getScreenHeight()/2 - height/2;
-        box = new Rectangle(50,50,width,height);
-        boxDefaultX = box.x;
-        boxDefaultY = box.y;
+        box = new Rectangle(50, 50, width, height); // La caja es para revisar las colisiones
         collision = false;
-        setDefaultValues();
-        getPlayerImages();
-    }
-    
-    public void setDefaultValues(){
-        x = 200;
-        y = 200;
-        speedX = 5;
-        speedY = 5;
-        direction = "left";
-        life = 100;
+        talking = false;
+        onfloor = false;
+        x = 0;
+        y = 0;
+        speedX = 0;
+        speedY = 0;
+        gravity = 0;
+        direction = "";
+        life = 1000;
+        getEntityImage();
     }
 
-    public void getPlayerImages(){
+    public void getEntityImage() {
         try {
             image = ImageIO.read(new File("src\\res\\potato.png"));
         } catch (IOException e) {
@@ -63,76 +64,182 @@ public class Player{
         }
 
     }
-    public void update(){
-        if(kb.pressUp() == true){
+
+    public void update() {
+        if (kb.pressUp() == true) {
             direction = "up";
-        }
-        else if(kb.pressDown() == true){
+        } 
+        else if (kb.pressDown() == true) {
             direction = "down";
-        }
-        else if(kb.pressRight() == true){
+        }  
+        else if (kb.pressRight() == true) {
             direction = "right";
         }
-        else if(kb.pressLeft() == true){
+        else if (kb.pressLeft() == true) {
             direction = "left";
         }
-        collision = false;
-        if(collision == false){
-            switch(direction){
-                case "up":
-                    screenY -= speedY;
-                    break;
-                case "down":
-                    screenY += speedY;
-                    break;
-                case "left":
-                    screenX -= speedX;
-                    break;
-                case "right":
-                    screenX += speedX;
-                    break;
-            }
+        else{
+            direction = "";
         }
+        onfloor = gp.cc.checkOnFloor(this);
+        if (onfloor == false) {
+            gravity = 0.2;
+            speedY += gravity;
+        }
+        else{
+            gravity = 0;
+        }
+        y += speedY;
+        x += speedX;
+        gp.cc.checkItem(this);
+        switch (direction) {
+            case "up":
+                if (onfloor) {
+                    speedY = -10;
+                    gravity = 0.2;
+                    onfloor = false;
+                }
+                break;
+            case "down":
+                speedY = 0;
+                break;
+            case "left":
+                speedX = -getVelocidad();
+                break;
+            case "right":
+                speedX = getVelocidad();
+                break;
+            default:
+                speedX = 0;
+        }
+
+        //System.out.println();
     }
 
-    public void paint(Graphics2D g2){
-        int x = screenX;
-        int y = screenY;
-        /*
-        if(screenX > x){
-            x = (int) x;
-        }
-        if(screenY > y){
-            y = (int) y;
-        }
-        if((gp.getScreenWidth()-screenX)>(gp.getWorldWidth()-x)){
-            x = (int) (gp.getScreenWidth()-(gp.getWorldWidth()-x));
-        }
-        if((gp.getScreenHeight()-screenY)>(gp.getWorldHeight()-y)){
-            y = (int) (gp.getScreenHeight()-(gp.getScreenHeight()-y));
-        }
-        */
-        g2.drawImage(image, x, y, width, height, null);
+    public void paint(Graphics g) {
+        g.drawImage(image, x, y, width, height, null);
     }
-    public double getX() {
+
+    public boolean getCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
+    public int getX() {
         return x;
     }
-    public double getY() {
+
+    public int getY() {
         return y;
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public Rectangle getBox() {
-        return box;
+        return new Rectangle(x, y, width, height);
     }
-    public int getSpeed() {
-        return 0;
+
+    public double getSpeedX() {
+        return speedX;
     }
-    public void setCollision(boolean b) {
-        collision = b;
+
+    public double getSpeedY() {
+        return speedY;
     }
-    public int getBoxDefaultX(){
-        return boxDefaultX;
+
+    public void setSpeedX(double speedX) {
+        this.speedX = speedX;
     }
-    public int getBoxDefaultY(){
-        return boxDefaultY;
+
+    public void setSpeedY(double speedY) {
+        this.speedY = speedY;
     }
+
+    public double getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(double gravity) {
+        this.gravity = gravity;
+    }
+
+    public Rectangle getBoxUp() {
+        return new Rectangle(x+5, y, width-10, 1);
+    }
+
+    public Rectangle getBoxDown() {
+        return new Rectangle(x+5, y + width - 5, width-10, 5);
+    }
+
+    public Rectangle getBoxRight() {
+        return new Rectangle(x + height - 1, y+5, 1, height-10);
+    }
+
+    public Rectangle getBoxLeft() {
+        return new Rectangle(x, y+5, 1, height-10);
+    }
+
+    @Override
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public boolean isOnFloor() {
+        return onfloor;
+    }
+
+    public void setOnFloor(boolean onfloor) {
+        this.onfloor = onfloor;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public boolean isTalking() {
+        return false;
+    }
+
+    public void startTalking(String mensaje) {
+        talking = true;
+        gp.ui.talk(mensaje);
+    }
+
+    public int getAtaque() {
+        return 25;
+    }
+
+    public int getVelocidad() {
+        return 5;
+    }
+
+    public int getCadencia() {
+        return 10;
+    }
+
 }

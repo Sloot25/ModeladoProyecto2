@@ -6,7 +6,10 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import Entity.Enemy;
 import Entity.Entity;
+import Entity.NPC;
 import Entity.Player;
 import Item.Item;
 import State.Dead;
@@ -14,24 +17,29 @@ import State.Menu;
 import State.Pause;
 import State.Play;
 import State.State;
+import res.Rutas.Rutas;
 
 public class GamePanel extends JPanel implements Runnable{
-    int screenWidth = 800;
+    int screenWidth = 1000;
     int screenHeight = 500;
-    int worldWidth = 2000;
-    int worldHeight = 800;
-    int scale = 1;
+    int scale = 6;
+    int worldWidth = 1000*scale;
+    int worldHeight = 200*scale;
     int fps = 60;
-    public CollisionChecker cc = new CollisionChecker(this);
-    public Keyboard kb = new Keyboard(this);
-    public AssetSetter as = new AssetSetter();
-    public SoundPlayer sp = new SoundPlayer();
-    public LevelCreator lc = new LevelCreator();
-    public UserInterface ui = new UserInterface();
-    public Player player = new Player(this, kb);
+    int camx;
+    int camy;
+    Rutas rutas;
+    public CollisionChecker cc ;
+    public Keyboard kb;
+    public AssetSetter as;
+    public SoundPlayer sp ;
+    public LevelCreator lc;
+    public UserInterface ui ;
+    public Player player;
     public ArrayList<Item> items = new ArrayList<Item>();
-    public ArrayList<Entity> npcs = new ArrayList<Entity>();
-    public ArrayList<Entity> enemies = new ArrayList<Entity>();
+    public ArrayList<NPC> npcs = new ArrayList<NPC>();
+    public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    public Camara cam = new Camara();
     State estadoActual;
     State menu = new Menu();
     State dead = new Dead();
@@ -40,25 +48,39 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
 
 
-    public GamePanel(){
+    public GamePanel(Rutas rutas){
+        this.rutas = rutas;
+        cc = new CollisionChecker(this);
+        kb = new Keyboard(this);
+        as = new AssetSetter(this);
+        sp = new SoundPlayer();
+        ui = new UserInterface(this);
+        player = new Player(this, kb);
+        lc = new LevelCreator(this);
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(kb);
         this.setFocusable(true);
     }
-
+    /*
+     * Coloca las entidades y objetos en el mapa, así como preparar lo que sea necesario
+     */
     public void setGame(){
         as.setNPCs();
         as.setEnemies();
         as.setItems();
     }
-
+    /*
+     * Inicia el hilo de ejecución
+     */
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
     }
-
+    /*
+     * Mientras se este ejecutando el juego, este metodo debera actualizar y repintar el juego
+     */
     @Override
     public void run() {
         double interval = 1000000000/fps;
@@ -82,6 +104,9 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
+    /*
+     * Actualiza la posición y sprites de las entidades y objetos del juego
+     */
     public void update(){   
         player.update();
         for(Entity npc: npcs){
@@ -90,9 +115,14 @@ public class GamePanel extends JPanel implements Runnable{
         for(Entity enemy: enemies){
             enemy.update();
         }
+        camx = -player.getX()+getWidth()/2;
+        camy = -player.getY()+getHeight()/2;
     }
-
+    /*
+     * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
+     */
     public void paintComponent(Graphics g){
+        g.translate(camx, camy);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
@@ -111,21 +141,47 @@ public class GamePanel extends JPanel implements Runnable{
         ui.paint(g2);
         g2.dispose();
     }
-
+    /*
+     * Regresa el estado actual
+     * @return State estadoActual
+     */
     public State getState() {
         return estadoActual;
     }
+    /*
+     * Regresa la altura del mundo
+     * @return int 
+     */
     public int getWorldHeight() {
         return worldHeight;
     }
+    /*
+     * Regresa la altura de la pantalla, lo que puede ver el jugador
+     * @return int 
+     */
     public int getScreenHeight() {
         return screenHeight;
     }
+    /*
+     * Regresa el ancho del mundo
+     * @return int
+     */
     public int getWorldWidth() {
         return worldWidth;
     }
+    /*
+     * Regresa el ancho de la pantalla, lo que puede ver el jugador
+     * @return int
+     */
     public int getScreenWidth() {
         return screenWidth;
+    }
+    public int getScale() {
+        return scale;
+    }
+
+    public Rutas getRutas(){
+        return rutas;
     }
     
 }

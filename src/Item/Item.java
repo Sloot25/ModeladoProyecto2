@@ -1,10 +1,13 @@
 package Item;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
-public class Item {
+public interface Item {
+    public void paint(Graphics g);
 
-    public void paint(Graphics2D g2) {
-    }
-    
+	public boolean isSolid();
+
+    public Rectangle getBox();
 }

@@ -2,7 +2,11 @@ package Game;
 
 import java.util.ArrayList;
 
+import Entity.Enemy;
 import Entity.Entity;
+import Entity.NPC;
+import Entity.Player;
+import Item.Item;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -10,47 +14,71 @@ public class CollisionChecker {
     public CollisionChecker(GamePanel gp){
         this.gp = gp;
     }
-
+    /*
+     * Revisa si el jugador ha chocado con alguna entidad
+     */
     public boolean checkPlayer(Entity entity) {
         boolean contactPlayer = false;
-        entity.box.x = (int) (entity.getX() + entity.getBox().x);
-        entity.box.y = (int) (entity.getY() + entity.getBox().y);
-        gp.player.getBox().x =  (int) (gp.player.getX() + gp.player.getBox().x);
-        gp.player.getBox().y =  (int) (gp.player.getY() + gp.player.getBox().y);
-        switch(entity.direction){
-            case "up":
-                entity.getBox().y -= entity.getSpeed();
-            break;
-            case "down":
-                entity.getBox().y += entity.getSpeed();
-            break;
-            case "left":
-                entity.getBox().x -= entity.getSpeed();
-            break;
-            case "right":
-                entity.getBox().y += entity.getSpeed();
-            break;
-        }    
-        if(entity.getBox().intersects(gp.player.getBox())){
+        if(gp.player.getBox().intersects(entity.getBox())){
             entity.setCollision(true);
             contactPlayer = true;
         }
-        entity.getBox().x = entity.getBoxDefaultX();
-        entity.getBox().y = entity.getBoxDefaultY();
-        gp.player.getBox().x = gp.player.getBoxDefaultX();
-        gp.player.getBox().y = gp.player.getBoxDefaultY();    
         return contactPlayer;    
     }
-
-    public void checkEntity(Entity entity, ArrayList<Entity> entities) {
+    /*
+     * Revisa si alguna entidad choco con otra
+     */
+    public void checkNPC(NPC n) {
+            if(n!=null){
+                if(n.getBox().intersects(gp.player.getBox())){
+                    gp.player.setCollision(true);
+                    n.interact();
+                }
+            }
+        }
+    public void checkEnemy(Enemy e){
+            if(e!=null){
+                if(e.getBox().intersects(gp.player.getBox())){
+                    gp.player.setCollision(true);
+                    e.attack();
+                }
+            }
+        }
+    /*
+     * Revisa si alguna entidad ha chocado con una pared o piso
+     */
+    public void checkItem(Entity entity) {
+        for(Item i: gp.items){
+            if(i.isSolid()){
+                if(entity.getBoxUp().intersects(i.getBox())){
+                    entity.setSpeedY(0);
+                    entity.setY(entity.getY()+gp.getScale());
+                }
+                if(entity.getBoxDown().intersects(i.getBox())){
+                    entity.setSpeedY(0);
+                    entity.setOnFloor(true);
+                }
+                if(entity.getBoxLeft().intersects(i.getBox())){
+                    entity.setCollision(true);
+                    entity.setY(entity.getY()-1);
+                    entity.setX(entity.getX()+gp.getScale());
+                    //entity.setDirection("right");
+                }
+                if(entity.getBoxRight().intersects(i.getBox())){
+                    //entity.setY(entity.getY()-1);
+                    entity.setX(entity.getX()-gp.getScale());
+                    entity.setCollision(true);
+                    //entity.setDirection("left");
+                }
+            }
+        }
     }
-
-    public void checkItem(Entity entity, boolean b) {
+    public boolean checkOnFloor(Entity entity){
+        for(Item i: gp.items){
+                if(entity.getBoxDown().intersects(i.getBox())){
+                return true;
+            }
+        }
+        return false;
     }
-
-    public void checkTile(Entity entity) {
-    }
-
-
-    
 }
