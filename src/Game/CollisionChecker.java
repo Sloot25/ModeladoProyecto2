@@ -87,7 +87,7 @@ public class CollisionChecker {
                 if(player.getBox().intersects(i.getBox())){
                     i.setInRange(true);
                     if(gp.kb.pressW()){
-                        player.setY(player.getY()-gp.scale*90);
+                        player.setY(player.getY()-gp.scale*80);
                         i.setInRange(false);
                     }
                 }
@@ -96,7 +96,7 @@ public class CollisionChecker {
                 if(player.getBox().intersects(i.getBox())){
                     i.setInRange(true);
                     if(gp.kb.pressS()){
-                        player.setY(player.getY()+gp.scale*10);
+                        player.setY(player.getY()+gp.scale*20);
                         i.setInRange(false);
                     }
                 }

@@ -55,7 +55,7 @@ public class LevelCreator {
                 int green = (pixel>>8) & 0xff;
                 int blue = (pixel) & 0xff;
                 if(red == 255 && green == 255 && blue == 255){
-                    gp.player.setX(bloque*x-100);
+                    gp.player.setX(bloque*x-150);
                     gp.player.setY(bloque*y);
                 }
                 else if(red == 237 && green == 28 && blue == 36){
@@ -112,7 +112,7 @@ public class LevelCreator {
         }
     }
     public void paint(Graphics g) {
-        g.drawImage(image,0,0, gp.getWorldWidth(), gp.getWorldHeight(),null);
+        g.drawImage(image,-50*bloque,-56*bloque, gp.getWorldWidth()+123*bloque, gp.getWorldHeight()+105*bloque,null);
     }
     
 }
