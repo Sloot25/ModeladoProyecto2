@@ -7,6 +7,7 @@ public class ChincheChikita extends Enemy{
   private long cooldown = 2000;
   public ChincheChikita(GamePanel gp, int x, int y, int width, int height) {
       super(gp, x, y , width, height);
+      this.life = 150;
   }
   @Override
   public void getEntityImage(){

@@ -8,6 +8,7 @@ public class Chinchentifica extends Enemy{
 
   public Chinchentifica(GamePanel gp, int x, int y, int width, int height) {
       super(gp, x, y , width, height);
+      this.life = 250;
   }
   public void attack(){
     long time = System.currentTimeMillis();

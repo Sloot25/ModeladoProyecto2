@@ -3,6 +3,7 @@ package Entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList; 
 
 import Game.GamePanel;
 import Game.Keyboard;
@@ -25,6 +26,9 @@ public class Player implements Entity {
     Rectangle box;
     String direction;
     boolean collision;
+    private long ultimoAtaque; 
+    private long cooldown = 200;
+    private ArrayList<Proyectiles> proyectiles = new ArrayList<Proyectiles>();
     //boolean jumping;
     boolean talking;
     //boolean falling;
@@ -53,6 +57,9 @@ public class Player implements Entity {
     public void getEntityImage() {
       image = gp.getRutas().getImagen("potato.png");
     }
+    public void attack(Enemy enemigo){
+      enemigo.life -= getAtaque();
+    }
 
     public void update() {
         if (kb.pressUp() == true) {
@@ -66,6 +73,18 @@ public class Player implements Entity {
         }
         else if (kb.pressLeft() == true) {
             direction = "left";
+        }else if(kb.pressA()){
+          long time = System.currentTimeMillis();
+              if(time > ultimoAtaque + cooldown - getCadencia()){
+                atacarDetras();
+                ultimoAtaque = time;
+              }
+        }else if(kb.pressD()){
+          long time = System.currentTimeMillis();
+            if(time > ultimoAtaque + cooldown - getCadencia()){
+              atacarEnfrente();
+              ultimoAtaque = time;
+            }
         }
         else{
             direction = "";
@@ -102,11 +121,34 @@ public class Player implements Entity {
             default:
                 speedX = 0;
         }
+      for(int i = 0; i < proyectiles.size(); i++){
+        proyectiles.get(i).update();
+        gp.cc.checkProyectilItem(proyectiles.get(i));
+      }
         //System.out.println();
     }
+    public ArrayList<Proyectiles> getProyectiles(){
+      return proyectiles;
+    }
+    private void checarColisionAtaque(Proyectiles proyectil){
+        Rectangle area = proyectil.getBox();
+        for(Enemy enemigo : gp.enemies)
+          if(area.intersects(enemigo.getBox()))
+            proyectiles.remove(proyectil);
+    }
+
+    private void atacarEnfrente(){
+      proyectiles.add(new Proyectiles(gp.getRutas().getImagen("potato.png"), 1, x,y)); 
+    }
+    
+    private void atacarDetras(){
+      proyectiles.add(new Proyectiles(gp.getRutas().getImagen("potato.png"), -1, x, y));
+  }
 
     public void paint(Graphics g) {
         g.drawImage(image, x, y, width, height, null);
+        for(int i = 0; i < proyectiles.size(); i++)
+          proyectiles.get(i).paint(g);
     }
 
     public boolean getCollision() {

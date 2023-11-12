@@ -8,6 +8,7 @@ public class ChincheGrandota extends Enemy{
 
   public ChincheGrandota(GamePanel gp, int x, int y, int width, int height) {
     super(gp, x, y , width, height);
+    this.life = 500;
   }
 
   public void attack(){
