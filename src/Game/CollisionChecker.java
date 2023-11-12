@@ -1,7 +1,5 @@
 package Game;
 
-import java.util.ArrayList;
-
 import Entity.Enemy;
 import Entity.Entity;
 import Entity.NPC;

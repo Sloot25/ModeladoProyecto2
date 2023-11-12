@@ -1,15 +1,11 @@
 package Entity;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
-import res.Rutas.Rutas;
 import Game.GamePanel;
 import Game.Keyboard;
 
@@ -113,7 +109,6 @@ public class Player implements Entity {
             default:
                 speedX = 0;
         }
-
         //System.out.println();
     }
 

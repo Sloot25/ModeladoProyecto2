@@ -1,7 +1,5 @@
 package Game;
 
-import Entity.Entity;
-
 public class Camara {
     int x,y;
     public void update(GamePanel gp){

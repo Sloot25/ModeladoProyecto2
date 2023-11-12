@@ -1,12 +1,8 @@
 package Entity;
 import java.lang.Cloneable;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
-import Game.Conversation;
 import Game.GamePanel;
 
 public abstract class Enemy implements Entity, Cloneable{
@@ -19,7 +15,7 @@ public abstract class Enemy implements Entity, Cloneable{
     public BufferedImage imagen;
     public String direction;
     public int life;
-    public Rectangle box = new Rectangle(0,0,128, 64);
+    public Rectangle box;
     double speedX;
     double speedY;
     double gravity;

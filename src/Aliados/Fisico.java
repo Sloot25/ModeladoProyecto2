@@ -1,17 +1,36 @@
 package Aliados;
 
-import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import Entity.Player;
+import Game.GamePanel;
 
 public class Fisico implements Aliado {
-  private Player player;
-  public Fisico(Player player){
+  GamePanel gp;
+  BufferedImage imagen;
+  boolean onScreen;
+  private Player player; 
+  public Fisico(GamePanel gp, Player player){
+    this.gp = gp;
     this.player = player;
+    onScreen = false;
+    set();
   }
-  public void set(){}
+  public void set(){
+    imagen = gp.getRutas().getImagen("fisico.png");
+  }
   public void update(){}
   public void attack(){}
-  public void paint(Graphics2D g2){}
-
+  public void paint(Graphics g){
+    if(onScreen){
+      g.drawImage(imagen, player.getX()-200, player.getY()-200,null);
+    }
+  }
+  public boolean onScreen() {
+    return onScreen;
+  }
+  public void setOnScreen(boolean onScreen) {
+    this.onScreen = onScreen;
+  }
 }

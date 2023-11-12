@@ -1,11 +1,8 @@
 package Game;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
-
 import Entity.Canek;
 import Entity.ChincheChikita;
 import Entity.ChincheDirector;
@@ -18,7 +15,6 @@ import Entity.NPC;
 import Entity.Odin;
 import Entity.Rosa;
 import Entity.Vero;
-import Entity.Entity;
 import Item.Item;
 import Item.StairsDown;
 import Item.StairsUp;

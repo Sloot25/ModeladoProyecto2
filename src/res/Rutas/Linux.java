@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import Game.GamePanel;
 
 // Clase que contiene las rutas para un dispositivo tipo Linux
 public class Linux implements Rutas{

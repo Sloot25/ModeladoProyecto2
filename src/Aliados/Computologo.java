@@ -6,19 +6,19 @@ import java.awt.image.BufferedImage;
 import Entity.Player;
 import Game.GamePanel;
 
-public class Biologo implements Aliado{
-  GamePanel gp;
+public class Computologo implements Aliado{
+GamePanel gp;
   BufferedImage imagen;
   boolean onScreen;
   private Player player; 
-  public Biologo(GamePanel gp, Player player){
+  public Computologo(GamePanel gp, Player player){
     this.gp = gp;
     this.player = player;
     onScreen = false;
     set();
   }
   public void set(){
-    imagen = gp.getRutas().getImagen("biologo.png");
+    imagen = gp.getRutas().getImagen("computologo.png");
   }
   public void update(){}
   public void attack(){}
@@ -33,4 +33,5 @@ public class Biologo implements Aliado{
   public void setOnScreen(boolean onScreen) {
     this.onScreen = onScreen;
   }
+  
 }

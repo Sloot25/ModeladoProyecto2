@@ -7,15 +7,13 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import Aliados.Aliado;
+import Aliados.Telefono;
 import Entity.Enemy;
 import Entity.Entity;
 import Entity.NPC;
 import Entity.Player;
 import Item.Item;
-import State.Dead;
-import State.Menu;
-import State.Pause;
-import State.Play;
 import State.State;
 import res.Rutas.Rutas;
 
@@ -39,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<NPC> npcs = new ArrayList<NPC>();
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    public Telefono telefono;
     public Camara cam = new Camara();
     State estadoActual;
     // State menu = new Menu();
@@ -57,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
         ui = new UserInterface(this);
         player = new Player(this, kb);
         lc = new LevelCreator(this);
+        telefono = new Telefono(this, player, kb);
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -139,6 +139,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
         player.paint(g2);
         ui.paint(g2);
+        telefono.paint(g2);
         g2.dispose();
     }
     /*
