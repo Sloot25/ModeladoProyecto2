@@ -11,6 +11,10 @@ public class Keyboard implements KeyListener{
     Boolean down = false;
     Boolean right = false;
     Boolean left = false;
+    Boolean w = false;
+    Boolean s = false;
+    Boolean a = false;
+    Boolean d = false;
 
     public Keyboard(GamePanel gp){
         this.gp = gp;
@@ -41,6 +45,18 @@ public class Keyboard implements KeyListener{
         if(key == KeyEvent.VK_RIGHT){
             right = true;
         }
+        if(key == KeyEvent.VK_W){
+            w = true;
+        }
+        if(key== KeyEvent.VK_A){
+            a = true;
+        }
+        if(key == KeyEvent.VK_S){
+            s = true;
+        }
+        if(key == KeyEvent.VK_D){
+            d = true;
+        }
     }
     /*
      * Revisa si el jugador ha soltado la tecla que estaba presionando
@@ -59,6 +75,18 @@ public class Keyboard implements KeyListener{
         }
         if(key == KeyEvent.VK_RIGHT){
             right = false;
+        }
+        if(key == KeyEvent.VK_W){
+            w = false;
+        }
+        if(key== KeyEvent.VK_A){
+            a = false;
+        }
+        if(key == KeyEvent.VK_S){
+            s = false;
+        }
+        if(key == KeyEvent.VK_D){
+            d = false;
         }
     }
     /*
@@ -88,6 +116,18 @@ public class Keyboard implements KeyListener{
      */
     public Boolean pressLeft(){
         return left;
+    }
+    public Boolean pressW(){
+        return w;
+    }
+    public Boolean pressA(){
+        return a;
+    }
+    public Boolean pressS(){
+        return s;
+    }
+    public Boolean pressD(){
+        return d;
     }
     
 }

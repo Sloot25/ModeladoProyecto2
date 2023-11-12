@@ -1,10 +1,5 @@
 package Entity;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import Game.GamePanel;
 
 public class ChincheChikita extends Enemy{

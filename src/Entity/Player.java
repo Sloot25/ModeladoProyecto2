@@ -92,6 +92,7 @@ public class Player implements Entity {
         y += speedY;
         x += speedX;
         gp.cc.checkItem(this);
+        gp.cc.checkStairs(this);
         switch (direction) {
             case "up":
                 if (onfloor) {

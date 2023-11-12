@@ -6,7 +6,7 @@ import res.Rutas.Rutas;
 import res.Rutas.Windows;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws CloneNotSupportedException{
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

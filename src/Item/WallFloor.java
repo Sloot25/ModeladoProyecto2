@@ -14,6 +14,7 @@ public class WallFloor implements Item{
     int width; 
     int height; 
     boolean solid;
+    boolean inRange = false;
     int id;
     Rectangle box;
     public WallFloor(int x, int y, int width, int height, boolean solid, int id){
@@ -37,5 +38,11 @@ public class WallFloor implements Item{
     @Override
     public void paint(Graphics g) {
         //g.fillRect(x, y, width, height);
+    }
+    public boolean inRange(){
+        return inRange;
+    }
+      public void setInRange(boolean inRange){
+        this.inRange = inRange;
     }
 }

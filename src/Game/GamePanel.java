@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
 
 
-    public GamePanel(Rutas rutas){
+    public GamePanel(Rutas rutas) throws CloneNotSupportedException{
         this.rutas = rutas;
         cc = new CollisionChecker(this);
         kb = new Keyboard(this);

@@ -10,4 +10,6 @@ public interface Item {
 	public boolean isSolid();
 
     public Rectangle getBox();
+
+    public void setInRange(boolean b);
 }

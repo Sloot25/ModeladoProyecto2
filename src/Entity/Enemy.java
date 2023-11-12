@@ -68,10 +68,10 @@ public abstract class Enemy implements Entity, Cloneable{
         if(collision == false){
             switch(direction){
                 case "left":
-                    speedX = 1;
+                    speedX = -1;
                     break;
                 case "right":
-                    speedX = -1;
+                    speedX = 1;
                     break;
             }
         }

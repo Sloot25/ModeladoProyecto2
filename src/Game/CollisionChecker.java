@@ -7,6 +7,8 @@ import Entity.Entity;
 import Entity.NPC;
 import Entity.Player;
 import Item.Item;
+import Item.StairsDown;
+import Item.StairsUp;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -65,7 +67,7 @@ public class CollisionChecker {
                     //entity.setDirection("right");
                 }
                 if(entity.getBoxRight().intersects(i.getBox())){
-                    //entity.setY(entity.getY()-1);
+                    entity.setY(entity.getY()-1);
                     entity.setX(entity.getX()-gp.getScale());
                     entity.setCollision(true);
                     //entity.setDirection("left");
@@ -80,5 +82,30 @@ public class CollisionChecker {
             }
         }
         return false;
+    }
+    public void checkStairs(Player player){
+        for(Item i: gp.items){
+            if(i instanceof StairsUp){
+                if(player.getBox().intersects(i.getBox())){
+                    i.setInRange(true);
+                    if(gp.kb.pressW()){
+                        player.setY(player.getY()-gp.scale*90);
+                        i.setInRange(false);
+                    }
+                }
+            }
+            else if(i instanceof StairsDown){
+                if(player.getBox().intersects(i.getBox())){
+                    i.setInRange(true);
+                    if(gp.kb.pressS()){
+                        player.setY(player.getY()+gp.scale*10);
+                        i.setInRange(false);
+                    }
+                }
+            }
+            else{
+                i.setInRange(false);
+            }
+        }
     }
 }
