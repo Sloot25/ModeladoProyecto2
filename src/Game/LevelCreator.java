@@ -33,7 +33,7 @@ public class LevelCreator {
         bloque = gp.getScale();
         entitysize = 10;
         loadEnemies();
-        getPlayerImages();
+        getMapImages();
         createLevel();
     }
     public void loadEnemies(){
@@ -42,7 +42,7 @@ public class LevelCreator {
         BDEnemigos[2] = new Chinchentifica(gp, 0,0,entitysize*bloque,entitysize*bloque);
         BDEnemigos[3] = new ChincheDirector(gp, 0,0,3*entitysize*bloque,3*entitysize*bloque);
     }
-    public void getPlayerImages() {
+    public void getMapImages() {
         image = gp.getRutas().getImagen("fciencias.png");
         map = gp.getRutas().getImagen("fcienciasmap.png");
     }
