@@ -2,12 +2,19 @@ package Entity;
 
 import Game.GamePanel;
 public class Chinchentifica extends Enemy{
-  
+  private long cooldown = 2000;
+  private long ultimoAtaque;
+
+
   public Chinchentifica(GamePanel gp, int x, int y, int width, int height) {
       super(gp, x, y , width, height);
   }
   public void attack(){
-    gp.player.setLife(gp.player.getLife()-200);
+    long time = System.currentTimeMillis();
+    if(time > ultimoAtaque + cooldown){
+      gp.player.setLife(gp.player.getLife()-200);
+      ultimoAtaque = time;
+    }
 
   }
   public Enemy clonar() throws CloneNotSupportedException{

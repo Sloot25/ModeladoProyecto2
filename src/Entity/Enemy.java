@@ -21,6 +21,7 @@ public abstract class Enemy implements Entity, Cloneable{
     double gravity;
     boolean collision;
     boolean onfloor;
+    
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
