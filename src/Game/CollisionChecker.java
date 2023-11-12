@@ -62,12 +62,12 @@ public class CollisionChecker {
                 }
                 if(entity.getBoxLeft().intersects(i.getBox())){
                     entity.setCollision(true);
-                    entity.setY(entity.getY()-1);
+                    entity.setY(entity.getY()-gp.getScale());
                     entity.setX(entity.getX()+gp.getScale());
                     //entity.setDirection("right");
                 }
                 if(entity.getBoxRight().intersects(i.getBox())){
-                    entity.setY(entity.getY()-1);
+                    entity.setY(entity.getY()-gp.getScale());
                     entity.setX(entity.getX()-gp.getScale());
                     entity.setCollision(true);
                     //entity.setDirection("left");

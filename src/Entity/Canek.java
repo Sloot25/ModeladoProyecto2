@@ -8,12 +8,10 @@ public class Canek extends NPC{
   }
   public void getEntityImage(){
     // Ingresar la ruta del personaje de canek
-    imagen = gp.getRutas().getImagen("");
+    imagen = gp.getRutas().getImagen("canek.png");
   }
   public void interact(){
-    // TODO Se debe implementar la interaccion con el jugador
-    // Importante poner en el mensaje: 
-    // "Eres una decepcion"
+    gp.player.startTalking("¿Ya acabaste con las chinches? ¿No? Estoy muy decepcionado de ti");
   }
 
 }

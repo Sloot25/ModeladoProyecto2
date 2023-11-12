@@ -9,11 +9,11 @@ public class ChincheChikita extends Enemy{
   }
   @Override
   public void getEntityImage(){
-    image = this.gp.getRutas().getImagen("apple.png");
+    imagen = this.gp.getRutas().getImagen("chinche.png");
   }
   @Override
   public void attack() {
-      gp.player.setVida(gp.player.getVida() - 100);
+      gp.player.setLife(gp.player.getLife() - 100);
   }  
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
