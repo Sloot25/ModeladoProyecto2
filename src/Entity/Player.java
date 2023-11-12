@@ -29,6 +29,8 @@ public class Player implements Entity {
     private long ultimoAtaque; 
     private long cooldown = 200;
     private ArrayList<Proyectiles> proyectiles = new ArrayList<Proyectiles>();
+    private ArrayList<BufferedImage> imagenesProyectiles = new ArrayList<BufferedImage>();
+    private int indiceProyectil = 0;
     //boolean jumping;
     boolean talking;
     //boolean falling;
@@ -38,6 +40,7 @@ public class Player implements Entity {
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
         this.kb = kb;
+        this.imagenesProyectiles.add(gp.getRutas().getImagen("Html.png"));
         height = 50;
         width = 50;
         box = new Rectangle(50, 50, width, height); // La caja es para revisar las colisiones
@@ -127,6 +130,10 @@ public class Player implements Entity {
       }
         //System.out.println();
     }
+    private void cambiarImagen(){
+      indiceProyectil = (indiceProyectil < imagenesProyectiles.size()-1) ? indiceProyectil+1 : 0;
+      
+    }
     public ArrayList<Proyectiles> getProyectiles(){
       return proyectiles;
     }
@@ -138,12 +145,14 @@ public class Player implements Entity {
     }
 
     private void atacarEnfrente(){
-      proyectiles.add(new Proyectiles(gp.getRutas().getImagen("potato.png"), 1, x,y)); 
+      proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), 1, x,y)); 
+      cambiarImagen();
     }
     
     private void atacarDetras(){
-      proyectiles.add(new Proyectiles(gp.getRutas().getImagen("potato.png"), -1, x, y));
-  }
+      proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), -1, x, y));
+      cambiarImagen();
+    }
 
     public void paint(Graphics g) {
         g.drawImage(image, x, y, width, height, null);
