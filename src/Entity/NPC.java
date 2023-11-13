@@ -3,7 +3,6 @@ package Entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import Game.GamePanel;
 
@@ -43,7 +42,7 @@ public abstract class NPC implements Entity{
      */
     public void update(){
         gp.cc.checkItem(this);
-        gp.cc.checkNPC(this);
+        //gp.cc.checkNPC(this);
         boolean seePlayer = gp.cc.checkPlayer(this);
         onfloor = gp.cc.checkOnFloor(this);
         if (onfloor == false) {

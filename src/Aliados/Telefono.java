@@ -1,8 +1,8 @@
 package Aliados;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
-
 import Entity.Player;
 import Game.GamePanel;
 import Game.Keyboard;
@@ -11,6 +11,7 @@ public class Telefono {
     Keyboard kb;
     GamePanel gp;
     Player player;
+    Aliado aliado;
     Actuario actuario;
     Biologo biologo;
     Computologo computologo;
@@ -39,9 +40,15 @@ public class Telefono {
         matematico = new Matematico(gp, player);
     }
 
+    public void update(){
+        if(aliado!=null){
+            aliado.update();
+        }
+    }
+
     public void paint(Graphics g) {
         Random random = new Random();
-        Aliado aliado = null;
+        aliado = null;
         if (kb.press1()) {
             summon = true;
         }
@@ -75,5 +82,19 @@ public class Telefono {
                 }
             }
         }
+    }
+    public boolean isSummoning(){
+        return summon;
+    }
+    public Rectangle getBox(){
+        if(aliado != null){
+            return aliado.getBox();
+        }
+        return null;
+    }
+    public Aliado getAliado(){
+        if(aliado != null)
+            return aliado;
+        return null;
     }
 }

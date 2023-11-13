@@ -36,7 +36,6 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<NPC> npcs = new ArrayList<NPC>();
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public Telefono telefono;
-    public Camara cam = new Camara();
     State estadoActual;
     Thread gameThread;
 
@@ -106,6 +105,7 @@ public class GamePanel extends JPanel implements Runnable{
       if(!(estadoActual instanceof Pause)){
         player.update();
         lc.update();
+        telefono.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
        // checkVidaEnemys();

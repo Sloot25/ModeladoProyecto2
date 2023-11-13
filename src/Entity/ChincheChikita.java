@@ -6,6 +6,7 @@ public class ChincheChikita extends Enemy{
   //private SpriteSheet animationCaminando;
   private long ultimoAtaque; 
   private long cooldown = 2000;
+  private int points;
   public ChincheChikita(GamePanel gp, int x, int y, int width, int height) {
       super(gp, x, y , width, height);
       /* 
@@ -15,6 +16,7 @@ public class ChincheChikita extends Enemy{
       animationCaminando = new SpriteSheet(chinchePequenia,175);
       */
       this.life = 150;
+      points = 100;
       this.retroceso = 100;
   }
   @Override

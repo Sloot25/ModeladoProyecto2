@@ -5,10 +5,12 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.awt.image.AffineTransformOp;
+import java.awt.geom.AffineTransform;
 
 
-
+import Aliados.Aliado;
 import Game.GamePanel;
 import Game.Keyboard;
 import Game.SpriteSheet;
@@ -35,6 +37,7 @@ public class Player implements Entity {
     int atackDirection; // +1 fue ataque de frente, -1 fue ataque de atras
     private long ultimoAtaque; 
     private long cooldown = 200;
+    private long superCooldown = 2000;
     private ArrayList<Proyectiles> proyectiles = new ArrayList<Proyectiles>();
     private ArrayList<BufferedImage> imagenesProyectiles = new ArrayList<BufferedImage>();
     private int indiceProyectil = 0;
@@ -50,6 +53,7 @@ public class Player implements Entity {
     BufferedImage[] jugadorParado = new BufferedImage[6];
     SpriteSheet animationCaminando, animationParado; 
     BufferedImage jugadorDaniado;
+    private boolean vistaDerecha = true;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
@@ -107,13 +111,16 @@ public class Player implements Entity {
         image = jugadorDaniado;
       else if(inMovement){
         animationCaminando.update();
-        if(direction == "right")
+        if(speedX > 0){
           image = animationCaminando.getCurrentFrame();
-        else
+          vistaDerecha = true;
+        }else if(speedX < 0){
           image = flipImage(animationCaminando.getCurrentFrame());
+          vistaDerecha = false;
+        }
       }else{
         animationParado.update();
-        if(speedX >= 0)
+        if(vistaDerecha)
           image = animationParado.getCurrentFrame();
         else 
           image = flipImage(animationParado.getCurrentFrame());
@@ -124,15 +131,55 @@ public class Player implements Entity {
       enemigo.life -= getAtaque();
       enemigo.directionReceivedAtack = atackDirection;
       enemigo.setIsAtacked(true); // para actualizar la posicion de la chinche por el retroceso
-      if(enemigo.life <= 0)
+      if(enemigo.life <= 0){
         gp.lc.getEnemys().remove(enemigo);
+        if(enemigo instanceof ChincheChikita)
+          score += 100;
+        else if(enemigo instanceof ChincheDirector){
+          score += 5000;
+          //lanzarGanar();
+        }else if(enemigo instanceof Chinchentifica)
+          score += 250;
+        else if(enemigo instanceof ChincheGrandota)
+          score += 500;
+      }
     }
     public ArrayList<BufferedImage> getImagenProyectil(){
       return imagenesProyectiles;
     }
-
+    public void specialAttack(Enemy enemigo, Aliado aliado){
+        long time = System.currentTimeMillis();
+            if(time > ultimoAtaque + superCooldown){
+                enemigo.life -= aliado.getAtaque();
+              ultimoAtaque = time;
+            }    
+        }
     public void update() {
         getEntityImage();
+         if(kb.pressA()){
+          long time = System.currentTimeMillis();
+              if(time > ultimoAtaque + cooldown - getCadencia()){
+                atacarDetras();
+                ultimoAtaque = time;
+                if(!inMovement)
+                  vistaDerecha = false;
+              }
+          direction="";
+        }
+        if(kb.pressD()){
+          long time = System.currentTimeMillis();
+            if(time > ultimoAtaque + cooldown - getCadencia()){
+              atacarEnfrente();
+              ultimoAtaque = time;
+              if(!inMovement)
+                vistaDerecha = true;
+            }
+          direction="";
+        } 
+        if(kb.pressEsc()){
+          System.out.println("h");
+          gp.lanzarPausa();
+        }
         if (kb.pressUp() == true) {
             direction = "up";
             inMovement = true;
@@ -148,27 +195,7 @@ public class Player implements Entity {
         else if (kb.pressLeft() == true) {
             direction = "left";
             inMovement = true;
-        }else if(kb.pressA()){
-          long time = System.currentTimeMillis();
-              if(time > ultimoAtaque + cooldown - getCadencia()){
-                atacarDetras();
-                ultimoAtaque = time;
-                inMovement = true;
-              }
-          direction="";
-        }else if(kb.pressD()){
-          long time = System.currentTimeMillis();
-            if(time > ultimoAtaque + cooldown - getCadencia()){
-              atacarEnfrente();
-              ultimoAtaque = time;
-              inMovement = true;
-            }
-          direction="";
-        }else if(kb.pressEsc()){
-          System.out.println("h");
-          gp.lanzarPausa();
-        }
-        else{
+        } else{
             direction = "";
             inMovement = false;
         }
@@ -195,10 +222,10 @@ public class Player implements Entity {
                     onfloor = false;
                 }
                 break;
-              case "down":
-                  speedY = 0;
-                  break;
-              case "left":
+            case "down":
+                //speedY = 0;
+                break;
+            case "left":
                 speedX = -getVelocidad();
                 break;
               case "right":
@@ -273,7 +300,12 @@ public class Player implements Entity {
     public int getWidth(){
         return width;
     }
-
+    public int getScore(){
+        return score;
+    }
+    public void setScore(int score){
+        this.score = score;
+    }
     public Rectangle getBox() {
         return new Rectangle(x, y, width, height);
     }
@@ -345,10 +377,6 @@ public class Player implements Entity {
 
     public BufferedImage getImage() {
         return image;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public boolean isTalking() {

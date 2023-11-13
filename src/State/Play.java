@@ -21,7 +21,6 @@ public class Play implements State {
   }
   public void inicializar(){
     try{
-      //GamePanel gp = new GamePanel(interfaz.getRuta(), this);
       gp = new GamePanel(interfaz.getRuta(), this);
       interfaz.setPanel(gp);
       gp.setGame();

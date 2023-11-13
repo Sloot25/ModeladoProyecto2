@@ -39,6 +39,9 @@ public class StairsUp implements Item{
         if(inRange){
             g.drawImage(imagen,x,y-50,width, height, null);
         }
+        else{
+            
+        }
     }
     public boolean isSolid(){
         return solid;

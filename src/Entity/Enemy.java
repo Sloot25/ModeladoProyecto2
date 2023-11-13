@@ -1,5 +1,6 @@
 package Entity;
 import java.lang.Cloneable;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -13,10 +14,10 @@ public abstract class Enemy implements Entity, Cloneable{
     public int y;
     public int height;
     public int width;
+    private int points;
     public BufferedImage imagen;
     public String direction;
     public int life;
-    public Rectangle box;
     double speedX;
     double speedY;
     double gravity;
@@ -36,7 +37,6 @@ public abstract class Enemy implements Entity, Cloneable{
         this.width = width; 
         this.height = height;
         this.gravity = 5;
-        Rectangle box = new Rectangle(x, y, width, height);
         direction = "left";
         onfloor = false;
         collision = false;
@@ -61,6 +61,7 @@ public abstract class Enemy implements Entity, Cloneable{
         gp.cc.checkItem(this);
         gp.cc.checkEnemy(this);
         gp.cc.checkProyectil(this);
+        gp.cc.checkAliados(this);
         boolean attackPlayer = gp.cc.checkPlayer(this);
         onfloor = gp.cc.checkOnFloor(this);
         if (onfloor == false) {
@@ -75,10 +76,10 @@ public abstract class Enemy implements Entity, Cloneable{
         if(collision == false){
             switch(direction){
                 case "left":
-                    speedX = -1;
+                    speedX = -getVelocidad();
                     break;
                 case "right":
-                    speedX = 1;
+                    speedX = getVelocidad();
                     break;
             }
         }
@@ -105,6 +106,12 @@ public abstract class Enemy implements Entity, Cloneable{
     }
     public void paint(Graphics g){
         g.drawImage(imagen, x, y, width, height, null);
+        if(inRange()){
+            g.setColor(Color.BLACK);
+            g.drawString("Chinche Director",gp.player.getX()-300, gp.player.getY()+85);
+            g.setColor(Color.RED);
+            g.fillRoundRect(gp.player.getX()-300, gp.player.getY()+100, getLife()*600/4000, 30,15,15 );
+        }
     }
 
     public boolean getCollision(){
@@ -180,4 +187,22 @@ public abstract class Enemy implements Entity, Cloneable{
         this.onfloor = onfloor;
     }
   abstract public Enemy clonar() throws CloneNotSupportedException;
+
+    public int getLife() {
+        return life;
+    }
+
+    public int getVelocidad(){
+        return 1;
+    }
+    public int getPoints(){
+        return points;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+    public boolean inRange(){
+        return false;
+    }
 }
