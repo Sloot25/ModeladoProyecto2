@@ -15,7 +15,7 @@ public class ChincheChikita extends Enemy{
       animationCaminando = new SpriteSheet(chinchePequenia,175);
       */
       this.life = 150;
-      this.retroceso = 100; 
+      this.retroceso = 100;
   }
   @Override
   public void getEntityImage(){
@@ -44,22 +44,22 @@ public class ChincheChikita extends Enemy{
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife() - 100);
       gp.player.setIsAtacked(true);
-      gp.player.setRetroceso(75); // mayor retroceso, mas lejos te manda
+      gp.player.setRetroceso(75);
       ultimoAtaque = time;
     }
   }  
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
   }
+
   @Override
-  public void retroceso() {
-      if(retroceso <= 0){
-          isAtacked = false;
-          retroceso = 100;
-      } else{
-          retroceso -= 10;
-          speedX += 2;
-      }
+  public void retroceso(){
+    if(retroceso <= 0){
+      isAtacked = false; 
+      retroceso = 100;
+    }else{
+      retroceso -= 10; 
+      speedX += 2;
+    }
   }
-  
 }

@@ -6,4 +6,5 @@ import javax.sound.sampled.AudioInputStream;
 public interface Rutas {
   public BufferedImage getImagen(String imagen);
   public AudioInputStream getAudio(String audio);
+  public BufferedImage getSprite(String imagen);
 }

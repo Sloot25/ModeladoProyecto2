@@ -17,7 +17,7 @@ public class ChincheGrandota extends Enemy{
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife()-150);
       gp.player.setIsAtacked(true);
-      gp.player.setRetroceso(150); // mayor retroceso, mas lejos te manda
+      gp.player.setRetroceso(150);
       ultimoAtaque = time;
     }
   }
@@ -29,14 +29,15 @@ public class ChincheGrandota extends Enemy{
   public void getEntityImage() {
     imagen = gp.getRutas().getImagen("chinche.png");
   }
-  @Override
-  public void retroceso() {
-      if(retroceso <= 0){
-          isAtacked = false;
-          retroceso = 50;
-      } else{
-          retroceso -= 10;
-          speedX += 2;
-      }
+
+  @Override 
+  public void retroceso(){
+    if(retroceso <= 0){
+      isAtacked = false;
+      retroceso = 50;
+    }else{
+      retroceso -= 10;
+      speedX += 2;
+    }
   }
 }

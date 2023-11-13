@@ -1,10 +1,11 @@
 import javax.swing.JFrame;
 
-import Game.GamePanel;
-import res.Rutas.*;
+import State.InterfazUsuario;
 public class Main {
     public static void main(String[] args) throws CloneNotSupportedException{
-        JFrame window = new JFrame();
+        InterfazUsuario interfaz = new InterfazUsuario();
+        interfaz.inicializar();
+        /*JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Call of Chienchias");
@@ -22,5 +23,6 @@ public class Main {
 
         gp.setGame();
         gp.startGameThread();
+        */
     }
 }

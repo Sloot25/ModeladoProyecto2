@@ -5,4 +5,5 @@ public interface State {
   public void jugar();
   public void pausar();
   public void morir();
+  public void inicializar();
 }

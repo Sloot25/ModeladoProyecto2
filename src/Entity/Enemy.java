@@ -22,9 +22,10 @@ public abstract class Enemy implements Entity, Cloneable{
     double gravity;
     boolean collision;
     boolean onfloor;
-    SpriteSheet sprites;
-    public Boolean isAtacked;
-    public int retroceso;
+    SpriteSheet sprites; 
+    boolean isAtacked;
+    int retroceso;
+    
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
@@ -95,15 +96,12 @@ public abstract class Enemy implements Entity, Cloneable{
         if(attackPlayer){
             attack();
         }
-
-        if (isAtacked){
-            retroceso();  // retroceso que depende de cada chinche, a las mas grandes, menos retroceso
-        }
+        if(isAtacked)
+          retroceso();
     }
-    /*
-     * Pinta al villano dentro del mapa
-     * @param Graphics2D g2
-     */
+    public void setIsAtacked(boolean isAtacked){
+      this.isAtacked = isAtacked;
+    }
     public void paint(Graphics g){
         g.drawImage(imagen, x, y, width, height, null);
     }

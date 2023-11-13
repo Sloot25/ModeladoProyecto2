@@ -7,6 +7,8 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList; 
 
+
+
 import Game.GamePanel;
 import Game.Keyboard;
 import Game.SpriteSheet;
@@ -40,14 +42,13 @@ public class Player implements Entity {
     //boolean falling;
     //boolean walking;
     boolean onfloor;
-    boolean inMovement;
-    boolean isAtacked;
-
+    private boolean inMovement;
+    private boolean isAtacked;
+    private AtributosPlayer atributos;
     BufferedImage[] jugadorCaminando = new BufferedImage[10];
     BufferedImage[] jugadorParado = new BufferedImage[6];
-    SpriteSheet animationCaminando, animationParado;
+    SpriteSheet animationCaminando, animationParado; 
     BufferedImage jugadorDaniado;
-    private AtributosPlayer atributos;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
@@ -68,69 +69,55 @@ public class Player implements Entity {
         life = 1000;
         inMovement = false;
         isAtacked = false;
-
-        jugadorDaniado = this.gp.getRutas().getImagen("Jugador/Personaje danado.png");
-        for(int i= 0; i < jugadorCaminando.length; i++){
-            jugadorCaminando[i] = this.gp.getRutas().getImagen("Jugador/Personaje caminando "+(i+1)+".png");
-        }
-        for(int i= 0; i < jugadorParado.length; i++){
-            jugadorParado[i] = this.gp.getRutas().getImagen("Jugador/Personaje "+(i+1)+".png");
-        }
-        animationCaminando = new SpriteSheet(jugadorCaminando,100);
-        animationParado = new SpriteSheet(jugadorParado,100);
-
         atributos = new AtributosPlayer(this);
-        //getEntityImage();
-
+        cargarRutas();
     }
 
-    /*
-     * Metodo para invertir una imagen horizontalmente
-     * 
-     * @param originalImage que será la imagen a voltear
-     * 
-     * @return flippedImage imagen volteada
-     */
-    private BufferedImage flipImage(BufferedImage originalImage){
-        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-        tx.translate(-originalImage.getWidth(null), 0);
-        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        BufferedImage flippedImage = op.filter(originalImage, null);
-        return flippedImage;
-    }
-
-    /*
-     * Obtiene el frame del personaje en base a:
-     * si es atacado, si esta en movimiento o si solo esta parado
-     * 
-     * @return image, objeto del tipo BufferedImage del personaje principal
-     */
-     public void getEntityImage(){
-        if (isAtacked){
-            image = jugadorDaniado;
-        }
-        else if (inMovement){
-            animationCaminando.update(); 
-            if (direction == "right"){ // cuando el personaje tiene direccion de la imagen original, regresa original
-                image =  animationCaminando.getCurrentFrame(); 
-            } else{ //  regresa imagen volteada
-                image = flipImage(animationCaminando.getCurrentFrame());
-            }
-        } else{
-            animationParado.update(); 
-            if (direction == "right"){ // cuando el personaje tiene direccion de la imagen original, regresa original
-                image =  animationParado.getCurrentFrame(); 
-            } else{ //  regresa imagen volteada
-                image = flipImage(animationParado.getCurrentFrame());
-            }
-        }
-     }
-
-    /* 
+    private void cargarRutas(){
+      inMovement = false;
+      isAtacked = false;
+      jugadorDaniado = gp.getRutas().getSprite("PersonajeDanado.png");
+      for(int i = 0; i < jugadorCaminando.length; i++)
+        jugadorCaminando[i] = gp.getRutas().getSprite("PersonajeCaminando" + (i+1) + ".png");
+      for(int i = 0; i < jugadorParado.length; i++)
+        jugadorParado[i] = gp.getRutas().getSprite("Personaje"+ (i+1) + ".png");
+      animationCaminando = new SpriteSheet(jugadorCaminando, 100);
+      animationParado = new SpriteSheet(jugadorParado, 100);
+  }
+    public GamePanel getGP(){
+    return gp;
+  }
+    private BufferedImage flipImage(BufferedImage original){
+      AffineTransform tx = AffineTransform.getScaleInstance(-1,1);
+      tx.translate(-original.getWidth(null), 0);
+      AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+      BufferedImage flippedImage = op.filter(original, null);
+      return flippedImage;
+    
+  }
+  public void setIsAtacked(boolean atacked){
+    this.isAtacked = atacked;
+  }
+  public void setRetroceso(int retroceso){
+    this.retroceso = retroceso;
+  }
     public void getEntityImage() {
-      image = gp.getRutas().getImagen("potato.png");
+      if(isAtacked)
+        image = jugadorDaniado;
+      else if(inMovement){
+        animationCaminando.update();
+        if(direction == "right")
+          image = animationCaminando.getCurrentFrame();
+        else
+          image = flipImage(animationCaminando.getCurrentFrame());
+      }else{
+        animationParado.update();
+        if(direction == "right")
+          image = animationParado.getCurrentFrame();
+        else 
+          image = flipImage(animationParado.getCurrentFrame());
+      }
     }
-    */
  
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
@@ -159,7 +146,6 @@ public class Player implements Entity {
         else if (kb.pressLeft() == true) {
             direction = "left";
             inMovement = true;
-
         }else if(kb.pressA()){
           long time = System.currentTimeMillis();
               if(time > ultimoAtaque + cooldown - getCadencia()){
@@ -176,6 +162,9 @@ public class Player implements Entity {
               inMovement = true;
             }
           direction="";
+        }else if(kb.pressEsc()){
+          System.out.println("h");
+          gp.lanzarPausa();
         }
         else{
             direction = "";
@@ -193,53 +182,40 @@ public class Player implements Entity {
         x += speedX;
         gp.cc.checkItem(this);
         gp.cc.checkStairs(this);
-
-        for(int i = 0; i < proyectiles.size(); i++){
-            proyectiles.get(i).update();
-            gp.cc.checkProyectilItem(proyectiles.get(i));
-        }
-
-        if(isAtacked){ // si es atacado, solo te permite el retroceso
-            retroceso();
-        } else{  // si no es atacado, te permite moverte normal
-            switch (direction) {
-            case "up":
+        if(isAtacked){
+          retroceso();
+        }else{
+          switch (direction) {
+              case "up":
                 if (onfloor) {
                     speedY = -10;
                     gravity = 0.2;
                     onfloor = false;
                 }
                 break;
-            case "down":
-                speedY = 0;
-                break;
-            case "left":
+              case "down":
+                  speedY = 0;
+                  break;
+              case "left":
                 speedX = -getVelocidad();
                 break;
-            case "right":
-                speedX = getVelocidad();
-                break;
-            default:
+              case "right":
+                  speedX = getVelocidad();
+                  break;
+              default:
                 speedX = 0;
-            }
+          }
         }
 
     }
-
-    /*
-     *  Metodo que controla el retroceso, si le restas mas al retroceso,
-     * menos tiempo va a durar. Si le restas mas al speedX, mas lejos te 
-     * arrojara a la izquierda del mapa cuando colisionas
-     */
     private void retroceso(){
-        if(retroceso <= 0){
-            isAtacked = false;
-        } else{
-            retroceso -= 10;
-            speedX -= 2;
-        }
+      if(retroceso <= 0)
+        isAtacked = false;
+      else{
+        retroceso -= 10;
+        speedX-=2;
+      }
     }
-
     private void cambiarImagen(){
       indiceProyectil = (indiceProyectil < imagenesProyectiles.size()-1) ? indiceProyectil+1 : 0;
       
@@ -402,13 +378,6 @@ public class Player implements Entity {
 
     public Boolean getIsAtacked(){
         return isAtacked;
-    }
-
-    public void setRetroceso(int retroceso){
-        this.retroceso = retroceso;
-    }
-    public GamePanel getGP(){
-    return gp;
     }
 
 }

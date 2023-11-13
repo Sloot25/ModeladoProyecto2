@@ -16,6 +16,8 @@ public class ChincheDirector extends Enemy{
     long time = System.currentTimeMillis();
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife()-300);
+      gp.player.setIsAtacked(true);
+      gp.player.setRetroceso(200);
       ultimoAtaque = time;
       gp.player.setIsAtacked(true);
       gp.player.setRetroceso(200); // mayor retroceso, mas lejos te manda
@@ -29,12 +31,6 @@ public class ChincheDirector extends Enemy{
   public void getEntityImage() {
     imagen = gp.getRutas().getImagen("chinchedirector.png");
   }
-
-  /*
-   * La chinche directora no tiene retroceso
-   */
   @Override
-  public void retroceso() {
-      return;  
-  }
+  public void retroceso(){}
 }
