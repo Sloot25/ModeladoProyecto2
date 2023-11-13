@@ -17,20 +17,30 @@ public class ChincheDirector extends Enemy{
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife()-300);
       gp.player.setIsAtacked(true);
-      gp.player.setRetroceso(200);
-      ultimoAtaque = time;
-      gp.player.setIsAtacked(true);
-      gp.player.setRetroceso(200); // mayor retroceso, mas lejos te manda
+      gp.player.setRetroceso(400);
+      ultimoAtaque = time; 
     }
   }
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
   }
-
   @Override
-  public void getEntityImage() {
-    imagen = gp.getRutas().getImagen("chinchedirector.png");
+  public void getEntityImage(){
+    if (isAtacked){
+      imagen = this.gp.getRutas().getImagen("chinchedirector daniada.png");  
+    } else{
+      imagen = this.gp.getRutas().getImagen("chinchedirector.png");
+    }
   }
   @Override
-  public void retroceso(){}
+  public void retroceso(){
+    if(retroceso <= 0){
+      isAtacked = false; 
+      retroceso = 100;
+      getEntityImage();
+    }else{
+      retroceso -= 10; 
+      getEntityImage();
+    }
+  }
 }

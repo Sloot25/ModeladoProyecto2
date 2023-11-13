@@ -19,7 +19,11 @@ public class ChincheChikita extends Enemy{
   }
   @Override
   public void getEntityImage(){
-    imagen = this.gp.getRutas().getImagen("chinche.png");
+    if (isAtacked){
+      imagen = this.gp.getRutas().getImagen("chinche daniada.png");  
+    } else{
+      imagen = this.gp.getRutas().getImagen("chinche.png");
+    }
   }
   /* 
   @Override
@@ -57,9 +61,11 @@ public class ChincheChikita extends Enemy{
     if(retroceso <= 0){
       isAtacked = false; 
       retroceso = 100;
+      getEntityImage();
     }else{
       retroceso -= 10; 
-      speedX += 2;
+      x += 5 * directionReceivedAtack;
+      getEntityImage();
     }
   }
 }

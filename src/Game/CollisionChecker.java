@@ -34,9 +34,11 @@ public class CollisionChecker {
       int removidos = 0;
       for(int i = 0; i < gp.player.getProyectiles().size(); i++){
         if(gp.player.getProyectiles().get(i).getBox().intersects(entidad.getBox())){
+          int atackDirection = gp.player.getProyectiles().get(i).getVelocidad();
           gp.player.getProyectiles().remove(gp.player.getProyectiles().get(i)); 
           removidos++;
           if(entidad instanceof Enemy){
+            gp.player.setAtackDirection(atackDirection);
             gp.player.attack((Enemy)entidad);
           }
         }

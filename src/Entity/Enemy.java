@@ -25,6 +25,7 @@ public abstract class Enemy implements Entity, Cloneable{
     SpriteSheet sprites; 
     boolean isAtacked;
     int retroceso;
+    int directionReceivedAtack;
     
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){

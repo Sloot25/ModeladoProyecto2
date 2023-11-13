@@ -31,4 +31,8 @@ public class Proyectiles {
     return new Rectangle(posX, posY, 20, 20);
   }
 
+  public int getVelocidad(){
+    return velocidadX;
+  }
+
 }

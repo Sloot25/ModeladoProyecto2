@@ -32,6 +32,7 @@ public class Player implements Entity {
     Rectangle box;
     String direction;
     boolean collision;
+    int atackDirection; // +1 fue ataque de frente, -1 fue ataque de atras
     private long ultimoAtaque; 
     private long cooldown = 200;
     private ArrayList<Proyectiles> proyectiles = new ArrayList<Proyectiles>();
@@ -112,7 +113,7 @@ public class Player implements Entity {
           image = flipImage(animationCaminando.getCurrentFrame());
       }else{
         animationParado.update();
-        if(direction == "right")
+        if(speedX >= 0)
           image = animationParado.getCurrentFrame();
         else 
           image = flipImage(animationParado.getCurrentFrame());
@@ -121,6 +122,7 @@ public class Player implements Entity {
  
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
+      enemigo.directionReceivedAtack = atackDirection;
       enemigo.setIsAtacked(true); // para actualizar la posicion de la chinche por el retroceso
       if(enemigo.life <= 0)
         gp.lc.getEnemys().remove(enemigo);
@@ -206,6 +208,10 @@ public class Player implements Entity {
                 speedX = 0;
           }
         }
+        for(int i = 0; i < proyectiles.size(); i++){
+            proyectiles.get(i).update();
+            gp.cc.checkProyectilItem(proyectiles.get(i));
+          }
 
     }
     private void retroceso(){
@@ -213,7 +219,7 @@ public class Player implements Entity {
         isAtacked = false;
       else{
         retroceso -= 10;
-        speedX-=2;
+        x-=10;
       }
     }
     private void cambiarImagen(){
@@ -378,6 +384,10 @@ public class Player implements Entity {
 
     public Boolean getIsAtacked(){
         return isAtacked;
+    }
+    
+    public void setAtackDirection(int atackDirection){
+      this.atackDirection = atackDirection;
     }
 
 }
