@@ -48,6 +48,9 @@ public class LevelCreator {
         image = gp.getRutas().getImagen("fciencias.png");
         map = gp.getRutas().getImagen("fcienciasmap.png");
     }
+    public ArrayList<Enemy> getEnemys(){
+     return this.enemies;
+    }
 
     public void createLevel() throws CloneNotSupportedException{
         for(int x=0; x<map.getWidth(); x++){
@@ -118,8 +121,8 @@ public class LevelCreator {
         for(Entity npc: npcs){
             npc.update();
         }
-        for(Entity enemy: enemies){
-            enemy.update();
+        for(int i = 0; i < enemies.size(); i++){
+            enemies.get(i).update();
         }
 
     }
@@ -128,8 +131,8 @@ public class LevelCreator {
         for(Entity npc: npcs){
             npc.paint(g);
         }
-        for(Entity enemy: enemies){
-            enemy.paint(g);
+        for(int i = 0; i < enemies.size(); i++){
+            enemies.get(i).paint(g);
         }
         for(Item item: items){
             item.paint(g);

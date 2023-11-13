@@ -24,10 +24,18 @@ public class Linux implements Rutas{
   }
   public AudioInputStream getAudio(String audio){
     try {
-      return AudioSystem.getAudioInputStream(new File("res/KUWAGO - Toybox5/"+audio));
+      return AudioSystem.getAudioInputStream(new File("res/KUWAGO/"+audio));
     } catch (UnsupportedAudioFileException | IOException e) {
       e.printStackTrace();
       return null;
     }
   } 
+  public BufferedImage getSprite(String imagen){
+    try{
+      return ImageIO.read(new File("res/Jugador/" + imagen));
+    }catch(IOException e){
+      e.printStackTrace();
+      return null;
+    }
+  }
 }

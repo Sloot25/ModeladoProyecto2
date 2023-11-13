@@ -1,13 +1,13 @@
 package Item;
 
+import Entity.AtributosPlayer;
 import Entity.Player;
-import Game.GamePanel;
-import Game.Keyboard;
 
 public class Python extends Lenguaje {
-  public Python(Player player, GamePanel gp, Keyboard kb){
-    super(gp, kb);
-    this.player = player;
+  public Python(AtributosPlayer atributos, Player player){
+    super(player);
+    this.atributos = atributos;
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Python.png"));
   }
 
  /* Metodo getAtaque 
@@ -16,7 +16,7 @@ public class Python extends Lenguaje {
    * */
 
   public int getAtaque(){
-    return this.player.getAtaque() + 50;
+    return atributos.getAtaque() + 50;
   }
 
  /* Metodo getVelocidad 
@@ -25,7 +25,7 @@ public class Python extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return this.player.getVelocidad();
+    return atributos.getVelocidad();
   }
 
  /* Metodo getCadencia 
@@ -34,7 +34,7 @@ public class Python extends Lenguaje {
    * */
 
   public int getCadencia(){
-    return this.player.getCadencia();
+    return atributos.getCadencia();
   }
 
   /* Metodo getVida 
@@ -43,9 +43,6 @@ public class Python extends Lenguaje {
    * */
 
   public int getVida(){
-    return this.player.getLife() + 25;
-  }
-  public boolean isSolid(){
-    return false;
+    return atributos.getLife() + 25;
   }
 }

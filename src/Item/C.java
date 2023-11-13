@@ -1,21 +1,17 @@
 package Item;
 
 import Entity.Player;
-import Game.GamePanel;
-import Game.Keyboard;
+import Entity.AtributosPlayer;
 
 public class C extends Lenguaje{
-  GamePanel gp;
-  Keyboard kb;
-  Player player;
-
   /*Constructor de la clase 
    * @param Player Recibe un objeto de tipo player y lo inicializa como variable de clase 
    * */
 
-  public C(Player player, GamePanel gp, Keyboard kb){
-    super(gp, kb);
-    this.player = player;
+  public C(AtributosPlayer atributos, Player player){
+    super(player);
+    this.atributos = atributos;
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Php.png"));
   }
 
   /* Metodo getAtaque 
@@ -24,7 +20,7 @@ public class C extends Lenguaje{
    * */
 
   public int getAtaque(){
-    return this.player.getAtaque() + 50;
+    return atributos.getAtaque() + 50;
   }
 
   /* Metodo getVelocidad 
@@ -33,7 +29,7 @@ public class C extends Lenguaje{
    * */
 
   public int getVelocidad(){
-    return this.player.getVelocidad() + 15;
+    return atributos.getVelocidad() + 15;
   }
 
   /* Metodo getCadencia
@@ -42,7 +38,7 @@ public class C extends Lenguaje{
    * */
 
   public int getCadencia(){
-    return this.player.getCadencia() + 5; 
+    return atributos.getCadencia() + 5; 
   }
   
   /* Metodo getVida
@@ -51,10 +47,6 @@ public class C extends Lenguaje{
    * */
 
   public int getVida(){
-    return this.player.getLife()+75;
-  }
-  
-  public boolean isSolid(){
-    return false;
+    return atributos.getLife()+75;
   }
 }

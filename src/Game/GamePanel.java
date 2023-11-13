@@ -12,6 +12,7 @@ import Entity.NPC;
 import Entity.Player;
 import Item.Item;
 import State.State;
+import State.Pause;
 import res.Rutas.Rutas;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -36,14 +37,11 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public Telefono telefono;
     State estadoActual;
-    // State menu = new Menu();
-    // State dead = new Dead();
-    // State pause = new Pause();
-    // State play = new Play();
     Thread gameThread;
 
 
-    public GamePanel(Rutas rutas) throws CloneNotSupportedException{
+    public GamePanel(Rutas rutas, State estadoActual) throws CloneNotSupportedException{
+        this.estadoActual = estadoActual;
         this.rutas = rutas;
         cc = new CollisionChecker(this);
         kb = new Keyboard(this);
@@ -64,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void setGame(){;
         as.setItems();
-        sp.agregarAudio("\\KUWAGO - Toybox5 - 02 Swinging.wav");
+        sp.agregarAudio("Pista2.wav");
         sp.play(0);
     }
     /*
@@ -104,17 +102,36 @@ public class GamePanel extends JPanel implements Runnable{
      * Actualiza la posición y sprites de las entidades y objetos del juego
      */
     public void update(){   
+      if(!(estadoActual instanceof Pause)){
         player.update();
         lc.update();
         telefono.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
-        checkVidaEnemys();
+       // checkVidaEnemys();
+        checkVida();
+      }else{
+        System.out.println("Hola");
+        if(kb.pressEsc()){
+          estadoActual.jugar();
+        }
+      }
+    }
+    public void lanzarPausa(){
+      estadoActual.pausar();
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
      */
+  
     public void paintComponent(Graphics g){
+      if(estadoActual instanceof Pause){
+        System.out.println("Cara de bola");
+        g.setColor(Color.black);
+        g.drawRect(0,0,worldWidth, worldHeight);
+        g.setColor(Color.RED);
+        g.drawString("PAUSA", player.getX(), player.getY());
+      }else{
         g.translate(camx, camy);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -133,13 +150,13 @@ public class GamePanel extends JPanel implements Runnable{
         ui.paint(g2);
         telefono.paint(g2);
         g2.dispose();
+      }
     }
 
     
-    private void checkVidaEnemys(){
-      for(int i = 0; i < enemies.size(); i++)
-        if(enemies.get(i).life <= 0)
-          enemies.remove(enemies.get(i));
+    private void checkVida(){
+      if(player.getLife() <= 0)
+        estadoActual.morir();
     }
     /*
      * Regresa el estado actual

@@ -10,11 +10,14 @@ public class Chinchentifica extends Enemy{
       super(gp, x, y , width, height);
       this.life = 250;
       points = 200;
+      this.retroceso = 50;
   }
   public void attack(){
     long time = System.currentTimeMillis();
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife()-200);
+      gp.player.setIsAtacked(true);
+      gp.player.setRetroceso(125);
       ultimoAtaque = time;
     }
 
@@ -25,5 +28,16 @@ public class Chinchentifica extends Enemy{
   @Override
   public void getEntityImage() {
     imagen = gp.getRutas().getImagen("chinchentifica.png");
+  }
+
+  @Override
+  public void retroceso(){
+    if(retroceso <= 0){
+      isAtacked = false; 
+      retroceso = 50;
+    }else{
+      retroceso -= 10;
+      speedX += 2;
+    }
   }
 }

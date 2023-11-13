@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import Game.GamePanel;
+import Game.SpriteSheet;
 
 public abstract class Enemy implements Entity, Cloneable{
     GamePanel gp;
@@ -22,6 +23,9 @@ public abstract class Enemy implements Entity, Cloneable{
     double gravity;
     boolean collision;
     boolean onfloor;
+    SpriteSheet sprites; 
+    boolean isAtacked;
+    int retroceso;
     
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
@@ -90,7 +94,14 @@ public abstract class Enemy implements Entity, Cloneable{
         if(attackPlayer){
             attack();
         }
+        if(isAtacked)
+          retroceso();
     }
+    public void setIsAtacked(boolean isAtacked){
+      this.isAtacked = isAtacked;
+    }
+
+    public abstract void retroceso();
     /*
      * Pinta al villano dentro del mapa
      * @param Graphics2D g2

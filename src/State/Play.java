@@ -1,5 +1,5 @@
 package State;
-
+import Game.GamePanel;
 public class Play implements State {
   private InterfazUsuario interfaz; 
 
@@ -10,13 +10,24 @@ public class Play implements State {
     this.interfaz.setEstado(this.interfaz.getEstadoMenu());
   }
   public void jugar(){
-    this.interfaz.setEstado(this.interfaz.getEstadoPlay());
+    //Deberia lanzar la Exception que no hace nada, pero no recuerdo su nombre
   }
   public void morir(){
     this.interfaz.setEstado(this.interfaz.getEstadoDead());
   }
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
+    gp.setEstado(interfaz.getEstado())
+  }
+  public void inicializar(){
+    try{
+      GamePanel gp = new GamePanel(interfaz.getRuta(), this);
+      interfaz.setPanel(gp);
+      gp.setGame();
+      gp.startGameThread();
+    }catch(CloneNotSupportedException e){
+      System.err.println(e);
+    }
   }
 
     
