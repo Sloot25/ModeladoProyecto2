@@ -107,6 +107,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){   
         player.update();
         lc.update();
+        telefono.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
         checkVidaEnemys();

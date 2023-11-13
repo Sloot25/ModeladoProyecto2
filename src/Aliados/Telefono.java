@@ -1,8 +1,10 @@
 package Aliados;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Random;
 
+import Entity.Enemy;
 import Entity.Player;
 import Game.GamePanel;
 import Game.Keyboard;
@@ -11,6 +13,7 @@ public class Telefono {
     Keyboard kb;
     GamePanel gp;
     Player player;
+    Aliado aliado;
     Actuario actuario;
     Biologo biologo;
     Computologo computologo;
@@ -39,9 +42,19 @@ public class Telefono {
         matematico = new Matematico(gp, player);
     }
 
+    public void update(){
+        if(aliado!=null){
+            aliado.update();
+            Enemy e = gp.cc.checkAliado(aliado);
+            if(e != null){
+                System.out.println("AAAAAAA");
+            }
+        }
+    }
+
     public void paint(Graphics g) {
         Random random = new Random();
-        Aliado aliado = null;
+        aliado = null;
         if (kb.press1()) {
             summon = true;
         }
@@ -75,5 +88,8 @@ public class Telefono {
                 }
             }
         }
+    }
+    public boolean isSummoning(){
+        return summon;
     }
 }

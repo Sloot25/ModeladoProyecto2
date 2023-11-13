@@ -43,7 +43,7 @@ public abstract class NPC implements Entity{
      */
     public void update(){
         gp.cc.checkItem(this);
-        gp.cc.checkNPC(this);
+        //gp.cc.checkNPC(this);
         boolean seePlayer = gp.cc.checkPlayer(this);
         onfloor = gp.cc.checkOnFloor(this);
         if (onfloor == false) {
