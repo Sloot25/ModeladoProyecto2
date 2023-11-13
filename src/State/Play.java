@@ -2,6 +2,7 @@ package State;
 import Game.GamePanel;
 public class Play implements State {
   private InterfazUsuario interfaz; 
+  GamePanel gp;
 
   public Play(InterfazUsuario interfaz){
     this.interfaz = interfaz;
@@ -17,11 +18,11 @@ public class Play implements State {
   }
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
-    gp.setEstado(interfaz.getEstado())
+    gp.setEstado(interfaz.getEstado());
   }
   public void inicializar(){
     try{
-      GamePanel gp = new GamePanel(interfaz.getRuta(), this);
+      gp = new GamePanel(interfaz.getRuta(), this);
       interfaz.setPanel(gp);
       gp.setGame();
       gp.startGameThread();
