@@ -21,7 +21,6 @@ public class Player implements Entity {
     int width;
     int height;
     int score;
-    int life;
     double gravity;
     Rectangle box;
     String direction;
@@ -36,6 +35,7 @@ public class Player implements Entity {
     //boolean falling;
     //boolean walking;
     boolean onfloor;
+    private AtributosPlayer atributos;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
@@ -53,17 +53,21 @@ public class Player implements Entity {
         speedY = 0;
         gravity = 0;
         direction = "";
-        life = 1000;
+        atributos = new AtributosPlayer(this);
         getEntityImage();
     }
-
+    public GamePanel getGP(){
+    return gp;
+  }
     public void getEntityImage() {
       image = gp.getRutas().getImagen("potato.png");
     }
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
     }
-
+    public ArrayList<BufferedImage> getImagenProyectil(){
+      return imagenesProyectiles;
+    }
     public void update() {
         if (kb.pressUp() == true) {
             direction = "up";
@@ -82,12 +86,14 @@ public class Player implements Entity {
                 atacarDetras();
                 ultimoAtaque = time;
               }
+          direction="";
         }else if(kb.pressD()){
           long time = System.currentTimeMillis();
             if(time > ultimoAtaque + cooldown - getCadencia()){
               atacarEnfrente();
               ultimoAtaque = time;
             }
+          direction="";
         }
         else{
             direction = "";
@@ -133,6 +139,9 @@ public class Player implements Entity {
     private void cambiarImagen(){
       indiceProyectil = (indiceProyectil < imagenesProyectiles.size()-1) ? indiceProyectil+1 : 0;
       
+    }
+    public void addImagenProyectil(BufferedImage imagen){
+      imagenesProyectiles.add(imagen);
     }
     public ArrayList<Proyectiles> getProyectiles(){
       return proyectiles;
@@ -247,11 +256,11 @@ public class Player implements Entity {
     }
 
     public int getLife() {
-        return life;
+        return atributos.getLife();
     }
 
     public void setLife(int life) {
-        this.life = life;
+        atributos.setLife(life);
     }
 
     public BufferedImage getImage() {
@@ -272,15 +281,21 @@ public class Player implements Entity {
     }
 
     public int getAtaque() {
-        return 25;
+        return atributos.getAtaque();
     }
 
     public int getVelocidad() {
-        return 5;
+        return atributos.getVelocidad();
     }
 
     public int getCadencia() {
-        return 10;
+        return atributos.getCadencia();
+    }
+    public AtributosPlayer getAtributos(){
+      return atributos;
+    }
+    public void setAtributos(AtributosPlayer atributos){
+      this.atributos = atributos;
     }
 
 }

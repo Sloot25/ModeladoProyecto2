@@ -22,7 +22,7 @@ public class Windows implements Rutas {
   }
   public AudioInputStream getAudio(String audio){
       try {
-        return AudioSystem.getAudioInputStream(new File("src\\res\\KUWAGO - Toybox5\\"+audio));
+        return AudioSystem.getAudioInputStream(new File("src\\res\\KUWAGO\\"+audio));
       } catch (UnsupportedAudioFileException | IOException e) {
         e.printStackTrace();
         return null;

@@ -1,13 +1,13 @@
 package Item;
 
 import Entity.Player;
-import Game.GamePanel;
-import Game.Keyboard;
+import Entity.AtributosPlayer;
 
 public class Java extends Lenguaje {
-  public Java(Player player, GamePanel gp, Keyboard kb){
-    super(gp, kb);
-    this.player = player;
+  public Java(AtributosPlayer atributos, Player player){
+    super(player);
+    this.atributos = atributos;
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Java.png"));
   }; 
 
   /* Metodo getAtaque 
@@ -16,7 +16,7 @@ public class Java extends Lenguaje {
    * */
 
   public int getAtaque(){
-    return this.player.getAtaque() + 25;
+    return atributos.getAtaque() + 25;
   }
 
   /* Metodo getVelocidad 
@@ -25,7 +25,7 @@ public class Java extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return this.player.getVelocidad() + 5;
+    return atributos.getVelocidad() + 2;
 
   /* Metodo getCadencia 
    * @return int Correspondiente a la cadencia del arma
@@ -34,7 +34,7 @@ public class Java extends Lenguaje {
 
   }
   public int getCadencia(){
-    return this.player.getCadencia() + 10;
+    return atributos.getCadencia() + 10;
   }
 
   /* Metodo getVida 
@@ -43,9 +43,6 @@ public class Java extends Lenguaje {
    * */
 
   public int getVida(){
-    return this.player.getLife() + 50;
-  }
-  public boolean isSolid(){
-    return false;
+    return atributos.getLife() + 50;
   }
 }
