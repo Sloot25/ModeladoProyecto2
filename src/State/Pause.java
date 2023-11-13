@@ -17,5 +17,7 @@ public class Pause implements State{
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
   }
+  public void inicializar(){
+  }
 
 }

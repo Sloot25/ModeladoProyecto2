@@ -96,6 +96,9 @@ public class Player implements Entity {
               ultimoAtaque = time;
             }
           direction="";
+        }else if(kb.pressEsc()){
+          System.out.println("h");
+          gp.lanzarPausa();
         }
         else{
             direction = "";

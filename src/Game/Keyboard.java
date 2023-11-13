@@ -9,7 +9,7 @@ public class Keyboard implements KeyListener{
     State state;
     boolean up = false, down = false, right = false, left = false, 
     w = false, a = false, s = false, d = false, q = false,
-    k1 = false, k2 = false, k3 = false, k4 = false, k5 = false;
+    k1 = false, k2 = false, k3 = false, k4 = false, k5 = false, esc = false;
 
     public Keyboard(GamePanel gp){
         this.gp = gp;
@@ -70,6 +70,9 @@ public class Keyboard implements KeyListener{
         if(key == KeyEvent.VK_Q){
           q = true;
         }
+        if(key == KeyEvent.VK_ESCAPE){
+          esc = true;
+        }
     }
     /*
      * Revisa si el jugador ha soltado la tecla que estaba presionando
@@ -118,7 +121,10 @@ public class Keyboard implements KeyListener{
         }
         if(key == KeyEvent.VK_Q){
           q = false;  
-      }
+        }
+        if(key == KeyEvent.VK_ESCAPE){
+          esc = false;
+        }
     }
     /*
      * Regresa si se esta presionando el boton de arriba
