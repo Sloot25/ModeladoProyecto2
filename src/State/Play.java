@@ -17,7 +17,7 @@ public class Play implements State {
   }
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
-    gp.setEstado(interfaz.getEstado())
+    interfaz.gp.setEstado(interfaz.getEstado());
   }
   public void inicializar(){
     try{

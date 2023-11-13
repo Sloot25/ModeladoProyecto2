@@ -114,8 +114,18 @@ public class Player implements Entity {
     }
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
-      if(enemigo.life <= 0)
+      if(enemigo.life <= 0){
         gp.lc.getEnemys().remove(enemigo);
+        if(enemigo instanceof ChincheChikita)
+          score += 100;
+        else if(enemigo instanceof ChincheDirector){
+          score += 5000;
+          //lanzarGanar();
+        }else if(enemigo instanceof Chinchentifica)
+          score += 250;
+        else if(enemigo instanceof ChincheGrandota)
+          score += 500;
+      }
     }
     public ArrayList<BufferedImage> getImagenProyectil(){
       return imagenesProyectiles;
