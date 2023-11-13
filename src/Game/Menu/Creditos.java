@@ -63,6 +63,7 @@ public class Creditos extends JPanel implements Runnable{
   public void update(){
     if(kb.pressEnter()){
         menu.menuInicio();
+        gameThread.interrupt();
     }
     
   }

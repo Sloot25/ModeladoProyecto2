@@ -2,6 +2,7 @@ package State;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.Container;
 
 import Game.GamePanel;
 import res.Rutas.*;
@@ -22,7 +23,7 @@ public class InterfazUsuario {
     this.dead = new Dead(this);
     this.pause = new Pause(this);
     this.ganar = new Ganar(this);
-    this.estadoActual = this.play;
+    this.estadoActual = this.menu;
     iniciarVentana();
   }
   public void iniciarVentana(){
@@ -89,6 +90,13 @@ public class InterfazUsuario {
   }
   public void ganar(){
     estadoActual.ganar();
+  }
+  public void cambioPanel(JPanel panel){
+    Container pane = ventana.getContentPane();
+    pane.remove(this.panel);
+    pane.add(panel);
+    this.panel = panel;
+    pane.revalidate();
   }
 
 }

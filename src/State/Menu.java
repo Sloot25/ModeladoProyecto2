@@ -13,7 +13,6 @@ public class Menu implements State{
     this.interfaz.setEstado(this.interfaz.getEstadoMenu());
   }
   public void jugar(){
-    System.out.println("AAAAAA");
     this.interfaz.setEstado(this.interfaz.getEstadoPlay());
     this.interfaz.getEstado().inicializar();
 
@@ -31,18 +30,19 @@ public class Menu implements State{
     menuInicio();
   }
   public void menuInicio(){
-    MenuInicio menu = new MenuInicio(interfaz.getRuta(), this);
+    MenuInicio menu = new MenuInicio(interfaz.getRuta(), interfaz);
     interfaz.setPanel(menu);
     menu.startGameThread();
   }
   public void reglas(){
     Reglas reglas = new Reglas(interfaz.getRuta(), this);
-    interfaz.setPanel(reglas);
+    interfaz.cambioPanel(reglas);
     reglas.startGameThread();
   }
   public void creditos(){
     Creditos creditos = new Creditos(interfaz.getRuta(), this);
-    interfaz.setPanel(creditos);
+    interfaz.cambioPanel(creditos);
     creditos.startGameThread();
   }
+  
 }
