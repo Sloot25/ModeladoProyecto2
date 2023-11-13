@@ -13,6 +13,7 @@ import java.awt.Font;
 import res.Rutas.Rutas;
 import State.Menu;
 import State.InterfazUsuario;
+import res.Gestor;
 public class MenuInicio extends JPanel implements Runnable{
   private int screenWidth = 1000;
   private int screenHeight = 500;
@@ -26,7 +27,7 @@ public class MenuInicio extends JPanel implements Runnable{
   private long cooldown = 200;
   boolean a = false;
   public MenuInicio(Rutas rutas, InterfazUsuario interfaz){
-    kb = new Keyboard();
+    kb = Gertor.kb;
     this.interfaz = interfaz;
     this.rutas = rutas;
     this.setPreferredSize(new Dimension(screenWidth,screenHeight));
