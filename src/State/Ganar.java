@@ -1,8 +1,8 @@
 package State;
 
-public class Dead implements State {
+public class Ganar implements State {
   InterfazUsuario interfaz;
-  public Dead(InterfazUsuario interfaz){
+  public Ganar(InterfazUsuario interfaz){
     this.interfaz = interfaz;
   }
   public void menu(){

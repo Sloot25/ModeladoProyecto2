@@ -11,6 +11,7 @@ public class InterfazUsuario {
   private State play; 
   private State dead;
   private State pause;
+  private State ganar;
   private State estadoActual;
   private JFrame ventana;
   private JPanel panel;
@@ -20,6 +21,7 @@ public class InterfazUsuario {
     this.play = new Play(this);
     this.dead = new Dead(this);
     this.pause = new Pause(this);
+    this.ganar = new Ganar(this);
     this.estadoActual = this.play;
     iniciarVentana();
   }
@@ -67,8 +69,26 @@ public class InterfazUsuario {
   public State getEstadoPause(){
     return this.pause;
   }
+  public State getEstadoGanar(){
+    return this.ganar;
+  }
   public void inicializar(){
     this.estadoActual.inicializar();
+  }
+  public void menu(){
+    estadoActual.menu();
+  }
+  public void jugar(){
+    estadoActual.jugar();
+  }
+  public void pausar(){
+    estadoActual.pausar();
+  }
+  public void morir(){
+    estadoActual.morir();
+  }
+  public void ganar(){
+    estadoActual.ganar();
   }
 
 }

@@ -138,7 +138,7 @@ public class Player implements Entity {
           score += 100;
         else if(enemigo instanceof ChincheDirector){
           score += 5000;
-          //lanzarGanar();
+          gp.lanzarWin();
         }else if(enemigo instanceof Chinchentifica)
           score += 250;
         else if(enemigo instanceof ChincheGrandota)

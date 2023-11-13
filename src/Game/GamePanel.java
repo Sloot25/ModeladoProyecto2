@@ -16,6 +16,7 @@ import State.State;
 import State.Pause;
 import State.Play;
 import res.Rutas.Rutas;
+import State.InterfazUsuario;
 
 public class GamePanel extends JPanel implements Runnable{
     int screenWidth = 1000;
@@ -38,14 +39,14 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<NPC> npcs = new ArrayList<NPC>();
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public Telefono telefono;
-    State estadoActual;
+    private InterfazUsuario interfazUsuario;
     Thread gameThread;
     private long ultimaPulsacion;
     private long cooldown = 500;
 
 
-    public GamePanel(Rutas rutas, State estadoActual) throws CloneNotSupportedException{
-        this.estadoActual = estadoActual;
+    public GamePanel(Rutas rutas, InterfazUsuario interfazUsuario) throws CloneNotSupportedException{
+        this.interfazUsuario = interfazUsuario;
         this.rutas = rutas;
         cc = new CollisionChecker(this);
         kb = new Keyboard(this);
@@ -109,16 +110,16 @@ public class GamePanel extends JPanel implements Runnable{
       if(kb.pressEsc()){
         long time = System.currentTimeMillis();
           if(time > ultimaPulsacion + cooldown){
-            if(estadoActual instanceof Play){
+            if(interfazUsuario.getEstado() instanceof Play){
               lanzarPausa();
-            }else if(estadoActual instanceof Pause){
+            }else if(interfazUsuario.getEstado() instanceof Pause){
               lanzarPlay();
             }
             ultimaPulsacion = time;
           }
         
       }
-      if(estadoActual instanceof Pause){
+      if(interfazUsuario.getEstado() instanceof Pause){
       } else{
         checkLife();
         player.update();
@@ -127,19 +128,27 @@ public class GamePanel extends JPanel implements Runnable{
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
        // checkVidaEnemys();
-        checkVida();
+        checkLife();
       }
     }
     private void lanzarPausa(){
-      estadoActual.pausar();
-      estadoActual.inicializar();
+      interfazUsuario.pausar();
+      interfazUsuario.inicializar();
     }
     private void lanzarPlay(){
-      estadoActual.jugar();
+      interfazUsuario.jugar();
     }
     private void checkLife(){
       if(player.getLife() <= 0)
-        System.err.println("Estas muerto");
+        lanzarDead();
+    }
+    private void lanzarDead(){
+      interfazUsuario.morir();
+      interfazUsuario.inicializar();
+    }
+    public void lanzarWin(){
+      interfazUsuario.ganar();
+      interfazUsuario.inicializar();
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
@@ -149,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable{
       /*if(player.getLife() <= 0){
         g.drawImage(getRutas().getImagen("youdied.png"), camx-getScreenWidth()/2,camy-getScreenHeight(), null);
       }*/
-      if(estadoActual instanceof Pause){
+      if(interfazUsuario.getEstado() instanceof Pause){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.black);
@@ -181,21 +190,6 @@ public class GamePanel extends JPanel implements Runnable{
       }
     }
 
-    
-    private void checkVida(){
-      if(player.getLife() <= 0)
-        estadoActual.morir();
-    }
-    /*
-     * Regresa el estado actual
-     * @return State estadoActual
-     */
-    public State getEstado() {
-        return estadoActual;
-    }
-    public void setEstado(State estadoActual){
-      this.estadoActual = estadoActual;
-    }
     /*
      * Regresa la altura del mundo
      * @return int 

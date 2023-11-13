@@ -6,14 +6,12 @@ import State.State;
 
 public class Keyboard implements KeyListener{
     GamePanel gp;
-    State state;
     boolean up = false, down = false, right = false, left = false, 
     w = false, a = false, s = false, d = false, q = false,
     k1 = false, k2 = false, k3 = false, k4 = false, k5 = false, esc = false;
 
     public Keyboard(GamePanel gp){
         this.gp = gp;
-        state = gp.getEstado();
     }
     /*
      * Revisa si el jugador ha presionado una tecla
