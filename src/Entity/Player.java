@@ -89,6 +89,12 @@ public class Player implements Entity {
       return flippedImage;
     
   }
+  public void setIsAtacked(boolean atacked){
+    this.isAtacked = atacked;
+  }
+  public void setRetroceso(int retroceso){
+    this.retroceso = retroceso;
+  }
     public void getEntityImage() {
       if(isAtacked)
         image = jugadorDaniado;
