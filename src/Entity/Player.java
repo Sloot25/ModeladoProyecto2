@@ -3,8 +3,9 @@ package Entity;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
+import Aliados.Aliado;
 import Game.GamePanel;
 import Game.Keyboard;
 
@@ -28,6 +29,7 @@ public class Player implements Entity {
     boolean collision;
     private long ultimoAtaque; 
     private long cooldown = 200;
+    private long superCooldown = 2000;
     private ArrayList<Proyectiles> proyectiles = new ArrayList<Proyectiles>();
     private ArrayList<BufferedImage> imagenesProyectiles = new ArrayList<BufferedImage>();
     private int indiceProyectil = 0;
@@ -63,6 +65,13 @@ public class Player implements Entity {
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
     }
+    public void specialAttack(Enemy enemigo, Aliado aliado){
+        long time = System.currentTimeMillis();
+            if(time > ultimoAtaque + superCooldown){
+                enemigo.life -= aliado.getAtaque();
+              ultimoAtaque = time;
+            }    
+        }
 
     public void update() {
         if (kb.pressUp() == true) {
@@ -113,7 +122,7 @@ public class Player implements Entity {
                 }
                 break;
             case "down":
-                speedY = 0;
+                //speedY = 0;
                 break;
             case "left":
                 speedX = -getVelocidad();
@@ -184,7 +193,12 @@ public class Player implements Entity {
     public int getWidth(){
         return width;
     }
-
+    public int getScore(){
+        return score;
+    }
+    public void setScore(int score){
+        this.score = score;
+    }
     public Rectangle getBox() {
         return new Rectangle(x, y, width, height);
     }
@@ -256,10 +270,6 @@ public class Player implements Entity {
 
     public BufferedImage getImage() {
         return image;
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public boolean isTalking() {

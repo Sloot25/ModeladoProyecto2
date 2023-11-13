@@ -1,10 +1,8 @@
 package Aliados;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
+import java.awt.Rectangle;
 import java.util.Random;
-
-import Entity.Enemy;
 import Entity.Player;
 import Game.GamePanel;
 import Game.Keyboard;
@@ -45,10 +43,6 @@ public class Telefono {
     public void update(){
         if(aliado!=null){
             aliado.update();
-            Enemy e = gp.cc.checkAliado(aliado);
-            if(e != null){
-                System.out.println("AAAAAAA");
-            }
         }
     }
 
@@ -91,5 +85,16 @@ public class Telefono {
     }
     public boolean isSummoning(){
         return summon;
+    }
+    public Rectangle getBox(){
+        if(aliado != null){
+            return aliado.getBox();
+        }
+        return null;
+    }
+    public Aliado getAliado(){
+        if(aliado != null)
+            return aliado;
+        return null;
     }
 }

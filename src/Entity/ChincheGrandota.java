@@ -5,10 +5,12 @@ import Game.GamePanel;
 public class ChincheGrandota extends Enemy{
   private long cooldown = 1500; 
   private long ultimoAtaque;
+  private int points;
 
   public ChincheGrandota(GamePanel gp, int x, int y, int width, int height) {
     super(gp, x, y , width, height);
     this.life = 500;
+    points = 500;
   }
 
   public void attack(){

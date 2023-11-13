@@ -42,6 +42,15 @@ public class CollisionChecker {
         }
       }
     }
+    public void checkAliados(Entity entidad){
+        if(gp.telefono.getAliado() != null){
+            if(gp.telefono.getBox().intersects(entidad.getBox())){
+                if(entidad instanceof Enemy){
+                    gp.player.specialAttack((Enemy) entidad, gp.telefono.getAliado());
+                }
+            }
+        } 
+    }
     public void checkProyectilItem(Proyectiles proyectil){
       for(Item i : gp.items){
         if(i.isSolid()){

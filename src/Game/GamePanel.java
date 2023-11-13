@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<NPC> npcs = new ArrayList<NPC>();
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     public Telefono telefono;
-    public Camara cam = new Camara();
     State estadoActual;
     // State menu = new Menu();
     // State dead = new Dead();

@@ -13,4 +13,5 @@ public interface Aliado {
   public boolean onScreen();
   public void setOnScreen(boolean b);
   public Rectangle getBox();
+  public int getAtaque();
 }
