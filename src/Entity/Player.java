@@ -177,9 +177,6 @@ public class Player implements Entity {
             }
           direction="";
         } 
-        if(kb.pressEsc()){
-          gp.lanzarPausa();
-        }
         if (kb.pressUp() == true) {
             direction = "up";
             inMovement = true;

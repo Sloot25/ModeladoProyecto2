@@ -40,6 +40,8 @@ public class GamePanel extends JPanel implements Runnable{
     public Telefono telefono;
     State estadoActual;
     Thread gameThread;
+    private long ultimaPulsacion;
+    private long cooldown = 500;
 
 
     public GamePanel(Rutas rutas, State estadoActual) throws CloneNotSupportedException{
@@ -105,21 +107,22 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void update(){   
       if(kb.pressEsc()){
-        if(getEstado() instanceof Play)
-          lanzarPausa();
-        else if(getEstado() instanceof Pause){
-          System.out.println("Despausate sesamo");
-          lanzarPlay();
-        }
+        long time = System.currentTimeMillis();
+          if(time > ultimaPulsacion + cooldown){
+            if(estadoActual instanceof Play){
+              System.out.println("x");
+              lanzarPausa();
+            }else if(estadoActual instanceof Pause){
+              System.out.println("y");
+              lanzarPlay();
+            }
+            ultimaPulsacion = time;
+          }
+        
       }
-      if(player.getLife() <= 0){
-        System.out.println("te moriste bro");
-      }
-      else if(estadoActual instanceof Pause){
-        System.out.println("le pausaste bro");
-      }
-      else if(estadoActual instanceof Play){
-        //System.out.println("Le despausaste bro");
+      if(estadoActual instanceof Pause){
+      } else{
+        checkLife();
         player.update();
         lc.update();
         telefono.update();
@@ -129,12 +132,16 @@ public class GamePanel extends JPanel implements Runnable{
         checkVida();
       }
     }
-    public void lanzarPausa(){
+    private void lanzarPausa(){
       estadoActual.pausar();
       estadoActual.inicializar();
     }
-    public void lanzarPlay(){
+    private void lanzarPlay(){
       estadoActual.jugar();
+    }
+    private void checkLife(){
+      if(player.getLife() <= 0)
+        System.err.println("Estas muerto");
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
