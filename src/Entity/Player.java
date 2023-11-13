@@ -206,13 +206,13 @@ public class Player implements Entity {
           switch (direction) {
               case "up":
                 if (onfloor) {
-                    speedY = -10;
+                    speedY = -7;
                     gravity = 0.2;
                     onfloor = false;
                 }
                 break;
             case "down":
-                //speedY = 0;
+                gravity *= 2;
                 break;
             case "left":
                 speedX = -getVelocidad();

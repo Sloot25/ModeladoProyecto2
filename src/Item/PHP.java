@@ -7,7 +7,7 @@ public class PHP extends Lenguaje {
   public PHP(AtributosPlayer atributos, Player player){
     super(player);
     this.atributos = atributos;
-    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Cplusplus.png"));
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Php.png"));
   }
 
  /* Metodo getAtaque 

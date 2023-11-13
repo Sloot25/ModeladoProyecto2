@@ -11,7 +11,7 @@ public class C extends Lenguaje{
   public C(AtributosPlayer atributos, Player player){
     super(player);
     this.atributos = atributos;
-    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Php.png"));
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("C.png"));
   }
 
   /* Metodo getAtaque 
