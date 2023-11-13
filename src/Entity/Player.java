@@ -99,7 +99,12 @@ public class Player implements Entity {
         return flippedImage;
     }
 
-
+    /*
+     * Obtiene el frame del personaje en base a:
+     * si es atacado, si esta en movimiento o si solo esta parado
+     * 
+     * @return image, objeto del tipo BufferedImage del personaje principal
+     */
      public void getEntityImage(){
         if (isAtacked){
             image = jugadorDaniado;
@@ -129,12 +134,14 @@ public class Player implements Entity {
  
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
+      enemigo.setIsAtacked(true); // para actualizar la posicion de la chinche por el retroceso
       if(enemigo.life <= 0)
         gp.lc.getEnemys().remove(enemigo);
     }
     public ArrayList<BufferedImage> getImagenProyectil(){
       return imagenesProyectiles;
     }
+
     public void update() {
         getEntityImage();
         if (kb.pressUp() == true) {
@@ -187,6 +194,11 @@ public class Player implements Entity {
         gp.cc.checkItem(this);
         gp.cc.checkStairs(this);
 
+        for(int i = 0; i < proyectiles.size(); i++){
+            proyectiles.get(i).update();
+            gp.cc.checkProyectilItem(proyectiles.get(i));
+        }
+
         if(isAtacked){ // si es atacado, solo te permite el retroceso
             retroceso();
         } else{  // si no es atacado, te permite moverte normal
@@ -214,6 +226,11 @@ public class Player implements Entity {
 
     }
 
+    /*
+     *  Metodo que controla el retroceso, si le restas mas al retroceso,
+     * menos tiempo va a durar. Si le restas mas al speedX, mas lejos te 
+     * arrojara a la izquierda del mapa cuando colisionas
+     */
     private void retroceso(){
         if(retroceso <= 0){
             isAtacked = false;
@@ -221,12 +238,8 @@ public class Player implements Entity {
             retroceso -= 10;
             speedX -= 2;
         }
-      for(int i = 0; i < proyectiles.size(); i++){
-        proyectiles.get(i).update();
-        gp.cc.checkProyectilItem(proyectiles.get(i));
-      }
-        //System.out.println();
     }
+
     private void cambiarImagen(){
       indiceProyectil = (indiceProyectil < imagenesProyectiles.size()-1) ? indiceProyectil+1 : 0;
       
@@ -240,6 +253,7 @@ public class Player implements Entity {
     private void atacarEnfrente(){
       proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), 1, x,y)); 
       cambiarImagen();
+
     }
     
     private void atacarDetras(){

@@ -9,6 +9,7 @@ public class ChincheDirector extends Enemy{
   public ChincheDirector(GamePanel gp, int x, int y, int width, int height) {
     super(gp, x, y , width, height);
     this.life = 800;
+    this.retroceso = 0;
   }
 
   public void attack(){
@@ -27,5 +28,13 @@ public class ChincheDirector extends Enemy{
   @Override
   public void getEntityImage() {
     imagen = gp.getRutas().getImagen("chinchedirector.png");
+  }
+
+  /*
+   * La chinche directora no tiene retroceso
+   */
+  @Override
+  public void retroceso() {
+      return;  
   }
 }

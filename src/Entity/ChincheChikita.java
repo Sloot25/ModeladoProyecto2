@@ -1,16 +1,9 @@
 package Entity;
-
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import Game.GamePanel;
-import Game.SpriteSheet;
 
 public class ChincheChikita extends Enemy{
   //private BufferedImage[] chinchePequenia = new BufferedImage[8];
-  private SpriteSheet animationCaminando;
+  //private SpriteSheet animationCaminando;
   private long ultimoAtaque; 
   private long cooldown = 2000;
   public ChincheChikita(GamePanel gp, int x, int y, int width, int height) {
@@ -22,12 +15,12 @@ public class ChincheChikita extends Enemy{
       animationCaminando = new SpriteSheet(chinchePequenia,175);
       */
       this.life = 150;
+      this.retroceso = 100; 
   }
   @Override
   public void getEntityImage(){
     imagen = this.gp.getRutas().getImagen("chinche.png");
   }
-  
   /* 
   @Override
   public void getEntityImage(){
@@ -44,6 +37,7 @@ public class ChincheChikita extends Enemy{
         }
   }
   */
+
   @Override
   public void attack() {
     long time = System.currentTimeMillis();
@@ -57,4 +51,15 @@ public class ChincheChikita extends Enemy{
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
   }
+  @Override
+  public void retroceso() {
+      if(retroceso <= 0){
+          isAtacked = false;
+          retroceso = 100;
+      } else{
+          retroceso -= 10;
+          speedX += 2;
+      }
+  }
+  
 }

@@ -8,13 +8,11 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Call of Chienchias");
-        Rutas ruta = new Windows();
-        /* 
+        Rutas ruta;
         if(System.getProperty("os.name").equals("Linux"))
           ruta = new Linux();
         else 
           ruta = new Windows();
-        */
         GamePanel gp = new GamePanel(ruta);
 
         window.add(gp);

@@ -23,7 +23,8 @@ public abstract class Enemy implements Entity, Cloneable{
     boolean collision;
     boolean onfloor;
     SpriteSheet sprites;
-    
+    public Boolean isAtacked;
+    public int retroceso;
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
@@ -37,6 +38,7 @@ public abstract class Enemy implements Entity, Cloneable{
         direction = "left";
         onfloor = false;
         collision = false;
+        isAtacked = false;
         getEntityImage();
     }
 
@@ -48,6 +50,8 @@ public abstract class Enemy implements Entity, Cloneable{
      * El villano ataca al jugador
      */
     public abstract void attack();
+
+    public abstract void retroceso();
     /*
      * Actualiza la posicion y sprite del villano
      */
@@ -90,6 +94,10 @@ public abstract class Enemy implements Entity, Cloneable{
         }
         if(attackPlayer){
             attack();
+        }
+
+        if (isAtacked){
+            retroceso();  // retroceso que depende de cada chinche, a las mas grandes, menos retroceso
         }
     }
     /*
@@ -154,6 +162,9 @@ public abstract class Enemy implements Entity, Cloneable{
 
     public Rectangle getBoxLeft() {
         return new Rectangle(x, y+5, 1, height-10);
+    }
+    public void setIsAtacked(Boolean isAtacked){
+        this.isAtacked = isAtacked;
     }
 
     @Override
