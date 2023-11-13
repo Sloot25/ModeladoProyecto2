@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
         cc = new CollisionChecker(this);
         kb = new Keyboard(this);
         as = new AssetSetter(this);
-        sp = new SoundPlayer();
+        sp = new SoundPlayer(this);
         ui = new UserInterface(this);
         player = new Player(this, kb);
         lc = new LevelCreator(this);
@@ -63,10 +63,10 @@ public class GamePanel extends JPanel implements Runnable{
     /*
      * Coloca las entidades y objetos en el mapa, así como preparar lo que sea necesario
      */
-    public void setGame(){
-        as.setNPCs();
-        as.setEnemies();
+    public void setGame(){;
         as.setItems();
+        sp.agregarAudio("\\KUWAGO - Toybox5 - 02 Swinging.wav");
+        sp.play(0);
     }
     /*
      * Inicia el hilo de ejecución
@@ -106,12 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void update(){   
         player.update();
-        for(Entity npc: npcs){
-            npc.update();
-        }
-        for(Entity enemy: enemies){
-            enemy.update();
-        }
+        lc.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
     }
@@ -123,17 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
-
         lc.paint(g2);
-        for(Entity npc: npcs){
-            npc.paint(g2);
-        }
-        for(Entity enemy: enemies){
-            enemy.paint(g2);
-        }
-        for(Item item: items){
-            item.paint(g2);
-        }
         player.paint(g2);
         ui.paint(g2);
         telefono.paint(g2);

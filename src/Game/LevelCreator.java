@@ -9,6 +9,7 @@ import Entity.ChincheDirector;
 import Entity.ChincheGrandota;
 import Entity.Chinchentifica;
 import Entity.Enemy;
+import Entity.Entity;
 import Entity.EstudianteRandom;
 import Entity.Lemus;
 import Entity.NPC;
@@ -42,6 +43,7 @@ public class LevelCreator {
         BDEnemigos[2] = new Chinchentifica(gp, 0,0,entitysize*bloque,entitysize*bloque);
         BDEnemigos[3] = new ChincheDirector(gp, 0,0,3*entitysize*bloque,3*entitysize*bloque);
     }
+
     public void getMapImages() {
         image = gp.getRutas().getImagen("fciencias.png");
         map = gp.getRutas().getImagen("fcienciasmap.png");
@@ -111,8 +113,27 @@ public class LevelCreator {
             }
         }
     }
+
+    public void update(){
+        for(Entity npc: npcs){
+            npc.update();
+        }
+        for(Entity enemy: enemies){
+            enemy.update();
+        }
+
+    }
     public void paint(Graphics g) {
         g.drawImage(image,-50*bloque,-56*bloque, gp.getWorldWidth()+123*bloque, gp.getWorldHeight()+105*bloque,null);
+        for(Entity npc: npcs){
+            npc.paint(g);
+        }
+        for(Entity enemy: enemies){
+            enemy.paint(g);
+        }
+        for(Item item: items){
+            item.paint(g);
+        }
     }
     
 }

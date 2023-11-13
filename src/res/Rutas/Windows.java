@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 // Clase que contiene las rutas para un dispositivo tipo Windows
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 public class Windows implements Rutas { 
   public Windows(){
     
@@ -17,4 +20,12 @@ public class Windows implements Rutas {
       return null;
     }
   }
+  public AudioInputStream getAudio(String audio){
+      try {
+        return AudioSystem.getAudioInputStream(new File("src\\res\\KUWAGO - Toybox5\\"+audio));
+      } catch (UnsupportedAudioFileException | IOException e) {
+        e.printStackTrace();
+        return null;
+      }
+  } 
 }
