@@ -9,12 +9,15 @@ public class ChincheDirector extends Enemy{
   public ChincheDirector(GamePanel gp, int x, int y, int width, int height) {
     super(gp, x, y , width, height);
     this.life = 800;
+    this.retroceso = 0;
   }
 
   public void attack(){
     long time = System.currentTimeMillis();
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife()-300);
+      gp.player.setIsAtacked(true);
+      gp.player.setRetroceso(200);
       ultimoAtaque = time;
     }
   }
@@ -26,4 +29,6 @@ public class ChincheDirector extends Enemy{
   public void getEntityImage() {
     imagen = gp.getRutas().getImagen("chinchedirector.png");
   }
+  @Override
+  public void retroceso(){}
 }

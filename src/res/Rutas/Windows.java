@@ -28,4 +28,12 @@ public class Windows implements Rutas {
         return null;
       }
   } 
+  public BufferedImage getSprite(String imagen){
+    try{
+      return ImageIO.read(new File("src\\res\\Jugador\\" + imagen));
+    }catch(IOException e){
+      e.printStackTrace();
+      return null;
+    }
+  }
 }

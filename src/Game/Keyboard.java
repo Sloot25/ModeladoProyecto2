@@ -184,5 +184,8 @@ public class Keyboard implements KeyListener{
     public Boolean pressQ(){
       return q;
     }
+    public Boolean pressEsc(){
+     return esc;
+  }
     
 }

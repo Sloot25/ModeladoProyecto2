@@ -4,9 +4,13 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList; 
+import java.awt.image.AffineTransformOp;
+import java.awt.geom.AffineTransform;
+
 
 import Game.GamePanel;
 import Game.Keyboard;
+import Game.SpriteSheet;
 
 public class Player implements Entity {
     GamePanel gp;
@@ -35,7 +39,14 @@ public class Player implements Entity {
     //boolean falling;
     //boolean walking;
     boolean onfloor;
+    int retroceso;
+    private boolean inMovement;
+    private boolean isAtacked;
     private AtributosPlayer atributos;
+    BufferedImage[] jugadorCaminando = new BufferedImage[10];
+    BufferedImage[] jugadorParado = new BufferedImage[6];
+    SpriteSheet animationCaminando, animationParado; 
+    BufferedImage jugadorDaniado;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
@@ -54,13 +65,46 @@ public class Player implements Entity {
         gravity = 0;
         direction = "";
         atributos = new AtributosPlayer(this);
-        getEntityImage();
+        cargarRutas();
     }
+    private void cargarRutas(){
+      inMovement = false;
+      isAtacked = false;
+      jugadorDaniado = gp.getRutas().getSprite("PersonajeDanado.png");
+      for(int i = 0; i < jugadorCaminando.length; i++)
+        jugadorCaminando[i] = gp.getRutas().getSprite("PersonajeCaminando" + (i+1) + ".png");
+      for(int i = 0; i < jugadorParado.length; i++)
+        jugadorParado[i] = gp.getRutas().getSprite("Personaje"+ (i+1) + ".png");
+      animationCaminando = new SpriteSheet(jugadorCaminando, 100);
+      animationParado = new SpriteSheet(jugadorParado, 100);
+  }
     public GamePanel getGP(){
     return gp;
   }
+    private BufferedImage flipImage(BufferedImage original){
+      AffineTransform tx = AffineTransform.getScaleInstance(-1,1);
+      tx.translate(-original.getWidth(null), 0);
+      AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+      BufferedImage flippedImage = op.filter(original, null);
+      return flippedImage;
+    
+  }
     public void getEntityImage() {
-      image = gp.getRutas().getImagen("potato.png");
+      if(isAtacked)
+        image = jugadorDaniado;
+      else if(inMovement){
+        animationCaminando.update();
+        if(direction == "right")
+          image = animationCaminando.getCurrentFrame();
+        else
+          image = flipImage(animationCaminando.getCurrentFrame());
+      }else{
+        animationParado.update();
+        if(direction == "right")
+          image = animationParado.getCurrentFrame();
+        else 
+          image = flipImage(animationParado.getCurrentFrame());
+      }
     }
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
@@ -71,22 +115,28 @@ public class Player implements Entity {
       return imagenesProyectiles;
     }
     public void update() {
+        getEntityImage();
         if (kb.pressUp() == true) {
             direction = "up";
+            inMovement = true;
         } 
         else if (kb.pressDown() == true) {
             direction = "down";
+            inMovement = true;
         }  
         else if (kb.pressRight() == true) {
             direction = "right";
+            inMovement = true;
         }
         else if (kb.pressLeft() == true) {
             direction = "left";
+            inMovement = true;
         }else if(kb.pressA()){
           long time = System.currentTimeMillis();
               if(time > ultimoAtaque + cooldown - getCadencia()){
                 atacarDetras();
                 ultimoAtaque = time;
+                inMovement = true;
               }
           direction="";
         }else if(kb.pressD()){
@@ -94,6 +144,7 @@ public class Player implements Entity {
             if(time > ultimoAtaque + cooldown - getCadencia()){
               atacarEnfrente();
               ultimoAtaque = time;
+              inMovement = true;
             }
           direction="";
         }else if(kb.pressEsc()){
@@ -102,6 +153,7 @@ public class Player implements Entity {
         }
         else{
             direction = "";
+            inMovement = false;
         }
         onfloor = gp.cc.checkOnFloor(this);
         if (onfloor == false) {
@@ -115,31 +167,43 @@ public class Player implements Entity {
         x += speedX;
         gp.cc.checkItem(this);
         gp.cc.checkStairs(this);
-        switch (direction) {
-            case "up":
+        if(isAtacked){
+          retroceso();
+        }else{
+          switch (direction) {
+              case "up":
                 if (onfloor) {
                     speedY = -10;
                     gravity = 0.2;
                     onfloor = false;
                 }
                 break;
-            case "down":
-                speedY = 0;
-                break;
-            case "left":
+              case "down":
+                  speedY = 0;
+                  break;
+              case "left":
                 speedX = -getVelocidad();
                 break;
-            case "right":
-                speedX = getVelocidad();
-                break;
-            default:
+              case "right":
+                  speedX = getVelocidad();
+                  break;
+              default:
                 speedX = 0;
+          }
         }
       for(int i = 0; i < proyectiles.size(); i++){
         proyectiles.get(i).update();
         gp.cc.checkProyectilItem(proyectiles.get(i));
       }
         //System.out.println();
+    }
+    private void retroceso(){
+      if(retroceso <= 0)
+        isAtacked = false;
+      else{
+        retroceso -= 10;
+        speedX-=2;
+      }
     }
     private void cambiarImagen(){
       indiceProyectil = (indiceProyectil < imagenesProyectiles.size()-1) ? indiceProyectil+1 : 0;
