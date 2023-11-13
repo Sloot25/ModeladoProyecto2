@@ -7,14 +7,13 @@ import State.State;
 public class Keyboard implements KeyListener{
     GamePanel gp;
     State state;
-    Boolean up = false;
-    Boolean down = false;
-    Boolean right = false;
-    Boolean left = false;
+    boolean up = false, down = false, right = false, left = false, 
+    w = false, a = false, s = false, d = false, 
+    k1 = false, k2 = false, k3 = false, k4 = false, k5 = false;
 
     public Keyboard(GamePanel gp){
         this.gp = gp;
-        state = gp.getState();
+        state = gp.getEstado();
     }
     /*
      * Revisa si el jugador ha presionado una tecla
@@ -41,6 +40,33 @@ public class Keyboard implements KeyListener{
         if(key == KeyEvent.VK_RIGHT){
             right = true;
         }
+        if(key == KeyEvent.VK_W){
+            w = true;
+        }
+        if(key== KeyEvent.VK_A){
+            a = true;
+        }
+        if(key == KeyEvent.VK_S){
+            s = true;
+        }
+        if(key == KeyEvent.VK_D){
+            d = true;
+        }
+        if(key == KeyEvent.VK_1){
+            k1 = true;
+        }
+        if(key== KeyEvent.VK_2){
+            k2 = true;
+        }
+        if(key == KeyEvent.VK_3){
+            k3 = true;
+        }
+        if(key == KeyEvent.VK_4){
+            k4 = true;
+        }
+        if(key == KeyEvent.VK_5){
+            k5 = true;
+        }
     }
     /*
      * Revisa si el jugador ha soltado la tecla que estaba presionando
@@ -59,6 +85,33 @@ public class Keyboard implements KeyListener{
         }
         if(key == KeyEvent.VK_RIGHT){
             right = false;
+        }
+        if(key == KeyEvent.VK_W){
+            w = false;
+        }
+        if(key== KeyEvent.VK_A){
+            a = false;
+        }
+        if(key == KeyEvent.VK_S){
+            s = false;
+        }
+        if(key == KeyEvent.VK_D){
+            d = false;
+        }
+        if(key == KeyEvent.VK_1){
+            k1 = false;
+        }
+        if(key== KeyEvent.VK_2){
+            k2 = false;
+        }
+        if(key == KeyEvent.VK_3){
+            k3 = false;
+        }
+        if(key == KeyEvent.VK_4){
+            k4 = false;
+        }
+        if(key == KeyEvent.VK_5){
+            k5 = false;
         }
     }
     /*
@@ -88,6 +141,33 @@ public class Keyboard implements KeyListener{
      */
     public Boolean pressLeft(){
         return left;
+    }
+    public Boolean pressW(){
+        return w;
+    }
+    public Boolean pressA(){
+        return a;
+    }
+    public Boolean pressS(){
+        return s;
+    }
+    public Boolean pressD(){
+        return d;
+    }
+    public Boolean press1(){
+        return k1;
+    }
+    public Boolean press2(){
+        return k2;
+    }
+    public Boolean press3(){
+        return k3;
+    }
+    public Boolean press4(){
+        return k4;
+    }
+    public Boolean press5(){
+        return k5;
     }
     
 }

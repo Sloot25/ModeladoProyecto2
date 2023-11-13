@@ -10,6 +10,6 @@ public class Rosa extends NPC {
     imagen = gp.getRutas().getImagen("rosa.png");
   }
   public void interact(){
-    //TODO Ingresar la interaccion con el personaje
+    gp.player.startTalking("¿Sabian que pueden subir y bajar escaleras con w y s? \n Impresionante ");
   }
 }

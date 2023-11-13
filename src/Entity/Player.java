@@ -1,17 +1,14 @@
 package Entity;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
-import res.Rutas.Rutas;
 import Game.GamePanel;
 import Game.Keyboard;
+import Game.SpriteSheet;
 
 public class Player implements Entity {
     GamePanel gp;
@@ -27,6 +24,7 @@ public class Player implements Entity {
     int height;
     int score;
     int life;
+    int retroceso;
     double gravity;
     Rectangle box;
     String direction;
@@ -36,6 +34,13 @@ public class Player implements Entity {
     //boolean falling;
     //boolean walking;
     boolean onfloor;
+    boolean inMovement;
+    boolean isAtacked;
+
+    BufferedImage[] jugadorCaminando = new BufferedImage[10];
+    BufferedImage[] jugadorParado = new BufferedImage[6];
+    SpriteSheet animationCaminando, animationParado;
+    BufferedImage jugadorDaniado;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
@@ -53,33 +58,84 @@ public class Player implements Entity {
         gravity = 0;
         direction = "";
         life = 1000;
-        getEntityImage();
-    }
+        inMovement = false;
+        isAtacked = false;
 
-    public void getEntityImage() {
-        try {
-            image = ImageIO.read(new File("src\\res\\potato.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        jugadorDaniado = this.gp.getRutas().getImagen("Jugador/Personaje danado.png");
+        for(int i= 0; i < jugadorCaminando.length; i++){
+            jugadorCaminando[i] = this.gp.getRutas().getImagen("Jugador/Personaje caminando "+(i+1)+".png");
         }
+        for(int i= 0; i < jugadorParado.length; i++){
+            jugadorParado[i] = this.gp.getRutas().getImagen("Jugador/Personaje "+(i+1)+".png");
+        }
+        animationCaminando = new SpriteSheet(jugadorCaminando,100);
+        animationParado = new SpriteSheet(jugadorParado,100);
 
     }
 
+    /*
+     * Metodo para invertir una imagen horizontalmente
+     * 
+     * @param originalImage que será la imagen a voltear
+     * 
+     * @return flippedImage imagen volteada
+     */
+    private BufferedImage flipImage(BufferedImage originalImage){
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        tx.translate(-originalImage.getWidth(null), 0);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        BufferedImage flippedImage = op.filter(originalImage, null);
+        return flippedImage;
+    }
+
+
+     public void getEntityImage(){
+        if (isAtacked){
+            image = jugadorDaniado;
+        }
+        else if (inMovement){
+            animationCaminando.update(); 
+            if (direction == "right"){ // cuando el personaje tiene direccion de la imagen original, regresa original
+                image =  animationCaminando.getCurrentFrame(); 
+            } else{ //  regresa imagen volteada
+                image = flipImage(animationCaminando.getCurrentFrame());
+            }
+        } else{
+            animationParado.update(); 
+            if (direction == "right"){ // cuando el personaje tiene direccion de la imagen original, regresa original
+                image =  animationParado.getCurrentFrame(); 
+            } else{ //  regresa imagen volteada
+                image = flipImage(animationParado.getCurrentFrame());
+            }
+        }
+     }
+
+    /* 
+    public void getEntityImage() {
+      image = gp.getRutas().getImagen("potato.png");
+    }
+    */
     public void update() {
+        getEntityImage();
         if (kb.pressUp() == true) {
             direction = "up";
+            inMovement = true;
         } 
         else if (kb.pressDown() == true) {
             direction = "down";
+            inMovement = true;
         }  
         else if (kb.pressRight() == true) {
             direction = "right";
+            inMovement = true;
         }
         else if (kb.pressLeft() == true) {
             direction = "left";
+            inMovement = true;
         }
         else{
             direction = "";
+            inMovement = false;
         }
         onfloor = gp.cc.checkOnFloor(this);
         if (onfloor == false) {
@@ -92,7 +148,12 @@ public class Player implements Entity {
         y += speedY;
         x += speedX;
         gp.cc.checkItem(this);
-        switch (direction) {
+        gp.cc.checkStairs(this);
+
+        if(isAtacked){ // si es atacado, solo te permite el retroceso
+            retroceso();
+        } else{  // si no es atacado, te permite moverte normal
+            switch (direction) {
             case "up":
                 if (onfloor) {
                     speedY = -10;
@@ -111,9 +172,18 @@ public class Player implements Entity {
                 break;
             default:
                 speedX = 0;
+            }
         }
 
-        //System.out.println();
+    }
+
+    private void retroceso(){
+        if(retroceso <= 0){
+            isAtacked = false;
+        } else{
+            retroceso -= 10;
+            speedX -= 2;
+        }
     }
 
     public void paint(Graphics g) {
@@ -135,13 +205,14 @@ public class Player implements Entity {
     public int getY() {
         return y;
     }
-
-    public void setX(int x) {
+    public void setX(int x){
         this.x = x;
     }
-
-    public void setY(int y) {
+    public void setY(int y){
         this.y = y;
+    }
+    public int getWidth(){
+        return width;
     }
 
     public Rectangle getBox() {
@@ -240,6 +311,18 @@ public class Player implements Entity {
 
     public int getCadencia() {
         return 10;
+    }
+
+    public void setIsAtacked(Boolean isAtacked){
+        this.isAtacked = isAtacked;
+    }
+
+    public Boolean getIsAtacked(){
+        return isAtacked;
+    }
+
+    public void setRetroceso(int retroceso){
+        this.retroceso = retroceso;
     }
 
 }

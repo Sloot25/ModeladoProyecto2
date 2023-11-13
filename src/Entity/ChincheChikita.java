@@ -1,27 +1,59 @@
 package Entity;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import Game.GamePanel;
+import Game.SpriteSheet;
 
 public class ChincheChikita extends Enemy{
-
-    public ChincheChikita(GamePanel gp, int x, int y, int width, int height) {
-        super(gp, x, y , width, height);
+  //private BufferedImage[] chinchePequenia = new BufferedImage[8];
+  private SpriteSheet animationCaminando;
+  private long ultimoAtaque; 
+  private long cooldown = 2000;
+  public ChincheChikita(GamePanel gp, int x, int y, int width, int height) {
+      super(gp, x, y , width, height);
+      /* 
+      for(int i= 0; i < chinchePequenia.length; i++){
+        chinchePequenia[i] = this.gp.getRutas().getImagen("/Chinches chikitas/Chinche caminando "+(i+1)+".png");
+      }
+      animationCaminando = new SpriteSheet(chinchePequenia,175);
+      */
+  }
+  @Override
+  public void getEntityImage(){
+    imagen = this.gp.getRutas().getImagen("chinche.png");
+  }
+  
+  /* 
+  @Override
+  public void getEntityImage(){
+    animationCaminando.update();
+        BufferedImage originalImage = animationCaminando.getCurrentFrame(); 
+        if (direction == "right"){ // cuando la chincge tiene direccion de la imagen original, regresa original
+            imagen =  originalImage; 
+        } else{ //  regresa imagen volteada
+            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+            tx.translate(-originalImage.getWidth(null), 0);
+            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            BufferedImage flippedImage = op.filter(originalImage, null);
+            imagen = flippedImage;
+        }
+  }
+  */
+  @Override
+  public void attack() {
+    long time = System.currentTimeMillis();
+    if(time > ultimoAtaque + cooldown){
+      gp.player.setLife(gp.player.getLife() - 100);
+      gp.player.setIsAtacked(true);
+      gp.player.setRetroceso(75); // mayor retroceso, mas lejos te manda
+      ultimoAtaque = time;
     }
-
-    public void getEntityImage(){
-        imagen = gp.getRutas().getImagen("chinche.png");
-    }
-
-    @Override
-    public void attack() {
-        gp.player.setLife(gp.player.getLife() - 100);
-    }  
-    public Enemy clonar() throws CloneNotSupportedException{
-        return (Enemy) this.clone();
-    }
+  }  
+  public Enemy clonar() throws CloneNotSupportedException{
+    return (Enemy) this.clone();
+  }
 }

@@ -4,18 +4,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 import javax.swing.JPanel;
-
+import Aliados.Telefono;
 import Entity.Enemy;
 import Entity.Entity;
 import Entity.NPC;
 import Entity.Player;
 import Item.Item;
-import State.Dead;
-import State.Menu;
-import State.Pause;
-import State.Play;
 import State.State;
 import res.Rutas.Rutas;
 
@@ -39,24 +34,26 @@ public class GamePanel extends JPanel implements Runnable{
     public ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<NPC> npcs = new ArrayList<NPC>();
     public ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    public Telefono telefono;
     public Camara cam = new Camara();
     State estadoActual;
-    State menu = new Menu();
-    State dead = new Dead();
-    State pause = new Pause();
-    State play = new Play();
+    // State menu = new Menu();
+    // State dead = new Dead();
+    // State pause = new Pause();
+    // State play = new Play();
     Thread gameThread;
 
 
-    public GamePanel(Rutas rutas){
+    public GamePanel(Rutas rutas) throws CloneNotSupportedException{
         this.rutas = rutas;
         cc = new CollisionChecker(this);
         kb = new Keyboard(this);
         as = new AssetSetter(this);
-        sp = new SoundPlayer();
+        sp = new SoundPlayer(this);
         ui = new UserInterface(this);
         player = new Player(this, kb);
         lc = new LevelCreator(this);
+        telefono = new Telefono(this, player, kb);
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -66,10 +63,10 @@ public class GamePanel extends JPanel implements Runnable{
     /*
      * Coloca las entidades y objetos en el mapa, así como preparar lo que sea necesario
      */
-    public void setGame(){
-        as.setNPCs();
-        as.setEnemies();
+    public void setGame(){;
         as.setItems();
+        sp.agregarAudio("\\KUWAGO - Toybox5 - 02 Swinging.wav");
+        sp.play(0);
     }
     /*
      * Inicia el hilo de ejecución
@@ -109,12 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void update(){   
         player.update();
-        for(Entity npc: npcs){
-            npc.update();
-        }
-        for(Entity enemy: enemies){
-            enemy.update();
-        }
+        lc.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
     }
@@ -126,27 +118,21 @@ public class GamePanel extends JPanel implements Runnable{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
-
         lc.paint(g2);
-        for(Entity npc: npcs){
-            npc.paint(g2);
-        }
-        for(Entity enemy: enemies){
-            enemy.paint(g2);
-        }
-        for(Item item: items){
-            item.paint(g2);
-        }
         player.paint(g2);
         ui.paint(g2);
+        telefono.paint(g2);
         g2.dispose();
     }
     /*
      * Regresa el estado actual
      * @return State estadoActual
      */
-    public State getState() {
+    public State getEstado() {
         return estadoActual;
+    }
+    public void setEstado(State estadoActual){
+      this.estadoActual = estadoActual;
     }
     /*
      * Regresa la altura del mundo
@@ -176,12 +162,11 @@ public class GamePanel extends JPanel implements Runnable{
     public int getScreenWidth() {
         return screenWidth;
     }
-    public int getScale() {
+    public int getScale(){
         return scale;
     }
-
-    public Rutas getRutas(){
-        return rutas;
-    }
+  public Rutas getRutas(){
+    return this.rutas;
+  }
     
 }

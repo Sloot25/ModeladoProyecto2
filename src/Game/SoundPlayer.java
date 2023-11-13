@@ -1,6 +1,5 @@
 package Game;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,13 +7,13 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundPlayer {
+    GamePanel gp;
     ArrayList<Clip> clips = new ArrayList<Clip>();
     ArrayList<Integer> lastTime = new ArrayList<Integer>();
-    public SoundPlayer(){
-
+    public SoundPlayer(GamePanel gp){
+        this.gp = gp;
     }
     /*
      * Agrega un audio a la coleccion de audios que se pueden reproducir
@@ -23,17 +22,17 @@ public class SoundPlayer {
     public void agregarAudio(String path){
         try {
             Clip clip;
-            AudioInputStream ais = AudioSystem.getAudioInputStream(new File("src\\res"+path));
+            AudioInputStream ais = gp.getRutas().getAudio(path);
             clip = AudioSystem.getClip();
             clip.open(ais);
             clips.add(clip);
             lastTime.add(0);
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace();
+        } catch (IOException | LineUnavailableException e) {
+            System.out.println("No hay audio en "+path);
         }
     }
     public void eliminarAudio(int i){
-
+        clips.remove(i);
     }
     /*
      * Reproduce un audio

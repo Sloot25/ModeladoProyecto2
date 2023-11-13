@@ -11,7 +11,7 @@ public class Canek extends NPC{
     imagen = gp.getRutas().getImagen("canek.png");
   }
   public void interact(){
-    gp.player.startTalking("¿Ya acabaste con las chinches? ¿no? estoy muy decepcionado de ti");
+    gp.player.startTalking("¿Ya acabaste con las chinches? ¿No? Estoy muy decepcionado de ti");
   }
 
 }

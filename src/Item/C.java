@@ -4,7 +4,7 @@ import Entity.Player;
 import Game.GamePanel;
 import Game.Keyboard;
 
-public class C extends Player{
+public class C extends Lenguaje{
   GamePanel gp;
   Keyboard kb;
   Player player;

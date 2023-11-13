@@ -1,13 +1,10 @@
 package Entity;
 import java.lang.Cloneable;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
-import Game.Conversation;
 import Game.GamePanel;
+import Game.SpriteSheet;
 
 public abstract class Enemy implements Entity, Cloneable{
     GamePanel gp;
@@ -19,15 +16,18 @@ public abstract class Enemy implements Entity, Cloneable{
     public BufferedImage imagen;
     public String direction;
     public int life;
-    public Rectangle box = new Rectangle(0,0,128, 64);
+    public Rectangle box;
     double speedX;
     double speedY;
     double gravity;
     boolean collision;
     boolean onfloor;
+    SpriteSheet sprites;
+    
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
+        player = gp.player;
         this.x = x; 
         this.y = y;
         this.width = width; 
@@ -68,10 +68,10 @@ public abstract class Enemy implements Entity, Cloneable{
         if(collision == false){
             switch(direction){
                 case "left":
-                    speedX = 1;
+                    speedX = -1;
                     break;
                 case "right":
-                    speedX = -1;
+                    speedX = 1;
                     break;
             }
         }

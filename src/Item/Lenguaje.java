@@ -6,6 +6,7 @@ import Game.Keyboard;
 /*Clase abstracta que nos permite hacer uso de decorator, esta con el fin de encapsular las armas y los atributos que vaya adquiriendo 
  * el personaje a lo largo de la aventura */
 public abstract class Lenguaje extends Player implements Armas{
+  boolean inRange = false;
   public Lenguaje(GamePanel gp, Keyboard kb) {
     super(gp, kb);
   }
@@ -26,4 +27,10 @@ protected Player player;
   public int getLife(){
     return this.player.getLife();
   }
+  public boolean inRange(){
+    return inRange;
+  }
+  public void setInRange(boolean inRange){
+    this.inRange = inRange;
+}
 }
