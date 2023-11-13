@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import Game.Conversation;
 import Game.GamePanel;
 
 public abstract class NPC implements Entity{
@@ -15,8 +14,6 @@ public abstract class NPC implements Entity{
     BufferedImage imagen;
     String direction;
     boolean talking, collision, onfloor;
-    ArrayList<Conversation> conversations;
-    Conversation conversation;
 
     public NPC(GamePanel gp, int x, int y, int width, int height){
         this.gp = gp;
@@ -85,43 +82,13 @@ public abstract class NPC implements Entity{
         }
 
     }
-    public void nextConversation(){
-        if(!conversation.nextDialogue()){
-            talking = false;
-            conversation.setFinished(true);
-            conversation = null;
-        }
-    }
-    public void addConversation(String text){
-        Conversation c = new Conversation(this, false);
-        conversations.add(c);
-    }
-    public void talk(){
-        conversation = getCurrentConversation();
-        if(conversation!=null){
-            conversation.setDialogue(0);
-        }
-        else{
-            talking = false;
-        }
-    }
-    public Conversation getCurrentConversation(){
-        for(Conversation c: conversations){
-            if(c.isAvailable()){
-                return c;
-            }
-        }
-        return null;
-    }
+
     /*
      * Pinta al npc dentro del mapa
      * @param Graphics2D g2
      */
     public void paint(Graphics g){
         g.drawImage(imagen, x, y, width, height, gp);
-        if(talking && conversation != null){
-            conversation.paint(g);
-        }
     }
     public boolean getCollision(){
         return collision;
