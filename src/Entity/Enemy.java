@@ -54,6 +54,7 @@ public abstract class Enemy implements Entity, Cloneable{
     public void update(){
         gp.cc.checkItem(this);
         gp.cc.checkEnemy(this);
+        gp.cc.checkProyectil(this);
         boolean attackPlayer = gp.cc.checkPlayer(this);
         onfloor = gp.cc.checkOnFloor(this);
         if (onfloor == false) {

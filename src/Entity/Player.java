@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList; 
 
 import Game.GamePanel;
 import Game.Keyboard;
@@ -29,6 +30,11 @@ public class Player implements Entity {
     Rectangle box;
     String direction;
     boolean collision;
+    private long ultimoAtaque; 
+    private long cooldown = 200;
+    private ArrayList<Proyectiles> proyectiles = new ArrayList<Proyectiles>();
+    private ArrayList<BufferedImage> imagenesProyectiles = new ArrayList<BufferedImage>();
+    private int indiceProyectil = 0;
     //boolean jumping;
     boolean talking;
     //boolean falling;
@@ -41,10 +47,12 @@ public class Player implements Entity {
     BufferedImage[] jugadorParado = new BufferedImage[6];
     SpriteSheet animationCaminando, animationParado;
     BufferedImage jugadorDaniado;
+    private AtributosPlayer atributos;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
         this.kb = kb;
+        this.imagenesProyectiles.add(gp.getRutas().getImagen("Html.png"));
         height = 50;
         width = 50;
         box = new Rectangle(50, 50, width, height); // La caja es para revisar las colisiones
@@ -70,6 +78,9 @@ public class Player implements Entity {
         }
         animationCaminando = new SpriteSheet(jugadorCaminando,100);
         animationParado = new SpriteSheet(jugadorParado,100);
+
+        atributos = new AtributosPlayer(this);
+        //getEntityImage();
 
     }
 
@@ -115,6 +126,15 @@ public class Player implements Entity {
       image = gp.getRutas().getImagen("potato.png");
     }
     */
+ 
+    public void attack(Enemy enemigo){
+      enemigo.life -= getAtaque();
+      if(enemigo.life <= 0)
+        gp.lc.getEnemys().remove(enemigo);
+    }
+    public ArrayList<BufferedImage> getImagenProyectil(){
+      return imagenesProyectiles;
+    }
     public void update() {
         getEntityImage();
         if (kb.pressUp() == true) {
@@ -132,6 +152,23 @@ public class Player implements Entity {
         else if (kb.pressLeft() == true) {
             direction = "left";
             inMovement = true;
+
+        }else if(kb.pressA()){
+          long time = System.currentTimeMillis();
+              if(time > ultimoAtaque + cooldown - getCadencia()){
+                atacarDetras();
+                ultimoAtaque = time;
+                inMovement = true;
+              }
+          direction="";
+        }else if(kb.pressD()){
+          long time = System.currentTimeMillis();
+            if(time > ultimoAtaque + cooldown - getCadencia()){
+              atacarEnfrente();
+              ultimoAtaque = time;
+              inMovement = true;
+            }
+          direction="";
         }
         else{
             direction = "";
@@ -184,10 +221,36 @@ public class Player implements Entity {
             retroceso -= 10;
             speedX -= 2;
         }
+      for(int i = 0; i < proyectiles.size(); i++){
+        proyectiles.get(i).update();
+        gp.cc.checkProyectilItem(proyectiles.get(i));
+      }
+        //System.out.println();
+    }
+    private void cambiarImagen(){
+      indiceProyectil = (indiceProyectil < imagenesProyectiles.size()-1) ? indiceProyectil+1 : 0;
+      
+    }
+    public void addImagenProyectil(BufferedImage imagen){
+      imagenesProyectiles.add(imagen);
+    }
+    public ArrayList<Proyectiles> getProyectiles(){
+      return proyectiles;
+    }
+    private void atacarEnfrente(){
+      proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), 1, x,y)); 
+      cambiarImagen();
+    }
+    
+    private void atacarDetras(){
+      proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), -1, x, y));
+      cambiarImagen();
     }
 
     public void paint(Graphics g) {
         g.drawImage(image, x, y, width, height, null);
+        for(int i = 0; i < proyectiles.size(); i++)
+          proyectiles.get(i).paint(g);
     }
 
     public boolean getCollision() {
@@ -277,11 +340,11 @@ public class Player implements Entity {
     }
 
     public int getLife() {
-        return life;
+        return atributos.getLife();
     }
 
     public void setLife(int life) {
-        this.life = life;
+        atributos.setLife(life);
     }
 
     public BufferedImage getImage() {
@@ -302,15 +365,21 @@ public class Player implements Entity {
     }
 
     public int getAtaque() {
-        return 25;
+        return atributos.getAtaque();
     }
 
     public int getVelocidad() {
-        return 5;
+        return atributos.getVelocidad();
     }
 
     public int getCadencia() {
-        return 10;
+        return atributos.getCadencia();
+    }
+    public AtributosPlayer getAtributos(){
+      return atributos;
+    }
+    public void setAtributos(AtributosPlayer atributos){
+      this.atributos = atributos;
     }
 
     public void setIsAtacked(Boolean isAtacked){
@@ -323,6 +392,9 @@ public class Player implements Entity {
 
     public void setRetroceso(int retroceso){
         this.retroceso = retroceso;
+    }
+    public GamePanel getGP(){
+    return gp;
     }
 
 }

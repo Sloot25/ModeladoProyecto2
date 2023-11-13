@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
      */
     public void setGame(){;
         as.setItems();
-        sp.agregarAudio("\\KUWAGO - Toybox5 - 02 Swinging.wav");
+        sp.agregarAudio("Pista2.wav");
         sp.play(0);
     }
     /*
@@ -109,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable{
         lc.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
+       // checkVidaEnemys();
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
@@ -119,11 +120,27 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
         lc.paint(g2);
+        for(Entity npc: npcs){
+            npc.paint(g2);
+        }
+        for(int i = 0; i < enemies.size(); i ++){
+            enemies.get(i).paint(g2);
+        }
+        for(Item item: items){
+            item.paint(g2);
+        }
         player.paint(g2);
         ui.paint(g2);
         telefono.paint(g2);
         g2.dispose();
     }
+
+    
+    /*private void checkVidaEnemys(){
+      for(int i = 0; i < enemies.size(); i++)
+        if(enemies.get(i).life <= 0)
+          enemies.remove(enemies.get(i));
+    }*/
     /*
      * Regresa el estado actual
      * @return State estadoActual

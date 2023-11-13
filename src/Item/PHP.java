@@ -1,13 +1,13 @@
 package Item;
 
+import Entity.AtributosPlayer; 
 import Entity.Player;
-import Game.GamePanel;
-import Game.Keyboard;
 
 public class PHP extends Lenguaje {
-  public PHP(Player player, GamePanel gp, Keyboard kb){
-    super(gp, kb);
-    this.player = player;
+  public PHP(AtributosPlayer atributos, Player player){
+    super(player);
+    this.atributos = atributos;
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Cplusplus.png"));
   }
 
  /* Metodo getAtaque 
@@ -16,7 +16,7 @@ public class PHP extends Lenguaje {
    * */
 
   public int getAtaque(){
-    return this.player.getAtaque() - 10;
+    return atributos.getAtaque() - 10;
   }
 
  /* Metodo getVelocidad 
@@ -25,7 +25,7 @@ public class PHP extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return this.player.getVelocidad() - 5;
+    return atributos.getVelocidad() - 5;
   }
 
   /* Metodo getCadencia 
@@ -34,7 +34,7 @@ public class PHP extends Lenguaje {
    * */
 
   public int getCadencia(){
-    return this.player.getCadencia() - 10;
+    return atributos.getCadencia() - 10;
   }
 
   /* Metodo getVida 
@@ -43,9 +43,6 @@ public class PHP extends Lenguaje {
    * */
 
   public int getVida(){
-    return this.player.getLife() + 100;
-  }
-  public boolean isSolid(){
-    return false;
+    return atributos.getLife() + 100;
   }
 }

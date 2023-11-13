@@ -1,13 +1,13 @@
 package Item;
 
 import Entity.Player;
-import Game.GamePanel;
-import Game.Keyboard;
+import Entity.AtributosPlayer;
 
 public class Cplusplus extends Lenguaje {
-  public Cplusplus(Player player, GamePanel gp, Keyboard kb){
-    super(gp, kb);
-    this.player = player;
+  public Cplusplus(AtributosPlayer atributos, Player player){
+    super(player);
+    this.atributos = atributos;
+    atributos.getPlayer().addImagenProyectil(atributos.getPlayer().getGP().getRutas().getImagen("Cplusplus.png"));
   }
 
   /* Metodo getVelocidad 
@@ -16,7 +16,7 @@ public class Cplusplus extends Lenguaje {
    * */
 
   public int getAtaque(){
-    return this.player.getAtaque() + 25;
+    return atributos.getAtaque() + 25;
   }   
 
   /* Metodo getVelocidad 
@@ -25,7 +25,7 @@ public class Cplusplus extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return this.player.getVelocidad() + 5;
+    return atributos.getVelocidad() + 5;
   }
 
   /* Metodo getCadencia 
@@ -34,7 +34,7 @@ public class Cplusplus extends Lenguaje {
    * */
   
   public int getCadencia(){
-    return this.player.getCadencia() + 15;
+    return atributos.getCadencia() + 15;
   }
 
   /* Metodo getVida 
@@ -43,10 +43,6 @@ public class Cplusplus extends Lenguaje {
    * */
 
   public int getVida(){
-    return this.player.getLife() + 100;
-  }
-
-  public boolean isSolid(){
-    return false;
+    return atributos.getLife() + 100;
   }
 }

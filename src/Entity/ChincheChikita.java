@@ -21,6 +21,7 @@ public class ChincheChikita extends Enemy{
       }
       animationCaminando = new SpriteSheet(chinchePequenia,175);
       */
+      this.life = 150;
   }
   @Override
   public void getEntityImage(){
