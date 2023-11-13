@@ -64,6 +64,8 @@ public class Player implements Entity {
     }
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
+      if(enemigo.life <= 0)
+        gp.lc.getEnemys().remove(enemigo);
     }
     public ArrayList<BufferedImage> getImagenProyectil(){
       return imagenesProyectiles;
@@ -146,13 +148,6 @@ public class Player implements Entity {
     public ArrayList<Proyectiles> getProyectiles(){
       return proyectiles;
     }
-    private void checarColisionAtaque(Proyectiles proyectil){
-        Rectangle area = proyectil.getBox();
-        for(Enemy enemigo : gp.enemies)
-          if(area.intersects(enemigo.getBox()))
-            proyectiles.remove(proyectil);
-    }
-
     private void atacarEnfrente(){
       proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), 1, x,y)); 
       cambiarImagen();
