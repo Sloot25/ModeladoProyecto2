@@ -131,6 +131,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public void lanzarPausa(){
       estadoActual.pausar();
+      estadoActual.inicializar();
     }
     public void lanzarPlay(){
       estadoActual.jugar();

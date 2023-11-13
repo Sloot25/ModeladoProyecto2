@@ -1,5 +1,7 @@
 package State;
 
+import Game.Menu.*;  
+
 public class Menu implements State{
   InterfazUsuario interfaz; 
 
@@ -18,5 +20,10 @@ public class Menu implements State{
   public void morir(){
     this.interfaz.setEstado(this.interfaz.getEstadoDead());
   }
-  public void inicializar(){}
+  public void inicializar(){
+    MenuInicio menu = new MenuInicio(interfaz.getRuta(), this);
+    interfaz.setPanel(menu);
+    //menu.startGameThread();
+
+  }
 }

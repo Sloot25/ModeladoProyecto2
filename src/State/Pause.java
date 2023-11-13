@@ -1,5 +1,7 @@
 package State ;
 
+import Game.GamePanel;
+
 public class Pause implements State{
   InterfazUsuario interfaz; 
   public Pause(InterfazUsuario interfaz){
@@ -18,6 +20,7 @@ public class Pause implements State{
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
   }
   public void inicializar(){
+  ((GamePanel)interfaz.getPanel()).setEstado(interfaz.getEstado());
   }
 
 }
