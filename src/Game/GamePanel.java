@@ -110,10 +110,8 @@ public class GamePanel extends JPanel implements Runnable{
         long time = System.currentTimeMillis();
           if(time > ultimaPulsacion + cooldown){
             if(estadoActual instanceof Play){
-              System.out.println("x");
               lanzarPausa();
             }else if(estadoActual instanceof Pause){
-              System.out.println("y");
               lanzarPlay();
             }
             ultimaPulsacion = time;
@@ -148,16 +146,19 @@ public class GamePanel extends JPanel implements Runnable{
      */
   
     public void paintComponent(Graphics g){
-      if(player.getLife() <= 0){
+      /*if(player.getLife() <= 0){
         g.drawImage(getRutas().getImagen("youdied.png"), camx-getScreenWidth()/2,camy-getScreenHeight(), null);
-      }
+      }*/
       if(estadoActual instanceof Pause){
-        g.setColor(Color.black);
-        g.fillRect(0,0,getWorldWidth(), getWorldHeight());
-        g.setColor(Color.RED);
-        g.setFont(new Font("Papyrus", Font.PLAIN, 100));
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setColor(Color.black);
+        g2.fillRect(0,0,getWorldWidth(), getWorldHeight());
+        g2.setColor(Color.RED);
+        g2.setFont(new Font("Papyrus", Font.PLAIN, 100));
         sp.stop(0);
-        g.drawString("PAUSA",camx-50, camy-50);
+        g2.drawString("PAUSA",screenWidth/2-150, screenHeight/2+25);
+        g2.dispose();
       }else{
         g.translate(camx, camy);
         super.paintComponent(g);
