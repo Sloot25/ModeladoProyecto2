@@ -3,7 +3,6 @@ import Game.GamePanel;
 public class Play implements State {
   private InterfazUsuario interfaz; 
   GamePanel gp;
-
   public Play(InterfazUsuario interfaz){
     this.interfaz = interfaz;
   }

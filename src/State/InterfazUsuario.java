@@ -2,8 +2,6 @@ package State;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import Game.GamePanel;
 import res.Rutas.*;
 
 public class InterfazUsuario {

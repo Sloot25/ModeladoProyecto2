@@ -14,7 +14,6 @@ public class Main {
           ruta = new Linux();
         else 
           ruta = new Windows();
-
         GamePanel gp = new GamePanel(ruta);
 
         window.add(gp);

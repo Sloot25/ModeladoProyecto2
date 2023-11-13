@@ -15,27 +15,31 @@ public class Chinchentifica extends Enemy{
     if(time > ultimoAtaque + cooldown){
       gp.player.setLife(gp.player.getLife()-200);
       gp.player.setIsAtacked(true);
-      gp.player.setRetroceso(125);
+      gp.player.setRetroceso(150);
       ultimoAtaque = time;
     }
-
   }
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy) this.clone();
   }
   @Override
   public void getEntityImage() {
-    imagen = gp.getRutas().getImagen("chinchentifica.png");
+    if (isAtacked){
+      imagen = this.gp.getRutas().getImagen("chinchentifica daniada.png");  
+    } else{
+      imagen = this.gp.getRutas().getImagen("chinchentifica.png");
+    }
   }
-
   @Override
   public void retroceso(){
     if(retroceso <= 0){
       isAtacked = false; 
       retroceso = 50;
+      getEntityImage();
     }else{
       retroceso -= 10;
-      speedX += 2;
+      x += 5 * directionReceivedAtack;;
+      getEntityImage();
     }
   }
 }

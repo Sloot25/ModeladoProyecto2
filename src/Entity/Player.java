@@ -2,6 +2,8 @@ package Entity;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.awt.image.AffineTransformOp;
@@ -26,10 +28,13 @@ public class Player implements Entity {
     int width;
     int height;
     int score;
+    int life;
+    int retroceso;
     double gravity;
     Rectangle box;
     String direction;
     boolean collision;
+    int atackDirection; // +1 fue ataque de frente, -1 fue ataque de atras
     private long ultimoAtaque; 
     private long cooldown = 200;
     private long superCooldown = 2000;
@@ -41,7 +46,6 @@ public class Player implements Entity {
     //boolean falling;
     //boolean walking;
     boolean onfloor;
-    int retroceso;
     private boolean inMovement;
     private boolean isAtacked;
     private AtributosPlayer atributos;
@@ -67,9 +71,13 @@ public class Player implements Entity {
         speedY = 0;
         gravity = 0;
         direction = "";
+        life = 1000;
+        inMovement = false;
+        isAtacked = false;
         atributos = new AtributosPlayer(this);
         cargarRutas();
     }
+
     private void cargarRutas(){
       inMovement = false;
       isAtacked = false;
@@ -118,8 +126,11 @@ public class Player implements Entity {
           image = flipImage(animationParado.getCurrentFrame());
       }
     }
+ 
     public void attack(Enemy enemigo){
       enemigo.life -= getAtaque();
+      enemigo.directionReceivedAtack = atackDirection;
+      enemigo.setIsAtacked(true); // para actualizar la posicion de la chinche por el retroceso
       if(enemigo.life <= 0){
         gp.lc.getEnemys().remove(enemigo);
         if(enemigo instanceof ChincheChikita)
@@ -224,18 +235,18 @@ public class Player implements Entity {
                 speedX = 0;
           }
         }
-      for(int i = 0; i < proyectiles.size(); i++){
-        proyectiles.get(i).update();
-        gp.cc.checkProyectilItem(proyectiles.get(i));
-      }
-        //System.out.println();
+        for(int i = 0; i < proyectiles.size(); i++){
+            proyectiles.get(i).update();
+            gp.cc.checkProyectilItem(proyectiles.get(i));
+          }
+
     }
     private void retroceso(){
       if(retroceso <= 0)
         isAtacked = false;
       else{
         retroceso -= 10;
-        speedX-=2;
+        x-=10;
       }
     }
     private void cambiarImagen(){
@@ -251,6 +262,7 @@ public class Player implements Entity {
     private void atacarEnfrente(){
       proyectiles.add(new Proyectiles(imagenesProyectiles.get(indiceProyectil), 1, x,y)); 
       cambiarImagen();
+
     }
     
     private void atacarDetras(){
@@ -392,6 +404,18 @@ public class Player implements Entity {
     }
     public void setAtributos(AtributosPlayer atributos){
       this.atributos = atributos;
+    }
+
+    public void setIsAtacked(Boolean isAtacked){
+        this.isAtacked = isAtacked;
+    }
+
+    public Boolean getIsAtacked(){
+        return isAtacked;
+    }
+    
+    public void setAtackDirection(int atackDirection){
+      this.atackDirection = atackDirection;
     }
 
 }

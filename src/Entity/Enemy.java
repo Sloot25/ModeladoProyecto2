@@ -26,6 +26,7 @@ public abstract class Enemy implements Entity, Cloneable{
     SpriteSheet sprites; 
     boolean isAtacked;
     int retroceso;
+    int directionReceivedAtack;
     
 
     public Enemy(GamePanel gp, int x, int y, int width, int height){
@@ -39,6 +40,7 @@ public abstract class Enemy implements Entity, Cloneable{
         direction = "left";
         onfloor = false;
         collision = false;
+        isAtacked = false;
         getEntityImage();
     }
 
@@ -50,6 +52,8 @@ public abstract class Enemy implements Entity, Cloneable{
      * El villano ataca al jugador
      */
     public abstract void attack();
+
+    public abstract void retroceso();
     /*
      * Actualiza la posicion y sprite del villano
      */
@@ -100,12 +104,6 @@ public abstract class Enemy implements Entity, Cloneable{
     public void setIsAtacked(boolean isAtacked){
       this.isAtacked = isAtacked;
     }
-
-    public abstract void retroceso();
-    /*
-     * Pinta al villano dentro del mapa
-     * @param Graphics2D g2
-     */
     public void paint(Graphics g){
         g.drawImage(imagen, x, y, width, height, null);
         if(inRange()){
@@ -170,6 +168,9 @@ public abstract class Enemy implements Entity, Cloneable{
 
     public Rectangle getBoxLeft() {
         return new Rectangle(x, y+5, 1, height-10);
+    }
+    public void setIsAtacked(Boolean isAtacked){
+        this.isAtacked = isAtacked;
     }
 
     @Override

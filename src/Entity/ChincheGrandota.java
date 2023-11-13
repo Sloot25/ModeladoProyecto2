@@ -24,10 +24,13 @@ public class ChincheGrandota extends Enemy{
   public Enemy clonar() throws CloneNotSupportedException{
     return (Enemy)this.clone();
   }
-
   @Override
-  public void getEntityImage() {
-    imagen = gp.getRutas().getImagen("chinche.png");
+  public void getEntityImage(){
+    if (isAtacked){
+      imagen = this.gp.getRutas().getImagen("chinche daniada.png");  
+    } else{
+      imagen = this.gp.getRutas().getImagen("chinche.png");
+    }
   }
 
   @Override 
@@ -35,9 +38,11 @@ public class ChincheGrandota extends Enemy{
     if(retroceso <= 0){
       isAtacked = false;
       retroceso = 50;
+      getEntityImage();
     }else{
       retroceso -= 10;
-      speedX += 2;
+      x += 5 * directionReceivedAtack;;
+      getEntityImage();
     }
   }
 }
