@@ -47,6 +47,7 @@ public class Player implements Entity {
     BufferedImage[] jugadorParado = new BufferedImage[6];
     SpriteSheet animationCaminando, animationParado; 
     BufferedImage jugadorDaniado;
+    private boolean vistaDerecha = true;
 
     public Player(GamePanel gp, Keyboard kb) {
         this.gp = gp;
@@ -100,13 +101,16 @@ public class Player implements Entity {
         image = jugadorDaniado;
       else if(inMovement){
         animationCaminando.update();
-        if(direction == "right")
+        if(speedX > 0){
           image = animationCaminando.getCurrentFrame();
-        else
+          vistaDerecha = true;
+        }else if(speedX < 0){
           image = flipImage(animationCaminando.getCurrentFrame());
+          vistaDerecha = false;
+        }
       }else{
         animationParado.update();
-        if(direction == "right")
+        if(vistaDerecha)
           image = animationParado.getCurrentFrame();
         else 
           image = flipImage(animationParado.getCurrentFrame());
@@ -132,6 +136,30 @@ public class Player implements Entity {
     }
     public void update() {
         getEntityImage();
+         if(kb.pressA()){
+          long time = System.currentTimeMillis();
+              if(time > ultimoAtaque + cooldown - getCadencia()){
+                atacarDetras();
+                ultimoAtaque = time;
+                if(!inMovement)
+                  vistaDerecha = false;
+              }
+          direction="";
+        }
+        if(kb.pressD()){
+          long time = System.currentTimeMillis();
+            if(time > ultimoAtaque + cooldown - getCadencia()){
+              atacarEnfrente();
+              ultimoAtaque = time;
+              if(!inMovement)
+                vistaDerecha = true;
+            }
+          direction="";
+        } 
+        if(kb.pressEsc()){
+          System.out.println("h");
+          gp.lanzarPausa();
+        }
         if (kb.pressUp() == true) {
             direction = "up";
             inMovement = true;
@@ -147,27 +175,7 @@ public class Player implements Entity {
         else if (kb.pressLeft() == true) {
             direction = "left";
             inMovement = true;
-        }else if(kb.pressA()){
-          long time = System.currentTimeMillis();
-              if(time > ultimoAtaque + cooldown - getCadencia()){
-                atacarDetras();
-                ultimoAtaque = time;
-                inMovement = true;
-              }
-          direction="";
-        }else if(kb.pressD()){
-          long time = System.currentTimeMillis();
-            if(time > ultimoAtaque + cooldown - getCadencia()){
-              atacarEnfrente();
-              ultimoAtaque = time;
-              inMovement = true;
-            }
-          direction="";
-        }else if(kb.pressEsc()){
-          System.out.println("h");
-          gp.lanzarPausa();
-        }
-        else{
+        } else{
             direction = "";
             inMovement = false;
         }
