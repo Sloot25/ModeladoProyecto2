@@ -169,6 +169,12 @@ public class GamePanel extends JPanel implements Runnable{
         g2.drawString("PAUSA",screenWidth/2-150, screenHeight/2+25);
         g2.dispose();
       }else{
+        try{
+          sp.play(0);
+        }
+        catch(Exception e){
+          e.printStackTrace();
+        }
         g.translate(camx, camy);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;

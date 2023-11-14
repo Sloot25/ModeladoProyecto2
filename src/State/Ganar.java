@@ -1,5 +1,7 @@
 package State;
 
+import Game.Menu.WinScreen;
+
 public class Ganar implements State {
   InterfazUsuario interfaz;
   public Ganar(InterfazUsuario interfaz){
@@ -20,5 +22,9 @@ public class Ganar implements State {
   public void ganar(){
     this.interfaz.setEstado(this.interfaz.getEstadoGanar());
   }
-  public void inicializar(){}
+  public void inicializar(){
+    WinScreen ws = new WinScreen(interfaz.getRuta(), this);
+    interfaz.setPanel(ws);
+    ws.startGameThread();
+  }
 }

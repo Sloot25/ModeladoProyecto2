@@ -1,5 +1,8 @@
 package State;
 
+
+import Game.Menu.DeathScreen;
+
 public class Dead implements State {
   InterfazUsuario interfaz;
   public Dead(InterfazUsuario interfaz){
@@ -20,5 +23,9 @@ public class Dead implements State {
   public void ganar(){
     this.interfaz.setEstado(this.interfaz.getEstadoGanar());
   }
-  public void inicializar(){}
+  public void inicializar(){
+    DeathScreen ds = new DeathScreen(interfaz.getRuta(), this);
+    interfaz.setPanel(ds);
+    ds.startGameThread(); 
+  }
 }

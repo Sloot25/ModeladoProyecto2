@@ -39,7 +39,7 @@ public class SoundPlayer {
      * @param int i Audio a reproducir
      */
     public void play(int i){
-        if (clips.get(i) == null || clips.get(i).isRunning()){
+        if (clips.size() <= i || clips.get(i) == null || clips.get(i).isRunning()){
             return;
         }
         stop(i);
