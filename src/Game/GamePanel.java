@@ -122,14 +122,14 @@ public class GamePanel extends JPanel implements Runnable{
       }
       if(interfazUsuario.getEstado() instanceof Pause){
       } else{        
-        //checkLife();
+        checkLife();
         player.update();
         lc.update();
         telefono.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
-       // checkVidaEnemys();
-        //checkLife();
+        //checkVidaEnemys();
+        checkLife();
       }
     }
     private void lanzarPausa(){

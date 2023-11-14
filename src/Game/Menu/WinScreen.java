@@ -31,10 +31,16 @@ public class WinScreen extends JPanel implements Runnable{
     this.addKeyListener(kb);
     this.setFocusable(true);
   }
+/*
+   * Inicia el hilo de ejecución del panel de la pantalla de victoria
+   */
   public void startGameThread(){
     gameThread = new Thread(this);
     gameThread.start();
   }
+  /*
+   * Corre el hilo de ejecución
+   */
   @Override
   public void run() {
     double interval = 1000000000/FPS;
@@ -58,12 +64,19 @@ public class WinScreen extends JPanel implements Runnable{
       }
     }
   }
+  /*
+   * Actualiza la pantalla que muestra al usuario
+   */
   public void update(){
     if(kb.pressEnter()){
       win.menu();
       gameThread.interrupt();
     }
   }
+  /*
+   * Pinta la pantalla de victoria al usuario
+   * @param Graphics 
+   */
   public void paint(Graphics g){
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;

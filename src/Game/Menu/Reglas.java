@@ -31,12 +31,16 @@ public class Reglas extends JPanel implements Runnable{
     this.addKeyListener(kb);
     this.setFocusable(true);
   }
-
+  /*
+   * Inicia el hilo de ejecución del panel de las reglas
+   */
   public void startGameThread(){
     gameThread = new Thread(this);
     gameThread.start();
   }
-
+  /*
+   * Corre el hilo de ejecución
+   */
   @Override 
   public void run(){
     double interval = 1000000000/FPS;
@@ -60,7 +64,9 @@ public class Reglas extends JPanel implements Runnable{
       }
     }
   }
-
+  /*
+   * Actualiza la información del usuario
+   */
   public void update(){
     if(kb.pressEnter()){
         menu.menuInicio();
@@ -68,7 +74,9 @@ public class Reglas extends JPanel implements Runnable{
     }
     
   }
-
+  /*
+   * Muestra las reglas del juego al usuario
+   */
   public void paintComponent(Graphics g){
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;

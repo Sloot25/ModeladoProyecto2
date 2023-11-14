@@ -65,7 +65,9 @@ public class Creditos extends JPanel implements Runnable{
       }
     }
   }
-
+  /*
+   * Revisa si el jugador quiere salir de la pantalla de creditos
+   */
   public void update(){
     if(kb.pressEnter()){
         menu.menuInicio();
@@ -73,7 +75,10 @@ public class Creditos extends JPanel implements Runnable{
     }
     
   }
-
+  /*
+   * Pinta el menu de creditos
+   * @param Graphics 
+   */
   public void paintComponent(Graphics g){
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;

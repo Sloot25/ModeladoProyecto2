@@ -36,12 +36,17 @@ public class MenuInicio extends JPanel implements Runnable{
     this.addKeyListener(kb);
     this.setFocusable(true);
   }
-
+  /*
+   * Inicia el hilo de ejecución del panel del menu de inicio
+   */
   public void startGameThread(){
     gameThread = new Thread(this);
     gameThread.start();
   }
-
+  /*
+  * Corre el hilo de ejecución
+   * 
+   */
   @Override 
   public void run(){
     double interval = 1000000000/FPS;
@@ -65,7 +70,9 @@ public class MenuInicio extends JPanel implements Runnable{
       }
     }
   }
-
+  /*
+   * Actualiza la información que proporciona el usuario y cambia la pantalla
+   */
   public void update(){
     long time = System.currentTimeMillis();
       if(time > ultimaPulsacion + cooldown){
@@ -105,7 +112,10 @@ public class MenuInicio extends JPanel implements Runnable{
     ultimaPulsacion = time;
     }
   }
-
+  /*
+   * Muestra la información al usuario en la pantalla
+   * @param Graphics
+   */
   public void paintComponent(Graphics g){
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;

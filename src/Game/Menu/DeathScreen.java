@@ -30,10 +30,16 @@ public class DeathScreen extends JPanel implements Runnable{
     this.addKeyListener(kb);
     this.setFocusable(true);
   }
+    /*
+   * Inicia el hilo de ejecución del panel de los la pantalla de muerte
+   */
   public void startGameThread(){
     gameThread = new Thread(this);
     gameThread.start();
   }
+  /*
+   * Corre el hilo ejecucion
+   */
   @Override
   public void run() {
     double interval = 1000000000/FPS;
@@ -57,12 +63,18 @@ public class DeathScreen extends JPanel implements Runnable{
       }
     }
   }
+  /*
+   * Recibe información sobre si el jugador quiere cambiar de pantalla
+   */
   public void update(){
     if(kb.pressEnter()){
       dead.menu();
       gameThread.interrupt();
     }
   }
+  /*
+   * Informa al jugador que ha muerto
+   */
   public void paint(Graphics g){
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;
