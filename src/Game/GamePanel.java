@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
     /*
      * Coloca las entidades y objetos en el mapa, así como preparar lo que sea necesario
      */
-    public void setGame(){;
+    public void setGame(){
         as.setItems();
         sp.agregarAudio("Pista2.wav");
         sp.play(0);
