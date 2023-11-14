@@ -83,7 +83,6 @@ public class WinScreen extends JPanel implements Runnable{
     g2.drawImage(rutas.getImagen("youwin.jpg"), 0, 0, screenWidth, screenHeight, null);
     g2.setFont(new Font("Impact", Font.PLAIN, 40));
     g2.setColor(Color.WHITE);
-    g2.drawString("Gracias por jugar :D", 400, 350);
-    g2.drawString("Presiona enter para ir al menu", 400, 400);
+    g2.drawString("Gracias por jugar :D", 250, 350);
   }
 }

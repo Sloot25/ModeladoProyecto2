@@ -29,10 +29,13 @@ public class StairsUp implements Item{
         box = new Rectangle(x, y, width, height);
         getImage();
     }
+    // lee e inicializa la imagen que llevan las escaleras (En este caso las flechas)
     public void getImage(){
         imagen = gp.getRutas().getImagen("up.png");
     }
 
+    // Dibuja en pantalla la imagen en cuestion
+    //@param Graphics para permitirle escribir en pantalla 
     @Override
     public void paint(Graphics g) {
         g.setColor(Color.PINK);
@@ -43,15 +46,19 @@ public class StairsUp implements Item{
             
         }
     }
+    //@return boolean si es solido o no en tiempo de ejecucion
     public boolean isSolid(){
         return solid;
     }
+    // @return Rectangle devuelve la hitbox 
     public Rectangle getBox(){
         return box;
     }
+    //@return boolean devuelve si se encuentra en rango
     public boolean inRange(){
         return inRange;
     }
+    // @param boolean setea si se encuentra en rango
     public void setInRange(boolean inRange){
         this.inRange = inRange;
     }
