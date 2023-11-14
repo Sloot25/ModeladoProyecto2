@@ -22,10 +22,15 @@ public class Computologo implements Aliado{
     box = new Rectangle(player.getX()-200,player.getY()-200,400,400);
     set();
   }
+    /*
+   * Prepara la imagen de la clase Computologo
+   */
   public void set(){
     imagen = gp.getRutas().getImagen("computologo.png");
   }
-
+  /*
+   * Se encarga de atacar a los enemigos cercanos al aliado
+   */
   public void update(){
     if(onScreen){
       for(Enemy e: gp.enemies){
@@ -35,7 +40,10 @@ public class Computologo implements Aliado{
         }
       }
     }
-  
+    /*
+   * Es el daño particular que realiza el aliado en cuestion
+   */
+
   public void attack(Enemy e){
     e.setLife(e.getLife()-150);
   }

@@ -22,10 +22,15 @@ public class Fisico implements Aliado {
     onScreen = false;
     set();
   }
+    /*
+   * Prepara la imagen de la clase Fisico
+   */
   public void set(){
     imagen = gp.getRutas().getImagen("fisico.png");
   }
-
+  /*
+   * Se encarga de atacar a los enemigos cercanos al aliado
+   */
   public void update(){
     if(onScreen){
       for(Enemy e: gp.enemies){
@@ -35,7 +40,10 @@ public class Fisico implements Aliado {
         }
       }
     }
-  
+    /*
+   * Es el daño particular que realiza el aliado en cuestion
+   */
+
   public void attack(Enemy e){
     e.setLife(e.getLife()-150);
   }

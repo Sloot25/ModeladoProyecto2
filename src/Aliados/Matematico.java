@@ -22,10 +22,15 @@ private Player player;
     onScreen = false;
     set();
   }
+    /*
+   * Prepara la imagen de la clase Matematico
+   */
   public void set(){
     imagen = gp.getRutas().getImagen("matematico.png");
   }
-
+  /*
+   * Se encarga de atacar a los enemigos cercanos al aliado
+   */
   public void update(){
     if(onScreen){
       for(Enemy e: gp.enemies){
@@ -35,7 +40,10 @@ private Player player;
         }
       }
     }
-  
+    /*
+   * Es el daño particular que realiza el aliado en cuestion
+   */
+
   public void attack(Enemy e){
     e.setLife(e.getLife()-150);
   }

@@ -15,6 +15,9 @@ public class Biologo implements Aliado{
   int counter = 120;
   Rectangle box;
   private Player player; 
+    /*
+   * Constructor de la clase Biologo
+   */
   public Biologo(GamePanel gp, Player player){
     this.gp = gp;
     this.player = player;
@@ -22,10 +25,15 @@ public class Biologo implements Aliado{
     onScreen = false;
     set();
   }
+  /*
+   * Prepara la imagen de la clase biologo
+   */
   public void set(){
     imagen = gp.getRutas().getImagen("biologo.png");
   }
-
+  /*
+   * Se encarga de atacar a los enemigos cercanos al aliado
+   */
   public void update(){
     if(onScreen){
       for(Enemy e: gp.enemies){
@@ -38,7 +46,10 @@ public class Biologo implements Aliado{
   
   public void attack(Enemy e){
     e.setLife(e.getLife()-150);
-  }
+  }  /*
+  * Dibuja al aliado en pantalla
+  * @param Graphics  
+  */
   public void paint(Graphics g){
     if(onScreen){
       g.drawImage(imagen, player.getX()-300, player.getY()-100,200, 200, null);

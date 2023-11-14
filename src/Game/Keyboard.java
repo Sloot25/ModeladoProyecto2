@@ -159,39 +159,87 @@ public class Keyboard implements KeyListener{
     public Boolean pressLeft(){
         return left;
     }
+    /*
+     * Regresa si se esta presionando la W
+     * @return Boolean w
+     */
     public Boolean pressW(){
         return w;
     }
+    /*
+     * Regresa si se esta presionando la A
+     * @return Boolean a
+     */
     public Boolean pressA(){
         return a;
     }
+    /*
+     * Regresa si se esta presionando la S
+     * @return Boolean s
+     */
     public Boolean pressS(){
         return s;
     }
+    /*
+     * Regresa si se esta presionando la d
+     * @return Boolean d
+     */
     public Boolean pressD(){
         return d;
     }
+    /*
+     * Regresa si se esta presionando el 1
+     * @return Boolean k1
+     */
     public Boolean press1(){
         return k1;
     }
+    /*
+     * Regresa si se esta presionando el 2
+     * @return Boolean k2
+     */
     public Boolean press2(){
         return k2;
     }
+    /*
+     * Regresa si se esta presionando el 3
+     * @return Boolean k3
+     */
     public Boolean press3(){
         return k3;
     }
+    /*
+     * Regresa si se esta presionando el 4
+     * @return Boolean k4
+     */
     public Boolean press4(){
         return k4;
     }
+    /*
+     * Regresa si se esta presionando el 5
+     * @return Boolean k5
+     */
     public Boolean press5(){
         return k5;
     }
+    /*
+     * Regresa si se esta presionando la tecla q
+     * @return Boolean q
+     */
     public Boolean pressQ(){
         return q;
     }
+    /* 
+     * Regresa si se esta presionando el Escape
+     * @return Boolean esc
+     */
     public Boolean pressEsc(){
         return esc;
     }
+    /*
+     * Regresa si se esta presionando el Enter
+     * @return Boolean enter
+     */
     public Boolean pressEnter(){
         return enter;
     }

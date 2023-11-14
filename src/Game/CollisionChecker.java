@@ -44,6 +44,10 @@ public class CollisionChecker {
         }
       }
     }
+    /*
+     * Revisa si algun aliado ha chocado con un enemigo
+     * @param Entity entidad
+     */
     public void checkAliados(Entity entidad){
         if(gp.telefono.getAliado() != null){
             if(gp.telefono.getBox().intersects(entidad.getBox())){
@@ -53,6 +57,10 @@ public class CollisionChecker {
             }
         } 
     }
+    /*
+     * Regresa si un proyectil ha chocado con algun objeto y elimina ese proyectil
+     * @param Proyectiles proyectil
+     */
     public void checkProyectilItem(Proyectiles proyectil){
       for(Item i : gp.items){
         if(i.isSolid()){
@@ -63,7 +71,8 @@ public class CollisionChecker {
     }
 
     /*
-     * Revisa si alguna entidad choco con otra
+     * Revisa si algun npc choco con el jugador
+     * @return npc n
      */
     public void checkNPC(NPC n) {
             if(n!=null){
@@ -73,6 +82,10 @@ public class CollisionChecker {
                 }
             }
         }
+    /*
+     * Revisa si un enemigo ha chocado con el jugador y ataca al jugador en caso positivo
+     * @param Enemy e
+     */
     public void checkEnemy(Enemy e){
             if(e!=null){
                 if(e.getBox().intersects(gp.player.getBox())){
@@ -110,7 +123,9 @@ public class CollisionChecker {
             }
         }
     }
-      
+    /*
+     * Revisa si las entidades se encuentran en el suelo
+     */
     public boolean checkOnFloor(Entity entity){
         for(Item i: gp.items){
                 if(entity.getBoxDown().intersects(i.getBox())){
@@ -119,7 +134,7 @@ public class CollisionChecker {
         }
         return false;
     }
-    
+    /* Revisa si el jugador esta al alcance de una escalera */
     public void checkStairs(Player player){
         for(Item i: gp.items){
             if(i instanceof StairsUp){

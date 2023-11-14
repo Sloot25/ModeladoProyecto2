@@ -31,12 +31,17 @@ public class Creditos extends JPanel implements Runnable{
     this.addKeyListener(kb);
     this.setFocusable(true);
   }
-
+  /*
+   * Inicia el hilo de ejecución del panel de los creditos
+   */
   public void startGameThread(){
     gameThread = new Thread(this);
     gameThread.start();
   }
 
+  /*
+   * Reproduce los creditos
+   */
   @Override 
   public void run(){
     double interval = 1000000000/FPS;

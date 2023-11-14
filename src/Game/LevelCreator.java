@@ -37,21 +37,32 @@ public class LevelCreator {
         getMapImages();
         createLevel();
     }
+    /*
+     * Carga los enemigos que se van a requerir en el nivel, para poderlos clonar posteriormente
+     */
     public void loadEnemies(){
         BDEnemigos[0] = new ChincheChikita(gp, 0,0,entitysize*bloque,entitysize*bloque);
         BDEnemigos[1] = new ChincheGrandota(gp, 0,0,2*entitysize*bloque,2*entitysize*bloque);
         BDEnemigos[2] = new Chinchentifica(gp, 0,0,entitysize*bloque,entitysize*bloque);
         BDEnemigos[3] = new ChincheDirector(gp, 0,0,3*entitysize*bloque,3*entitysize*bloque);
     }
-
+    /*
+     * Carga las imagenes del mapa y la información sobre la posición de los objetos
+     */
     public void getMapImages() {
         image = gp.getRutas().getImagen("fciencias.png");
         map = gp.getRutas().getImagen("fcienciasmap.png");
     }
+    /*
+     * Regresa el arreglo de enemigos
+     * @return ArrayList<Enemy>
+     */
     public ArrayList<Enemy> getEnemys(){
      return this.enemies;
     }
-
+    /*
+     * Crea el nivel al colocar los objetos y entidades en las posiciones designadas en la imagen del mapa
+     */
     public void createLevel() throws CloneNotSupportedException{
         for(int x=0; x<map.getWidth(); x++){
             for(int y=0; y<map.getHeight(); y++){
@@ -116,7 +127,9 @@ public class LevelCreator {
             }
         }
     }
-
+    /*
+     * Actualiza las posiciones e información de las entidades
+     */
     public void update(){
         for(Entity npc: npcs){
             npc.update();
@@ -126,6 +139,10 @@ public class LevelCreator {
         }
 
     }
+    /*
+     * Pinta en el panel las imagenes de las entidades e items
+     * @param Graphics 
+     */
     public void paint(Graphics g) {
         g.drawImage(image,-50*bloque,-56*bloque, gp.getWorldWidth()+123*bloque, gp.getWorldHeight()+105*bloque,null);
         for(Entity npc: npcs){

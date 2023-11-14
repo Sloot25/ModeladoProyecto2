@@ -101,59 +101,121 @@ public abstract class Enemy implements Entity, Cloneable{
         if(isAtacked)
           retroceso();
     }
+    /*
+     * Regresa si se ha atacado a un enemigo
+     * @return isAttacked
+     */
     public void setIsAtacked(boolean isAtacked){
       this.isAtacked = isAtacked;
     }
+    /*
+     * Pinta al enemigo en su posición
+     * @param Graphics g
+     */
     public void paint(Graphics g){
         g.drawImage(imagen, x, y, width, height, null);
-        if(inRange()){
+        if(inRange()){ //Pinta la barra de vida del jefe final
             g.setColor(Color.BLACK);
             g.drawString("Chinche Director",gp.player.getX()-300, gp.player.getY()+85);
             g.setColor(Color.RED);
             g.fillRoundRect(gp.player.getX()-300, gp.player.getY()+100, getLife()*600/4000, 30,15,15 );
         }
     }
-
+    /*
+     * Regresa si hay una colision
+     * @return collision
+     */
     public boolean getCollision(){
         return collision;
     }
+    /*
+     * Alterna si hay  alguna colision
+     * @param collision
+     */
     public void setCollision(boolean collision){
         this.collision = collision;
     }
+    /*
+     * Regresa la posicion x del enemigo
+     * @return
+     */
     public int getX() {
         return x;
     }
+    /*
+     * Regresa la posicion y del enemigo
+     * @return y
+     */
     public int getY() {
         return y;
     }
+    /*
+     * Modifica la posición x del enemigo
+     * @param x
+     */
     public void setX(int x){
         this.x = x;
     }
+    /*
+     * Modifica la posicion y del enemigo
+     * @param y
+     */
     public void setY(int y){
         this.y = y;
     }
+    /* 
+     * Regresa la caja de colisiones del enemigo
+     * @return box
+     */
     public Rectangle getBox() {
         return new Rectangle(x,y,width,height);
     }
+    /*
+     * Regresa la velocidad con la que se mueve la posición X
+     * @return double x
+     */
     public double getSpeedX(){
         return speedX;
     }
+    /*
+     * Regresa la velocidad con la que se mueve la posición y
+     * @return double y
+     */
     public double getSpeedY(){
         return speedY;
     }
+    /*
+     * Modifica la velocidad de la posición x
+     * @param speedX
+     */
     public void setSpeedX(double speedX){
         this.speedX = speedX;
     }
+    /*
+     * Modifica la velocidad de la posición y
+     * @param speedY
+     */
     public void setSpeedY(double speedY){
         this.speedY = speedY;
     }
+    /*
+     * Regresa la aceleración de la gravedad con la que cambia la velocidad de y
+     * @return gravity
+     */
     public double getGravity(){
         return gravity;
     }
+    /*
+     * Modifica la aceleración de la gravedad con la que cambia la velocidad de y
+     * @param gravity
+     */
     public void setGravity(double gravity){
         this.gravity = gravity;
     }
-
+    /*
+     * Regresa la caja de colisiones superiores del enemigo
+     * @return rectangle
+     */
     public Rectangle getBoxUp() {
         return new Rectangle(x+5, y, width-10, 1);
     }
