@@ -12,7 +12,6 @@ public class Pause implements State{
   } 
   public void jugar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPlay());
-    ((GamePanel)interfaz.getPanel()).setEstado(interfaz.getEstado());
   }
   public void morir(){
     this.interfaz.setEstado(this.interfaz.getEstadoDead());
@@ -20,8 +19,10 @@ public class Pause implements State{
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
   }
+  public void ganar(){
+    this.interfaz.setEstado(this.interfaz.getEstadoGanar());
+  }
   public void inicializar(){
-  ((GamePanel)interfaz.getPanel()).setEstado(interfaz.getEstado());
   }
 
 }

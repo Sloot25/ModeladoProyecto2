@@ -2,11 +2,10 @@ package Game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import State.State;
 
 public class Keyboard implements KeyListener{
     //GamePanel gp;
-    State state;
+    //State state;
     boolean up = false, down = false, right = false, left = false, 
     w = false, a = false, s = false, d = false, q = false,
     k1 = false, k2 = false, k3 = false, k4 = false, k5 = false, esc = false, enter = false;
@@ -127,6 +126,9 @@ public class Keyboard implements KeyListener{
         }
         if(key == KeyEvent.VK_ESCAPE){
           esc = false;
+        }
+        if(key == KeyEvent.VK_ENTER){
+            enter = false;
         }
     }
     /*

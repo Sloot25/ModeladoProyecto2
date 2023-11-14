@@ -24,6 +24,9 @@ public class Menu implements State{
   public void morir(){
     this.interfaz.setEstado(this.interfaz.getEstadoDead());
   }
+  public void ganar(){
+    this.interfaz.setEstado(this.interfaz.getEstadoGanar());
+  }
   public void inicializar(){
     menuInicio();
   }
