@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import res.Gestor;
 import res.Rutas.Rutas;
 import State.Dead;
 public class DeathScreen extends JPanel implements Runnable{
@@ -21,7 +22,7 @@ public class DeathScreen extends JPanel implements Runnable{
   private Thread gameThread;
   private final int FPS = 60;
   public DeathScreen(Rutas rutas, Dead dead){
-    kb = new Keyboard();
+    kb = Gestor.kb;
     this.dead = dead;
     this.rutas = rutas;
     this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -42,6 +43,7 @@ public class DeathScreen extends JPanel implements Runnable{
    */
   @Override
   public void run() {
+    this.addKeyListener(kb);
     double interval = 1000000000/FPS;
     double delta = 0;
     long lastTime = System.nanoTime();
@@ -81,6 +83,5 @@ public class DeathScreen extends JPanel implements Runnable{
     g2.drawImage(rutas.getImagen("youdied.png"), 0, 0, screenWidth, screenHeight, null);
     g2.setFont(new Font("Impact", Font.PLAIN, 40));
     g2.setColor(Color.RED);
-    g2.drawString("Press enter to go to menu", 400, 400);
   }
 }

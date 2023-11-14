@@ -25,10 +25,12 @@ public class WallFloor implements Item{
         box = new Rectangle(x, y, width, height);
     }
 
+    //@return boolean si es solido o no en tiempo de ejecucion
     public boolean isSolid(){
         return solid;
     }
 
+    // @return Rectangle devuelve la hitbox 
     public Rectangle getBox(){
         return box;
     }
@@ -37,9 +39,11 @@ public class WallFloor implements Item{
     public void paint(Graphics g) {
         //g.fillRect(x, y, width, height);
     }
+    //@return boolean devuelve si se encuentra en rango
     public boolean inRange(){
         return inRange;
     }
+    // @param boolean setea si se encuentra en rango
       public void setInRange(boolean inRange){
         this.inRange = inRange;
     }

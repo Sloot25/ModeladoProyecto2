@@ -12,6 +12,7 @@ public abstract class Lenguaje extends AtributosPlayer implements Armas{
   public Lenguaje(Player player){
     super(player);
   }
+  //@param sete la vida del personaje
   public void setLife(int life){
     atributos.setLife(life);
   }
