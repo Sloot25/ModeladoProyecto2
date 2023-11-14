@@ -27,7 +27,7 @@ public class MenuInicio extends JPanel implements Runnable{
   private long cooldown = 200;
   boolean a = false;
   public MenuInicio(Rutas rutas, InterfazUsuario interfaz){
-    kb = Gertor.kb;
+    kb = Gestor.kb;
     this.interfaz = interfaz;
     this.rutas = rutas;
     this.setPreferredSize(new Dimension(screenWidth,screenHeight));

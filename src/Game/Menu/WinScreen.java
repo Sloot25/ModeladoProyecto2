@@ -61,12 +61,13 @@ public class WinScreen extends JPanel implements Runnable{
   public void update(){
     if(kb.pressEnter()){
       win.menu();
+      gameThread.interrupt();
     }
   }
   public void paint(Graphics g){
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;
-    g2.drawImage(rutas.getImagen("youwin.png"), 0, 0, screenWidth, screenHeight, null);
+    g2.drawImage(rutas.getImagen("youwin.jpg"), 0, 0, screenWidth, screenHeight, null);
     g2.setFont(new Font("Impact", Font.PLAIN, 40));
     g2.setColor(Color.WHITE);
     g2.drawString("Gracias por jugar :D", 400, 350);

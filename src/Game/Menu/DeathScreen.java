@@ -60,6 +60,7 @@ public class DeathScreen extends JPanel implements Runnable{
   public void update(){
     if(kb.pressEnter()){
       dead.menu();
+      gameThread.interrupt();
     }
   }
   public void paint(Graphics g){
