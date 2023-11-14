@@ -6,6 +6,7 @@ import java.awt.Container;
 
 import Game.GamePanel;
 import res.Rutas.*;
+import Game.Keyboard;
 
 public class InterfazUsuario {
   private State menu;
@@ -17,13 +18,15 @@ public class InterfazUsuario {
   private JFrame ventana;
   private JPanel panel;
   private Rutas ruta;
+  private Keyboard kb;
   public InterfazUsuario(){
+    this.kb = new Keyboard();
     this.menu = new Menu(this);
     this.play = new Play(this);
     this.dead = new Dead(this);
     this.pause = new Pause(this);
     this.ganar = new Ganar(this);
-    this.estadoActual = this.play;
+    this.estadoActual = this.menu;
     iniciarVentana();
   }
   public void iniciarVentana(){
@@ -75,6 +78,9 @@ public class InterfazUsuario {
   }
   public void inicializar(){
     this.estadoActual.inicializar();
+  }
+  public Keyboard getKb(){
+    return kb;
   }
   public void menu(){
     estadoActual.menu();

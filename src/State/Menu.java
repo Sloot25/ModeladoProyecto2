@@ -30,7 +30,7 @@ public class Menu implements State{
     menuInicio();
   }
   public void menuInicio(){
-    MenuInicio menu = new MenuInicio(interfaz.getRuta(), interfaz);
+    MenuInicio menu = new MenuInicio(interfaz.getRuta(), this);
     interfaz.setPanel(menu);
     menu.startGameThread();
   }

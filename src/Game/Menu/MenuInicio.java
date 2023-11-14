@@ -18,7 +18,7 @@ public class MenuInicio extends JPanel implements Runnable{
   private int screenWidth = 1000;
   private int screenHeight = 500;
   private int commandNum = 0;
-  private InterfazUsuario interfaz;
+  private Menu interfaz;
   private Rutas rutas;
   private Keyboard kb;
   private final int FPS = 60;
@@ -26,7 +26,7 @@ public class MenuInicio extends JPanel implements Runnable{
   private long ultimaPulsacion;
   private long cooldown = 200;
   boolean a = false;
-  public MenuInicio(Rutas rutas, InterfazUsuario interfaz){
+  public MenuInicio(Rutas rutas, Menu interfaz){
     kb = Gestor.kb;
     this.interfaz = interfaz;
     this.rutas = rutas;
@@ -88,11 +88,11 @@ public class MenuInicio extends JPanel implements Runnable{
               gameThread.interrupt();
               break;
             case 1:
-              ((Menu)interfaz.getEstado()).reglas();
+              interfaz.reglas();
               gameThread.interrupt();
               break;
             case 2: 
-              ((Menu)interfaz.getEstado()).creditos();
+              interfaz.creditos();
               gameThread.interrupt();
               break;
             case 3: 

@@ -24,7 +24,7 @@ public class Play implements State {
   public void inicializar(){
     try{
       gp = new GamePanel(interfaz.getRuta(), interfaz);
-      interfaz.setPanel(gp);
+      interfaz.cambioPanel(gp);
       gp.setGame();
       gp.startGameThread();
     }catch(CloneNotSupportedException e){
