@@ -26,7 +26,7 @@ public class InterfazUsuario {
   public void iniciarVentana(){
     ventana = new JFrame();
     ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    ventana.setResizable(true);
+    ventana.setResizable(false);
     ventana.setTitle("Call of Chienchias");
     if(System.getProperty("os.name").equals("Linux"))
       ruta = new Linux();
