@@ -23,7 +23,7 @@ public class InterfazUsuario {
     this.dead = new Dead(this);
     this.pause = new Pause(this);
     this.ganar = new Ganar(this);
-    this.estadoActual = this.menu;
+    this.estadoActual = this.play;
     iniciarVentana();
   }
   public void iniciarVentana(){

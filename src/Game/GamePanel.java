@@ -121,15 +121,15 @@ public class GamePanel extends JPanel implements Runnable{
         
       }
       if(interfazUsuario.getEstado() instanceof Pause){
-      } else{
-        checkLife();
+      } else{        
+        //checkLife();
         player.update();
         lc.update();
         telefono.update();
         camx = -player.getX()+getWidth()/2;
         camy = -player.getY()+getHeight()/2;
        // checkVidaEnemys();
-        checkLife();
+        //checkLife();
       }
     }
     private void lanzarPausa(){
@@ -178,6 +178,9 @@ public class GamePanel extends JPanel implements Runnable{
         }
         g.translate(camx, camy);
         super.paintComponent(g);
+        if(player.getLife() <= 0){
+          g.drawImage(rutas.getImagen("youdied.png"), camx - (screenWidth/2), camy - (screenHeight/2), screenWidth, screenHeight, null);
+        }
         Graphics2D g2 = (Graphics2D)g;
         g2.setColor(Color.RED);
         lc.paint(g2);
