@@ -5,15 +5,15 @@ import java.awt.event.KeyListener;
 import State.State;
 
 public class Keyboard implements KeyListener{
-    GamePanel gp;
+    //GamePanel gp;
     State state;
     boolean up = false, down = false, right = false, left = false, 
     w = false, a = false, s = false, d = false, q = false,
-    k1 = false, k2 = false, k3 = false, k4 = false, k5 = false, esc = false;
+    k1 = false, k2 = false, k3 = false, k4 = false, k5 = false, esc = false, enter = false;
 
-    public Keyboard(GamePanel gp){
-        this.gp = gp;
-        state = gp.getEstado();
+    public Keyboard(){
+        //this.gp = gp;
+        //state = gp.getEstado();
     }
     /*
      * Revisa si el jugador ha presionado una tecla
@@ -72,6 +72,9 @@ public class Keyboard implements KeyListener{
         }
         if(key == KeyEvent.VK_ESCAPE){
           esc = true;
+        }
+        if(key == KeyEvent.VK_ENTER){
+          enter = true;
         }
     }
     /*
@@ -182,10 +185,13 @@ public class Keyboard implements KeyListener{
         return k5;
     }
     public Boolean pressQ(){
-      return q;
+        return q;
     }
     public Boolean pressEsc(){
-     return esc;
-  }
+        return esc;
+    }
+    public Boolean pressEnter(){
+        return enter;
+    }
     
 }

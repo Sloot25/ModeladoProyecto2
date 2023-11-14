@@ -12,17 +12,15 @@ import java.awt.Font;
 
 import res.Rutas.Rutas;
 import State.Menu;
-public class MenuInicio extends JPanel implements Runnable{
+public class Creditos extends JPanel implements Runnable{
   private int screenWidth = 1000;
   private int screenHeight = 500;
-  private int commandNum = 0;
   private Menu menu;
   private Rutas rutas;
   private Keyboard kb;
   private final int FPS = 60;
   private Thread gameThread;
-  boolean a = false;
-  public MenuInicio(Rutas rutas, Menu menu){
+  public Creditos(Rutas rutas, Menu menu){
     kb = new Keyboard();
     this.menu = menu;
     this.rutas = rutas;
@@ -63,35 +61,8 @@ public class MenuInicio extends JPanel implements Runnable{
   }
 
   public void update(){
-    if(kb.pressUp()){
-      commandNum--;
-      if(commandNum < 0){
-        commandNum = 3;
-      }
-    }
-    if(kb.pressDown()){
-      commandNum++;
-      if(commandNum > 3){
-        commandNum = 0;
-      }
-    }
     if(kb.pressEnter()){
-      switch (commandNum) {
-        case 0:
-          menu.jugar();
-          break;
-        case 1:
-          menu.reglas();
-          break;
-        case 2: 
-          menu.creditos();
-          break;
-        case 3: 
-          System.exit(0);
-          break;
-        default:
-          break;
-      }
+        menu.menuInicio();
     }
     
   }
@@ -100,30 +71,20 @@ public class MenuInicio extends JPanel implements Runnable{
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D)g;
     g2.setColor(Color.black);
-    g2.drawImage(rutas.getImagen("MenuImagen.png"), 0, 0, screenWidth, screenHeight, null);
+    g2.drawImage(rutas.getImagen("cucaracha-bailando.png"), 0, 0, screenWidth, screenHeight, null);
     g2.setFont(new Font("Impact", Font.BOLD, 30 ));    
-    g2.setColor(Color.WHITE);
+    g2.setColor(Color.BLACK);
     int x = 100;
     int y = 100;
-    g2.drawString("JUGAR",x,y);
-    if(commandNum == 0){
-      g2.drawString(">", x-20, y);
-    }
+    g2.drawString("CREDITOS",x,y);
     y += 50;
-    g2.drawString("REGLAS", x, y);
-    if(commandNum == 1){
-      g2.drawString(">", x-20, y);
-    }
+    g2.drawString("Martínez Cano Ricardo Iván", x, y);
     y += 50;
-    g2.drawString("CREDITOS", x, y);
-    if(commandNum == 2){
-      g2.drawString(">", x-20, y);
-    }
+    g2.drawString("Méndez Razo Carlos Geovanni", x, y);
     y += 50;
-    g2.drawString("SALIR", x, y);
-    if(commandNum == 3){
-      g2.drawString(">", x-20, y);
-    }
+    g2.drawString("Vidal Aguilar Diego Jesus", x, y);
+    y += 50;
+    g2.drawString("> Regresar", 800, y);
     g2.dispose();
   }
 }

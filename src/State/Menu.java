@@ -1,5 +1,6 @@
 package State;
 
+import Game.GamePanel;
 import Game.Menu.*;  
 
 public class Menu implements State{
@@ -12,7 +13,10 @@ public class Menu implements State{
     this.interfaz.setEstado(this.interfaz.getEstadoMenu());
   }
   public void jugar(){
+    System.out.println("AAAAAA");
     this.interfaz.setEstado(this.interfaz.getEstadoPlay());
+    this.interfaz.getEstado().inicializar();
+
   }
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());
@@ -21,9 +25,21 @@ public class Menu implements State{
     this.interfaz.setEstado(this.interfaz.getEstadoDead());
   }
   public void inicializar(){
+    menuInicio();
+  }
+  public void menuInicio(){
     MenuInicio menu = new MenuInicio(interfaz.getRuta(), this);
     interfaz.setPanel(menu);
-    //menu.startGameThread();
-
+    menu.startGameThread();
+  }
+  public void reglas(){
+    Reglas reglas = new Reglas(interfaz.getRuta(), this);
+    interfaz.setPanel(reglas);
+    reglas.startGameThread();
+  }
+  public void creditos(){
+    Creditos creditos = new Creditos(interfaz.getRuta(), this);
+    interfaz.setPanel(creditos);
+    creditos.startGameThread();
   }
 }

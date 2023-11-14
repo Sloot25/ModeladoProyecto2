@@ -48,7 +48,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.estadoActual = estadoActual;
         this.rutas = rutas;
         cc = new CollisionChecker(this);
-        kb = new Keyboard(this);
+        kb = new Keyboard();
         as = new AssetSetter(this);
         sp = new SoundPlayer(this);
         ui = new UserInterface(this);
