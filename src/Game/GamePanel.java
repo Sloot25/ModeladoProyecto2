@@ -119,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable{
         System.out.println("le pausaste bro");
       }
       else if(estadoActual instanceof Play){
-        System.out.println("Le despausaste bro");
+        //System.out.println("Le despausaste bro");
         player.update();
         lc.update();
         telefono.update();
