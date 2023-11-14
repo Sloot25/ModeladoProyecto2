@@ -3,6 +3,7 @@ package Game.Menu;
 import javax.swing.JPanel;
 
 import Game.Keyboard;
+import res.Gestor;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,7 +22,7 @@ public class Reglas extends JPanel implements Runnable{
   private final int FPS = 60;
   private Thread gameThread;
   public Reglas(Rutas rutas, Menu menu){
-    kb = new Keyboard();
+    kb = Gestor.kb;
     this.menu = menu;
     this.rutas = rutas;
     this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -63,6 +64,7 @@ public class Reglas extends JPanel implements Runnable{
   public void update(){
     if(kb.pressEnter()){
         menu.menuInicio();
+        gameThread.interrupt();
     }
     
   }

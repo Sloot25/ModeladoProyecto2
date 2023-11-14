@@ -12,6 +12,7 @@ import java.awt.Font;
 
 import res.Rutas.Rutas;
 import State.Menu;
+import res.Gestor;
 public class Creditos extends JPanel implements Runnable{
   private int screenWidth = 1000;
   private int screenHeight = 500;
@@ -21,7 +22,7 @@ public class Creditos extends JPanel implements Runnable{
   private final int FPS = 60;
   private Thread gameThread;
   public Creditos(Rutas rutas, Menu menu){
-    kb = new Keyboard();
+    kb = Gestor.kb;
     this.menu = menu;
     this.rutas = rutas;
     this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -63,6 +64,7 @@ public class Creditos extends JPanel implements Runnable{
   public void update(){
     if(kb.pressEnter()){
         menu.menuInicio();
+        gameThread.interrupt();
     }
     
   }

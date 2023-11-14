@@ -17,6 +17,7 @@ import State.Pause;
 import State.Play;
 import res.Rutas.Rutas;
 import State.InterfazUsuario;
+import res.Gestor;
 
 public class GamePanel extends JPanel implements Runnable{
     int screenWidth = 1000;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.interfazUsuario = interfazUsuario;
         this.rutas = rutas;
         cc = new CollisionChecker(this);
-        kb = new Keyboard();
+        kb = Gestor.kb;
         as = new AssetSetter(this);
         sp = new SoundPlayer(this);
         ui = new UserInterface(this);

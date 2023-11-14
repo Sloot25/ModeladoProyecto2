@@ -12,19 +12,23 @@ import java.awt.Font;
 
 import res.Rutas.Rutas;
 import State.Menu;
+import State.InterfazUsuario;
+import res.Gestor;
 public class MenuInicio extends JPanel implements Runnable{
   private int screenWidth = 1000;
   private int screenHeight = 500;
   private int commandNum = 0;
-  private Menu menu;
+  private InterfazUsuario interfaz;
   private Rutas rutas;
   private Keyboard kb;
   private final int FPS = 60;
   private Thread gameThread;
+  private long ultimaPulsacion;
+  private long cooldown = 200;
   boolean a = false;
-  public MenuInicio(Rutas rutas, Menu menu){
-    kb = new Keyboard();
-    this.menu = menu;
+  public MenuInicio(Rutas rutas, InterfazUsuario interfaz){
+    kb = Gertor.kb;
+    this.interfaz = interfaz;
     this.rutas = rutas;
     this.setPreferredSize(new Dimension(screenWidth,screenHeight));
     this.setBackground(Color.black);
@@ -63,37 +67,43 @@ public class MenuInicio extends JPanel implements Runnable{
   }
 
   public void update(){
-    if(kb.pressUp()){
-      commandNum--;
-      if(commandNum < 0){
-        commandNum = 3;
-      }
+    long time = System.currentTimeMillis();
+      if(time > ultimaPulsacion + cooldown){
+        if(kb.pressUp()){
+          commandNum--;
+          if(commandNum < 0){
+            commandNum = 3;
+          }
+        }
+        if(kb.pressDown()){
+          commandNum++;
+          if(commandNum > 3){
+            commandNum = 0;
+          }
+        }
+        if(kb.pressEnter()){
+          switch (commandNum) {
+            case 0:
+              interfaz.jugar();
+              gameThread.interrupt();
+              break;
+            case 1:
+              ((Menu)interfaz.getEstado()).reglas();
+              gameThread.interrupt();
+              break;
+            case 2: 
+              ((Menu)interfaz.getEstado()).creditos();
+              gameThread.interrupt();
+              break;
+            case 3: 
+              System.exit(0);
+              break;
+            default:
+              break;
+          }
+        }
+    ultimaPulsacion = time;
     }
-    if(kb.pressDown()){
-      commandNum++;
-      if(commandNum > 3){
-        commandNum = 0;
-      }
-    }
-    if(kb.pressEnter()){
-      switch (commandNum) {
-        case 0:
-          menu.jugar();
-          break;
-        case 1:
-          menu.reglas();
-          break;
-        case 2: 
-          menu.creditos();
-          break;
-        case 3: 
-          System.exit(0);
-          break;
-        default:
-          break;
-      }
-    }
-    
   }
 
   public void paintComponent(Graphics g){
