@@ -24,7 +24,7 @@ public class Proyectiles {
     g.drawImage(image, posX, posY, 20,20, null);
   }
   public void movimiento(){
-    posX += velocidadX * 5; 
+    posX += velocidadX * 10; 
   }
   public Rectangle getBox(){
     return new Rectangle(posX, posY, 20, 20);

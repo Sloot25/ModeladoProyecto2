@@ -2,6 +2,8 @@ package State;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Game.GamePanel;
 import res.Rutas.*;
 
 public class InterfazUsuario {
@@ -24,7 +26,7 @@ public class InterfazUsuario {
   public void iniciarVentana(){
     ventana = new JFrame();
     ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    ventana.setResizable(false);
+    ventana.setResizable(true);
     ventana.setTitle("Call of Chienchias");
     if(System.getProperty("os.name").equals("Linux"))
       ruta = new Linux();

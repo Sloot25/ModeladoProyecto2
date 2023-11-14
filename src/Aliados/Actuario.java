@@ -33,7 +33,6 @@ public class Actuario implements Aliado{
   public void paint(Graphics g){
     if(onScreen){
       g.drawImage(imagen, player.getX()-300, player.getY()-100,200, 200, null);
-      g.drawRect(player.getX()-200, player.getY()-200, 400, 400);
     }
   }
   public boolean onScreen() {

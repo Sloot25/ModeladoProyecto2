@@ -50,7 +50,7 @@ public class SoundPlayer {
      * Detiene un audio
      * @param int i Audio por detener
      */
-    private void stop(int i) {
+    public void stop(int i) {
         if (clips.get(i).isRunning()){
             lastTime.set(i, clips.get(i).getFramePosition());
             clips.get(i).stop();

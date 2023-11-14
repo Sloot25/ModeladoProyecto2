@@ -25,7 +25,7 @@ public class Java extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return atributos.getVelocidad() + 2;
+    return atributos.getVelocidad() + 3;
 
   /* Metodo getCadencia 
    * @return int Correspondiente a la cadencia del arma

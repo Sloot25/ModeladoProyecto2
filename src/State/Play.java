@@ -8,12 +8,14 @@ public class Play implements State {
   }
   public void menu(){
     this.interfaz.setEstado(this.interfaz.getEstadoMenu());
+    gp.setEstado(interfaz.getEstado());
   }
   public void jugar(){
     //Deberia lanzar la Exception que no hace nada, pero no recuerdo su nombre
   }
   public void morir(){
     this.interfaz.setEstado(this.interfaz.getEstadoDead());
+    gp.setEstado(interfaz.getEstado());
   }
   public void pausar(){
     this.interfaz.setEstado(this.interfaz.getEstadoPause());

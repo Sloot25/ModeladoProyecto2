@@ -9,7 +9,6 @@ public class ChincheDirector extends Enemy{
   public ChincheDirector(GamePanel gp, int x, int y, int width, int height) {
     super(gp, x, y , width, height);
     this.life = 4000;
-    this.life = 800;
     this.retroceso = 0;
   }
 

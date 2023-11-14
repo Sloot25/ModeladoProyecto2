@@ -1,6 +1,7 @@
 package Game;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import Entity.Player;
 import Item.Item;
 import State.State;
 import State.Pause;
+import State.Play;
 import res.Rutas.Rutas;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -102,7 +104,22 @@ public class GamePanel extends JPanel implements Runnable{
      * Actualiza la posición y sprites de las entidades y objetos del juego
      */
     public void update(){   
-      if(!(estadoActual instanceof Pause)){
+      if(kb.pressEsc()){
+        if(getEstado() instanceof Play)
+          lanzarPausa();
+        else if(getEstado() instanceof Pause){
+          System.out.println("Despausate sesamo");
+          lanzarPlay();
+        }
+      }
+      if(player.getLife() <= 0){
+        System.out.println("te moriste bro");
+      }
+      else if(estadoActual instanceof Pause){
+        System.out.println("le pausaste bro");
+      }
+      else if(estadoActual instanceof Play){
+        System.out.println("Le despausaste bro");
         player.update();
         lc.update();
         telefono.update();
@@ -110,27 +127,29 @@ public class GamePanel extends JPanel implements Runnable{
         camy = -player.getY()+getHeight()/2;
        // checkVidaEnemys();
         checkVida();
-      }else{
-        System.out.println("Hola");
-        if(kb.pressEsc()){
-          estadoActual.jugar();
-        }
       }
     }
     public void lanzarPausa(){
       estadoActual.pausar();
+    }
+    public void lanzarPlay(){
+      estadoActual.jugar();
     }
     /*
      * Pinta el mapa, así como todos los objetos y entidades en el rango de la pantalla
      */
   
     public void paintComponent(Graphics g){
+      if(player.getLife() <= 0){
+        g.drawImage(getRutas().getImagen("youdied.png"), camx-getScreenWidth()/2,camy-getScreenHeight(), null);
+      }
       if(estadoActual instanceof Pause){
-        System.out.println("Cara de bola");
         g.setColor(Color.black);
-        g.drawRect(0,0,worldWidth, worldHeight);
+        g.fillRect(0,0,getWorldWidth(), getWorldHeight());
         g.setColor(Color.RED);
-        g.drawString("PAUSA", player.getX(), player.getY());
+        g.setFont(new Font("Papyrus", Font.PLAIN, 100));
+        sp.stop(0);
+        g.drawString("PAUSA",camx-50, camy-50);
       }else{
         g.translate(camx, camy);
         super.paintComponent(g);

@@ -8,7 +8,7 @@ public class AtributosPlayer {
     this.vida = 1000;
   }
   public int getVelocidad(){
-    return 5;
+    return 3;
   }
   public int getAtaque(){
     return 25;

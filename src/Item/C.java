@@ -29,7 +29,7 @@ public class C extends Lenguaje{
    * */
 
   public int getVelocidad(){
-    return atributos.getVelocidad() + 15;
+    return atributos.getVelocidad() + 2;
   }
 
   /* Metodo getCadencia

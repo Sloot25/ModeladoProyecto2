@@ -25,7 +25,7 @@ public class PHP extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return atributos.getVelocidad() - 5;
+    return atributos.getVelocidad() - 2;
   }
 
   /* Metodo getCadencia 

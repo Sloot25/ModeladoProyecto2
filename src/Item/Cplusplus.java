@@ -25,7 +25,7 @@ public class Cplusplus extends Lenguaje {
    * */
 
   public int getVelocidad(){
-    return atributos.getVelocidad() + 5;
+    return atributos.getVelocidad() + 4;
   }
 
   /* Metodo getCadencia 

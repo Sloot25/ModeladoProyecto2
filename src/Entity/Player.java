@@ -14,6 +14,7 @@ import Aliados.Aliado;
 import Game.GamePanel;
 import Game.Keyboard;
 import Game.SpriteSheet;
+import State.Play;
 
 public class Player implements Entity {
     GamePanel gp;
@@ -176,10 +177,6 @@ public class Player implements Entity {
             }
           direction="";
         } 
-        if(kb.pressEsc()){
-          System.out.println("h");
-          gp.lanzarPausa();
-        }
         if (kb.pressUp() == true) {
             direction = "up";
             inMovement = true;
