@@ -20,27 +20,11 @@ public class ChincheChikita extends Enemy{
   @Override
   public void getEntityImage(){
     if (isAtacked){
-      imagen = this.gp.getRutas().getImagen("chinche daniada.png");  
+      imagen = this.gp.getRutas().getImagen("chinchedaniada.png");  
     } else{
       imagen = this.gp.getRutas().getImagen("chinche.png");
     }
   }
-  /* 
-  @Override
-  public void getEntityImage(){
-    animationCaminando.update();
-        BufferedImage originalImage = animationCaminando.getCurrentFrame(); 
-        if (direction == "right"){ // cuando la chincge tiene direccion de la imagen original, regresa original
-            imagen =  originalImage; 
-        } else{ //  regresa imagen volteada
-            AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
-            tx.translate(-originalImage.getWidth(null), 0);
-            AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-            BufferedImage flippedImage = op.filter(originalImage, null);
-            imagen = flippedImage;
-        }
-  }
-  */
 
   @Override
   public void attack() {

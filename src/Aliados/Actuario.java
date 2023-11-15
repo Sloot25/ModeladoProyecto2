@@ -34,7 +34,7 @@ public class Actuario implements Aliado{
    */
   public void update(){
     if(onScreen){
-      for(Enemy e: gp.enemies){
+      for(Enemy e: gp.lc.getEnemys()){
         if(e.getBox().intersects(getBox())){
             attack(e);
           }
@@ -46,6 +46,7 @@ public class Actuario implements Aliado{
    */
   public void attack(Enemy e){
     e.setLife(e.getLife()-150);
+    e.setIsAtacked(true);
   }
   /*
    * Dibuja al aliado en pantalla

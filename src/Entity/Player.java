@@ -147,7 +147,19 @@ public class Player implements Entity {
     public void specialAttack(Enemy enemigo, Aliado aliado){
         long time = System.currentTimeMillis();
             if(time > ultimoAtaque + superCooldown){
-                enemigo.life -= aliado.getAtaque();
+              enemigo.life -= aliado.getAtaque();
+              if(enemigo.life <= 0){
+                gp.lc.getEnemys().remove(enemigo);
+                if(enemigo instanceof ChincheChikita)
+                  score += 100;
+                else if(enemigo instanceof ChincheDirector){
+                  score += 5000;
+                  gp.lanzarWin();
+                }else if(enemigo instanceof Chinchentifica)
+                  score += 250;
+                else if(enemigo instanceof ChincheGrandota)
+                  score += 500;
+              }
               ultimoAtaque = time;
             }    
         }

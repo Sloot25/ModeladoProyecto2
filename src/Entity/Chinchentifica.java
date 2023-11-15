@@ -25,7 +25,7 @@ public class Chinchentifica extends Enemy{
   @Override
   public void getEntityImage() {
     if (isAtacked){
-      imagen = this.gp.getRutas().getImagen("chinchentifica daniada.png");  
+      imagen = this.gp.getRutas().getImagen("chinchentificadaniada.png");  
     } else{
       imagen = this.gp.getRutas().getImagen("chinchentifica.png");
     }
